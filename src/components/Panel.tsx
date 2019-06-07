@@ -5,7 +5,6 @@ import Channel from '@storybook/channels';
 import { styled } from '@storybook/theming';
 
 import { TokenGroup } from '../interfaces/token-group.interface';
-import { TokenNavigation } from './TokenNavigation';
 import { TokenTable } from './TokenTable';
 
 const Components = require('@storybook/components');
@@ -33,8 +32,6 @@ export const DesignTokenPanel = (props: Props) => {
       <style>{props.keyframes}</style>
       <Panel>
         <Components.DocumentFormatting>
-          <TokenNavigation tokenGroups={props.tokenGroups} />
-
           {props.tokenGroups
             .sort((a, b) => {
               const labelA = a.label.toUpperCase();
