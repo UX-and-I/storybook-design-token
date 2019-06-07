@@ -1,4 +1,3 @@
 [build]
-  base = "demo/"
   publish = "demo/storybook-static/"
-  command = "yarn build-storybook"
+  command = "yarn build && cd demo && yarn && yarn build-storybook"
