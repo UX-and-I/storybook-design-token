@@ -46,7 +46,8 @@
     "comment-parser": "0.5.4",
     "gonzales-pe": "4.2.4",
     "mensch": "0.3.3",
-    "raw-loader": "3.0.0"
+    "raw-loader": "3.0.0",
+    "react-use-clipboard": "0.1.1"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",

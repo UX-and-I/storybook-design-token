@@ -5,6 +5,7 @@ import useLocalStorage from '@illinois/react-use-local-storage';
 
 import { TokenGroup } from '../interfaces/token-group.interface';
 import { TokenPresenter } from './Presenter/TokenPresenter';
+import { TokenName } from './TokenName';
 
 const Card = styled.div(() => ({
   backgroundColor: '#fff',
@@ -42,15 +43,7 @@ const Title = styled.h2(() => ({
 }));
 
 const TokenCell = styled.td(() => ({
-  fontWeight: 'bold',
-  whiteSpace: 'nowrap',
-
-  '& > span': {
-    display: 'block',
-    fontSize: '12px',
-    fontStyle: 'italic',
-    fontWeight: 'normal'
-  }
+  whiteSpace: 'nowrap'
 }));
 
 const AliasesCell = styled.td(() => ({
@@ -104,8 +97,7 @@ export const TokenTable = ({ tokenGroup }: Props) => {
               {tokenGroup.tokens.map(token => (
                 <tr key={token.key}>
                   <TokenCell>
-                    {token.key}
-                    {token.description && <span>{token.description}</span>}
+                    <TokenName token={token} />
                   </TokenCell>
                   <AliasesCell>
                     {token.aliases &&
