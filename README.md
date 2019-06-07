@@ -4,6 +4,8 @@
 
 The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.
 
+[**DEMO**](https://storybook-design-token.netlify.com)
+
 ![](demo/screenshot.png)
 
 **Contents:**
