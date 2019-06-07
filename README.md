@@ -6,8 +6,6 @@ The Storybook Design Token Addon allows you to generate design token documentati
 
 [**DEMO**](https://storybook-design-token.netlify.com)
 
-![](demo/screenshot.png)
-
 **Contents:**
 - [Storybook Design Token Addon](#storybook-design-token-addon)
   - [Installation](#installation)
