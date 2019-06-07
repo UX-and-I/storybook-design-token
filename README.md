@@ -123,6 +123,7 @@ Presenters are used to render examples for your design tokens. The following pre
 - Border
 - Color
 - Easing
+- FontFamily
 - FontSize
 - FontWeight
 - LineHeight
