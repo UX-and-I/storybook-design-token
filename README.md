@@ -42,11 +42,13 @@ Then create a file called `addons.js` in your .storybook directory and import th
 import 'storybook-design-token/register';
 ```
 
-Create a file called `config.js` in your .storybook directory and tell the plugin what stylesheets to parse:
+Create a file called `config.js` in your .storybook directory and tell the plugin what files to parse. **Important:** Call `addParameters` before making the `configure` call.
 
 ```js
 // config.js
-import { addParameters } from '@storybook/react';
+import { configure, addParameters } from '@storybook/react';
+
+// [...]
 
 const cssReq = require.context('!!raw-loader!../src', true, /.\.css$/);
 const cssTokenFiles = cssReq.keys().map(filename => cssReq(filename));
@@ -66,6 +68,10 @@ addParameters({
     }
   }
 });
+
+// [...]
+
+configure(loadStories, module);
 ```
 
 Make sure to specify the right path after `!!raw-loader!`. The path has to be relative to your config file location.
