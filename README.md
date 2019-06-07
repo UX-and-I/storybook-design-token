@@ -8,10 +8,18 @@ The Storybook Design Token Addon allows you to generate design token documentati
 
 **Contents:**
 - [Storybook Design Token Addon](#storybook-design-token-addon)
+  - [Some Features](#some-features)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Presenters](#presenters)
   - [Roadmap](#roadmap)
+
+## Some Features 
+
+- Automatically generates design token descriptions from your annotated stylesheets and icon files
+- Parses CSS, SCSS/SASS and SVG files
+- Provides various presenters to render examples of your design tokens
+- Automatically detects aliases of your css or sass variables
 
 ## Installation
 
