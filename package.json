@@ -1,0 +1,53 @@
+{
+  "name": "storybook-design-token",
+  "version": "0.0.5",
+  "description": "The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.",
+  "license": "MIT",
+  "main": "dist/public_api.js",
+  "types": "dist/public_api.d.ts",
+  "author": {
+    "name": "Philipp Siekmann",
+    "email": "philipp.siekmann@uxi.de",
+    "url": "https://www.uxi.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UX-and-I/storybook-design-token"
+  },
+  "files": [
+    "demo",
+    "dist",
+    "register.js"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "watch": "tsc -w",
+    "pre-release": "jest && tsc",
+    "release:patch": "yarn pre-release && yarn version --patch && yarn publish",
+    "release:minor": "yarn pre-release && yarn version --minor && yarn publish"
+  },
+  "dependencies": {
+    "@storybook/addons": "5.1.3",
+    "@storybook/api": "5.1.3",
+    "@storybook/components": "5.1.3",
+    "@storybook/theming": "5.1.3",
+    "comment-parser": "0.5.4",
+    "gonzales-pe": "4.2.4",
+    "mensch": "0.3.3",
+    "raw-loader": "3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "@babel/preset-typescript": "7.3.3",
+    "@types/jest": "24.0.13",
+    "@types/node": "12.0.7",
+    "@types/react": "16.8.19",
+    "@types/webpack-env": "1.13.9",
+    "babel-jest": "24.7.1",
+    "jest": "24.7.1",
+    "ts-jest": "24.0.2",
+    "typescript": "3.5.1"
+  }
+}

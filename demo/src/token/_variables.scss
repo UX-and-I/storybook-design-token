@@ -1,0 +1,99 @@
+/**
+ * @tokens SCSS: Colors
+ * @presenter Color
+ */
+
+$n0: #fff; /* Description 1 */
+$n100: #fbfbfb; // Description 2
+$n200: #edeeef;
+$n300: #e4e5e7;
+$b300: #1073d4;
+$b400: #00589e;
+$b500: #003c6d;
+$b600: #002c4f;
+$brand: $b400;
+$brand-dark: $b600;
+
+/**
+ * @tokens SCSS: Border Radius
+ * @presenter BorderRadius
+ */
+
+$border-radius-m: 4px;
+$border-radius-l: 8px;
+
+/**
+ * @tokens SCSS: Shadows
+ * @presenter Shadow
+ */
+
+$box-shadow-s: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+$box-shadow-m: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+
+/**
+ * @tokens SCSS: Spacings
+ * @presenter Spacing
+ */
+
+$spacing-s: 4px;
+$spacing-m: 8px;
+$spacing-l: 12px;
+$spacing-xl: 16px;
+$spacing-xxl: 24px;
+$spacing-3xl: 32px;
+$spacing-4xl: 64px;
+
+/**
+ * @tokens SCSS: Durations
+ */
+
+$duration-s: 200ms;
+$duration-m: 400ms;
+
+/**
+ * @tokens SCSS: Easings
+ * @presenter Easing
+ */
+
+$easing-swift: cubic-bezier(0.55, 0, 0.1, 1);
+
+/**
+ * @tokens SCSS: Font Families
+ */
+
+$font-family: 'Sparkasse Rg', sans-serif;
+$font-family-monospace: 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono',
+  Menlo, Courier, monospace;
+
+/**
+ * @tokens SCSS: Font Weights
+ * @presenter FontWeight
+ */
+
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+/**
+ * @tokens SCSS: Font Sizes
+ * @presenter FontSize
+ */
+
+$font-size-s: 1.3rem;
+$font-size-m: 1.5rem;
+$font-size-l: 1.7rem;
+$font-size-xl: 2rem;
+$font-size-xxl: 3.2rem;
+
+/**
+ * @tokens SCSS: Line Heights
+ * @presenter LineHeight
+ */
+
+$line-height: 1.5;
+
+/**
+ * @tokens SCSS: Z-Index
+ */
+
+$z-index-tooltip: 500;
+$z-index-overlay: 900;
