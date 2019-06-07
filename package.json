@@ -5,6 +5,16 @@
   "license": "MIT",
   "main": "dist/public_api.js",
   "types": "dist/public_api.d.ts",
+  "keywords": [
+    "storybook",
+    "addon",
+    "design system",
+    "design pattern",
+    "design tokens",
+    "react",
+    "angular",
+    "vue"
+  ],
   "author": {
     "name": "Philipp Siekmann",
     "email": "philipp.siekmann@uxi.de",
