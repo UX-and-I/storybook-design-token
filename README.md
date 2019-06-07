@@ -1,7 +1,5 @@
 # Storybook Design Token Addon
 
-[![pipeline status](https://gitlab.com/UX-and-I/storybook-design-token/badges/master/pipeline.svg)](https://gitlab.com/UX-and-I/storybook-design-token/commits/master)
-
 The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.
 
 ![](demo/screenshot.png)
