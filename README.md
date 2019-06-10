@@ -132,7 +132,7 @@ $border-radius-l: 8px;
 
 **SVG example:**
 
-```svg
+```html
 <?xml version="1.0" encoding="UTF-8"?>
 <svg data-token-name="check" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" 
   xmlns="http://www.w3.org/2000/svg" 
