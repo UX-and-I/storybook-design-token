@@ -3,6 +3,7 @@ import * as React from 'react';
 import addons from '@storybook/addons';
 
 import { DesignTokenPanel } from './components/Panel';
+import { HardCodedValues } from './interfaces/hard-coded-values.interface';
 import { TokenGroup } from './interfaces/token-group.interface';
 import { CssParser } from './parsers/css.parser';
 import { ScssParser } from './parsers/scss.parser';
@@ -12,9 +13,21 @@ import { ADDON_ID, PANEL_ID, PANEL_TITLE } from './shared';
 addons.register(ADDON_ID, api => {
   const channel = addons.getChannel();
 
-  let parsedCss: { keyframes: string; tokenGroups: TokenGroup[] };
-  let parsedScss: { keyframes: string; tokenGroups: TokenGroup[] };
-  let parsedSvgIcons: { keyframes: string; tokenGroups: TokenGroup[] };
+  let parsedCss: {
+    hardCodedValues?: HardCodedValues[];
+    keyframes: string;
+    tokenGroups: TokenGroup[];
+  };
+  let parsedScss: {
+    hardCodedValues?: HardCodedValues[];
+    keyframes: string;
+    tokenGroups: TokenGroup[];
+  };
+  let parsedSvgIcons: {
+    hardCodedValues?: HardCodedValues[];
+    keyframes: string;
+    tokenGroups: TokenGroup[];
+  };
   let parsed: any;
 
   addons.addPanel(PANEL_ID, {
@@ -34,6 +47,7 @@ addons.register(ADDON_ID, api => {
         parsedSvgIcons = parsedSvgIcons || svgIconParser.parse(files);
 
         parsed = {
+          hardCodedValues: [...parsedCss.hardCodedValues],
           keyframes: parsedCss.keyframes + parsedScss.keyframes,
           tokenGroups: [
             ...parsedCss.tokenGroups,
@@ -49,6 +63,7 @@ addons.register(ADDON_ID, api => {
             channel={channel}
             api={api}
             active={active}
+            hardCodedValues={parsed.hardCodedValues}
             keyframes={parsed.keyframes}
             tokenGroups={parsed.tokenGroups}
           />

@@ -4,6 +4,7 @@ import { API } from '@storybook/api';
 import Channel from '@storybook/channels';
 import { styled } from '@storybook/theming';
 
+import { HardCodedValues } from '../interfaces/hard-coded-values.interface';
 import { TokenGroup } from '../interfaces/token-group.interface';
 import { TokenTable } from './TokenTable';
 
@@ -21,6 +22,7 @@ interface Props {
   active: boolean;
   api: API;
   channel: Channel;
+  hardCodedValues: HardCodedValues[];
   keyframes: string;
   tokenGroups: TokenGroup[];
 }

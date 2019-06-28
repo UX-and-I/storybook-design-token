@@ -1,3 +1,4 @@
+import { HardCodedValues } from '../interfaces/hard-coded-values.interface';
 import { Parser } from '../interfaces/parser.interface';
 import { TokenFiles } from '../interfaces/token-files.interface';
 import { TokenGroup } from '../interfaces/token-group.interface';
@@ -9,11 +10,63 @@ const parseCommentBlock = require('comment-parser/parser.js');
 export class CssParser implements Parser {
   public parse(
     tokenFiles: TokenFiles
-  ): { keyframes: string; tokenGroups: TokenGroup[] } {
+  ): {
+    hardCodedValues: HardCodedValues[];
+    keyframes: string;
+    tokenGroups: TokenGroup[];
+  } {
+    const tokenGroups = this.mapTokenFilesToTokenGroups(tokenFiles);
+
     return {
+      hardCodedValues: this.mapTokenFilesToHardCodedValues(
+        tokenFiles,
+        tokenGroups
+      ),
       keyframes: this.mapTokenFilesToKeyframes(tokenFiles),
-      tokenGroups: this.mapTokenFilesToTokenGroups(tokenFiles)
+      tokenGroups
     };
+  }
+
+  private mapTokenFilesToHardCodedValues(
+    tokenFiles: TokenFiles,
+    tokenGroups: TokenGroup[]
+  ): HardCodedValues[] {
+    if (!tokenFiles || !tokenFiles.css) {
+      return [];
+    }
+
+    const tokens = tokenGroups.map(tokenGroup => tokenGroup.tokens).flat();
+    const declarations = tokenFiles.css
+      .map((tokenFile: string) => {
+        return mensch
+          .parse(tokenFile, {
+            comments: true,
+            position: true
+          })
+          .stylesheet.rules.map(
+            rule =>
+              rule.declarations &&
+              rule.declarations.filter(
+                declaration => declaration.type === 'property'
+              )
+          )
+          .flat();
+      })
+      .flat()
+      .filter(item => !!item && item.name.indexOf('--') !== 0);
+
+    return tokens
+      .map(token => ({
+        token,
+        values: declarations
+          .filter(declaration => declaration.value === token.value)
+          .map(declaration => ({
+            file: '',
+            line: declaration.position.start.line,
+            value: declaration.value
+          }))
+      }))
+      .filter(item => item.values.length > 0);
   }
 
   private mapTokenFilesToKeyframes(tokenFiles: TokenFiles): string {
