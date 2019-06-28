@@ -3,6 +3,7 @@ import * as React from 'react';
 import addons from '@storybook/addons';
 
 import { DesignTokenPanel } from './components/Panel';
+import { TokenGroup } from './interfaces/token-group.interface';
 import { CssParser } from './parsers/css.parser';
 import { ScssParser } from './parsers/scss.parser';
 import { SvgIconParser } from './parsers/svg-icon.parser';
@@ -11,6 +12,11 @@ import { ADDON_ID, PANEL_ID, PANEL_TITLE } from './shared';
 addons.register(ADDON_ID, api => {
   const channel = addons.getChannel();
 
+  let parsedCss: { keyframes: string; tokenGroups: TokenGroup[] };
+  let parsedScss: { keyframes: string; tokenGroups: TokenGroup[] };
+  let parsedSvgIcons: { keyframes: string; tokenGroups: TokenGroup[] };
+  let parsed: any;
+
   addons.addPanel(PANEL_ID, {
     title: PANEL_TITLE,
     render: ({ active }) => {
@@ -18,29 +24,35 @@ addons.register(ADDON_ID, api => {
       const cssParser = new CssParser();
       const scssParser = new ScssParser();
       const svgIconParser = new SvgIconParser();
-      const files = storyData ? storyData.parameters.designToken.files : [];
+      const files = storyData
+        ? storyData.parameters.designToken.files
+        : undefined;
 
-      const parsedCss = cssParser.parse(files);
-      const parsedScss = scssParser.parse(files);
-      const parsedSvgIcons = svgIconParser.parse(files);
+      if (files) {
+        parsedCss = parsedCss || cssParser.parse(files);
+        parsedScss = parsedScss || scssParser.parse(files);
+        parsedSvgIcons = parsedSvgIcons || svgIconParser.parse(files);
 
-      const parsed = {
-        keyframes: parsedCss.keyframes + parsedScss.keyframes,
-        tokenGroups: [
-          ...parsedCss.tokenGroups,
-          ...parsedScss.tokenGroups,
-          ...parsedSvgIcons.tokenGroups
-        ]
-      };
+        parsed = {
+          keyframes: parsedCss.keyframes + parsedScss.keyframes,
+          tokenGroups: [
+            ...parsedCss.tokenGroups,
+            ...parsedScss.tokenGroups,
+            ...parsedSvgIcons.tokenGroups
+          ]
+        };
+      }
 
       return (
-        <DesignTokenPanel
-          channel={channel}
-          api={api}
-          active={active}
-          keyframes={parsed.keyframes}
-          tokenGroups={parsed.tokenGroups}
-        />
+        parsed && (
+          <DesignTokenPanel
+            channel={channel}
+            api={api}
+            active={active}
+            keyframes={parsed.keyframes}
+            tokenGroups={parsed.tokenGroups}
+          />
+        )
       );
     }
   });
