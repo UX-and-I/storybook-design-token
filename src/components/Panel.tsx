@@ -7,11 +7,14 @@ import { styled } from '@storybook/theming';
 import { TokenGroup } from '../interfaces/token-group.interface';
 import { TokenTable } from './TokenTable';
 
-const Components = require('@storybook/components');
-
 const Panel = styled.div(() => ({
-  padding: '20px',
-  maxWidth: '940px'
+  color: '#444',
+  fontFamily:
+    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+  fontWeight: 'normal',
+  lineHeight: 1.5,
+  maxWidth: '940px',
+  padding: '20px'
 }));
 
 interface Props {
@@ -27,22 +30,20 @@ export const DesignTokenPanel = (props: Props) => {
     return null;
   }
 
+  const tokenGroups = props.tokenGroups.sort((a, b) => {
+    const labelA = a.label.toUpperCase();
+    const labelB = b.label.toUpperCase();
+
+    return labelA < labelB ? -1 : labelA > labelB ? 1 : 0;
+  });
+
   return (
     <>
       <style>{props.keyframes}</style>
       <Panel>
-        <Components.DocumentFormatting>
-          {props.tokenGroups
-            .sort((a, b) => {
-              const labelA = a.label.toUpperCase();
-              const labelB = b.label.toUpperCase();
-
-              return labelA < labelB ? -1 : labelA > labelB ? 1 : 0;
-            })
-            .map((tokenGroup, index) => (
-              <TokenTable key={index} tokenGroup={tokenGroup} />
-            ))}
-        </Components.DocumentFormatting>
+        {tokenGroups.map((tokenGroup, index) => (
+          <TokenTable key={index} tokenGroup={tokenGroup} />
+        ))}
       </Panel>
     </>
   );

@@ -4,11 +4,11 @@
  */
 
 :root {
-  --n0: rgb(255, 255, 255);
+  --n0: rgb(255, 255, 255); /* background color */
   --n100: #fbfbfb;
   --n200: #edeeef;
   --n300: #e4e5e7;
-  --b300: #1073d4;
+  --b300: #1073d4; /* brand color, also used for interactive elements */
   --b400: #00589e;
   --b500: #003c6d;
   --b600: #002c4f;

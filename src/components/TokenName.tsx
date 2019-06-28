@@ -18,9 +18,11 @@ const Name = styled.span(() => ({
 
   '& > span': {
     display: 'block',
+    marginTop: '4px',
+    color: '#666',
     fontSize: '12px',
-    fontStyle: 'italic',
-    fontWeight: 'normal'
+    fontWeight: 'normal',
+    whiteSpace: 'normal'
   },
 
   '& > .copy-notice': {

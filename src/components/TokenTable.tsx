@@ -7,38 +7,55 @@ import { TokenGroup } from '../interfaces/token-group.interface';
 import { TokenPresenter } from './Presenter/TokenPresenter';
 import { TokenName } from './TokenName';
 
-const Card = styled.div(() => ({
-  backgroundColor: '#fff',
-  border: '1px solid rgba(0, 0, 0, 0.05)',
-  borderRadius: '4px',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-  marginBottom: '16px',
-  padding: '10px'
+const Section = styled.section(() => ({
+  marginBottom: '16px'
 }));
 
 const Table = styled.table(() => ({
-  marginBottom: '0 !important',
+  borderCollapse: 'collapse',
   width: '100%',
 
-  '& th': {
-    paddingTop: '12px !important',
-    paddingBottom: '12px !important',
-    backgroundColor: '#f8f8f8'
+  '& tr:first-of-type td': {
+    paddingTop: '20px'
   },
 
-  '& tr:nth-of-type(2n)': { backgroundColor: '#fff !important' }
+  '& th': {
+    borderBottom: '2px solid #aaa',
+    padding: '12px 12px 8px',
+    textAlign: 'left',
+
+    '&:first-of-type': {
+      paddingLeft: 0
+    }
+  },
+
+  '& td': {
+    padding: '12px',
+    verticalAlign: 'top',
+
+    '&:first-of-type': {
+      paddingLeft: 0
+    }
+  }
 }));
 
 const Title = styled.h2(() => ({
-  borderBottom: 'none !important',
   color: '#1ea7fd',
-  cursor: 'pointer !important',
-  marginBottom: '0 !important',
-  fontSize: '0.9rem !important',
+  cursor: 'pointer',
+  fontSize: '0.9rem',
   fontWeight: 600,
 
   ':not(:last-child)': {
-    marginBottom: '20px !important'
+    marginBottom: '8px'
+  },
+
+  '& svg': {
+    position: 'relative',
+    top: '-1px',
+    marginLeft: '-4px',
+    verticalAlign: 'middle',
+    width: '16px',
+    height: '16px'
   }
 }));
 
@@ -52,6 +69,7 @@ const AliasesCell = styled.td(() => ({
 }));
 
 const ExampleCell = styled.td(() => ({
+  position: 'relative',
   height: '54px',
   width: '167px',
   maxWidth: '167px',
@@ -59,6 +77,7 @@ const ExampleCell = styled.td(() => ({
 }));
 
 const ValueCell = styled.td(() => ({
+  position: 'relative',
   fontFamily:
     '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
   overflow: 'auto',
@@ -66,6 +85,38 @@ const ValueCell = styled.td(() => ({
   width: '200px',
   whiteSpace: 'nowrap'
 }));
+
+const iconChevronRight = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+);
+
+const iconChevronDown = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);
 
 interface Props {
   tokenGroup: TokenGroup;
@@ -79,9 +130,9 @@ export const TokenTable = ({ tokenGroup }: Props) => {
 
   return (
     <>
-      <Card>
+      <Section>
         <Title id={tokenGroup.label} onClick={() => setExpanded(!expanded)}>
-          {!expanded ? '▶' : '▼'} {tokenGroup.label}
+          {!expanded ? iconChevronRight : iconChevronDown} {tokenGroup.label}
         </Title>
         {expanded && (
           <Table>
@@ -114,7 +165,7 @@ export const TokenTable = ({ tokenGroup }: Props) => {
             </tbody>
           </Table>
         )}
-      </Card>
+      </Section>
     </>
   );
 };

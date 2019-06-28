@@ -9,10 +9,10 @@ const parseCommentBlock = require('comment-parser/parser.js');
 export class CssParser implements Parser {
   public parse(
     tokenFiles: TokenFiles
-  ): { tokenGroups: TokenGroup[]; keyframes: string } {
+  ): { keyframes: string; tokenGroups: TokenGroup[] } {
     return {
-      tokenGroups: this.mapTokenFilesToTokenGroups(tokenFiles),
-      keyframes: this.mapTokenFilesToKeyframes(tokenFiles)
+      keyframes: this.mapTokenFilesToKeyframes(tokenFiles),
+      tokenGroups: this.mapTokenFilesToTokenGroups(tokenFiles)
     };
   }
 

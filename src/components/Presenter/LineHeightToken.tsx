@@ -8,7 +8,14 @@ interface Props {
 
 export const LineHeightToken = ({ lineHeight }: Props) => {
   return (
-    <Text style={{ lineHeight, whiteSpace: 'normal' }}>
+    <Text
+      style={{
+        lineHeight,
+        whiteSpace: 'normal',
+        position: 'relative',
+        zIndex: 2
+      }}
+    >
       Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.
     </Text>
   );

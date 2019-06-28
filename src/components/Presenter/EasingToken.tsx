@@ -13,11 +13,13 @@ const slide = keyframes`
 `;
 
 const SmallBox = styled.div(() => ({
+  position: 'relative',
   width: '25px',
   height: '25px',
   borderRadius: '4px',
   backgroundColor: '#222',
-  animation: `${slide} 1s ease infinite alternate`
+  animation: `${slide} 1s ease infinite alternate`,
+  zIndex: 2
 }));
 
 interface Props {
