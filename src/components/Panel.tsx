@@ -87,7 +87,7 @@ export const DesignTokenPanel = (props: Props) => {
               <Note>
                 <span>
                   There might be hard coded values in your stylesheets that
-                  could be replace by design tokens.
+                  could use the design tokens.
                 </span>
                 <Button
                   onClick={() => setShowHardCodedValues(true)}
