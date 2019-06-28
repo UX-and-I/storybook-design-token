@@ -86,7 +86,7 @@ export const DesignTokenPanel = (props: Props) => {
             {props.hardCodedValues && props.hardCodedValues.length > 0 && (
               <Note>
                 <span>
-                  There are property values in your stylesheets that match to
+                  There are property values in your stylesheets that match
                   existing design tokens.
                 </span>
                 <Button
