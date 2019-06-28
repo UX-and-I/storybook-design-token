@@ -6,6 +6,8 @@ import { styled } from '@storybook/theming';
 
 import { HardCodedValues } from '../interfaces/hard-coded-values.interface';
 import { TokenGroup } from '../interfaces/token-group.interface';
+import { HardCodedValuesTable } from './HardCodedValuesTable';
+import { IconChevronLeft, IconChevronRight } from './Icons';
 import { TokenTable } from './TokenTable';
 
 const Panel = styled.div(() => ({
@@ -18,6 +20,40 @@ const Panel = styled.div(() => ({
   padding: '20px'
 }));
 
+const Button = styled.button(() => ({
+  background: 'transparent',
+  border: 'none',
+  color: '#1ea7fd',
+  cursor: 'pointer',
+  fontWeight: 'bold',
+  padding: 0,
+
+  '& svg': {
+    verticalAlign: 'middle',
+    position: 'relative',
+    top: '-1px',
+    width: '16px',
+    height: '16px'
+  }
+}));
+
+const Note = styled.div(() => ({
+  backgroundColor: '#1ea7fd',
+  borderRadius: '4px',
+  color: '#fff',
+  display: 'flex',
+  padding: '8px 12px',
+  marginBottom: '20px',
+
+  '& span': {
+    flexGrow: 1
+  },
+
+  '& button': {
+    color: '#fff'
+  }
+}));
+
 interface Props {
   active: boolean;
   api: API;
@@ -28,6 +64,8 @@ interface Props {
 }
 
 export const DesignTokenPanel = (props: Props) => {
+  const [showHardCodedValues, setShowHardCodedValues] = React.useState(false);
+
   if (!props.active) {
     return null;
   }
@@ -43,9 +81,36 @@ export const DesignTokenPanel = (props: Props) => {
     <>
       <style>{props.keyframes}</style>
       <Panel>
-        {tokenGroups.map((tokenGroup, index) => (
-          <TokenTable key={index} tokenGroup={tokenGroup} />
-        ))}
+        {!showHardCodedValues && (
+          <>
+            {props.hardCodedValues && props.hardCodedValues.length > 0 && (
+              <Note>
+                <span>
+                  There might be hard coded values in your stylesheets that
+                  could be replace by design tokens.
+                </span>
+                <Button
+                  onClick={() => setShowHardCodedValues(true)}
+                  type="button"
+                >
+                  Show {IconChevronRight}
+                </Button>
+              </Note>
+            )}
+            {tokenGroups.map((tokenGroup, index) => (
+              <TokenTable key={index} tokenGroup={tokenGroup} />
+            ))}
+          </>
+        )}
+
+        {showHardCodedValues && (
+          <>
+            <Button onClick={() => setShowHardCodedValues(false)} type="button">
+              {IconChevronLeft} Back
+            </Button>
+            <HardCodedValuesTable hardCodedValues={props.hardCodedValues} />
+          </>
+        )}
       </Panel>
     </>
   );

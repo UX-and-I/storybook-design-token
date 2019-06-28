@@ -4,39 +4,13 @@ import styled from '@emotion/styled';
 import useLocalStorage from '@illinois/react-use-local-storage';
 
 import { TokenGroup } from '../interfaces/token-group.interface';
+import { IconChevronDown, IconChevronRight } from './Icons';
 import { TokenPresenter } from './Presenter/TokenPresenter';
+import { Table } from './Primitives/Table';
 import { TokenName } from './TokenName';
 
 const Section = styled.section(() => ({
   marginBottom: '16px'
-}));
-
-const Table = styled.table(() => ({
-  borderCollapse: 'collapse',
-  width: '100%',
-
-  '& tr:first-of-type td': {
-    paddingTop: '20px'
-  },
-
-  '& th': {
-    borderBottom: '2px solid #aaa',
-    padding: '12px 12px 8px',
-    textAlign: 'left',
-
-    '&:first-of-type': {
-      paddingLeft: 0
-    }
-  },
-
-  '& td': {
-    padding: '12px',
-    verticalAlign: 'top',
-
-    '&:first-of-type': {
-      paddingLeft: 0
-    }
-  }
 }));
 
 const Title = styled.h2(() => ({
@@ -86,38 +60,6 @@ const ValueCell = styled.td(() => ({
   whiteSpace: 'nowrap'
 }));
 
-const iconChevronRight = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="9 18 15 12 9 6" />
-  </svg>
-);
-
-const iconChevronDown = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="6 9 12 15 18 9" />
-  </svg>
-);
-
 interface Props {
   tokenGroup: TokenGroup;
 }
@@ -132,7 +74,7 @@ export const TokenTable = ({ tokenGroup }: Props) => {
     <>
       <Section>
         <Title id={tokenGroup.label} onClick={() => setExpanded(!expanded)}>
-          {!expanded ? iconChevronRight : iconChevronDown} {tokenGroup.label}
+          {!expanded ? IconChevronRight : IconChevronDown} {tokenGroup.label}
         </Title>
         {expanded && (
           <Table>
