@@ -78,7 +78,10 @@ describe('CssParser', () => {
 
   it('should parse empty token files', () => {
     expect(
-      parser.parse({ css: [TEST_FILES.empty], scss: [TEST_FILES.empty] })
+      parser.parse({
+        css: [{ filename: 'empty.css', content: TEST_FILES.empty }],
+        scss: [{ filename: 'empty.css', content: TEST_FILES.empty }]
+      })
     ).toEqual({
       hardCodedValues: [],
       keyframes: '',
@@ -89,8 +92,18 @@ describe('CssParser', () => {
   it('should parse files without annotations', () => {
     expect(
       parser.parse({
-        css: [TEST_FILES.withoutAnnotations],
-        scss: [TEST_FILES.withoutAnnotations]
+        css: [
+          {
+            filename: 'withoutAnnotations.css',
+            content: TEST_FILES.withoutAnnotations
+          }
+        ],
+        scss: [
+          {
+            filename: 'withoutAnnotations.css',
+            content: TEST_FILES.withoutAnnotations
+          }
+        ]
       })
     ).toEqual({
       hardCodedValues: [],
@@ -101,8 +114,8 @@ describe('CssParser', () => {
 
   it('should parse files with annotated empty token groups', () => {
     const parsed = parser.parse({
-      css: [TEST_FILES.withEmptyTokenGroup],
-      scss: [TEST_FILES.withEmptyTokenGroup]
+      css: [{ filename: 'empty.css', content: TEST_FILES.withEmptyTokenGroup }],
+      scss: [{ filename: 'empty.css', content: TEST_FILES.withEmptyTokenGroup }]
     });
 
     expect(parsed).toEqual({
@@ -121,7 +134,7 @@ describe('CssParser', () => {
 
   it('should parse files with a single token group', () => {
     const parsed = parser.parse({
-      css: [TEST_FILES.singleTokenGroup]
+      css: [{ filename: 'single.css', content: TEST_FILES.singleTokenGroup }]
     });
 
     expect(parsed).toEqual({
@@ -143,7 +156,9 @@ describe('CssParser', () => {
 
   it('should parse files with multiple token groups', () => {
     const parsed = parser.parse({
-      css: [TEST_FILES.multipleTokenGroup]
+      css: [
+        { filename: 'multiple.css', content: TEST_FILES.multipleTokenGroup }
+      ]
     });
 
     expect(parsed).toEqual({
@@ -173,7 +188,7 @@ describe('CssParser', () => {
 
   it('should parse files with keyframes', () => {
     const parsed = parser.parse({
-      css: [TEST_FILES.withKeyframe]
+      css: [{ filename: 'withKeyframe.css', content: TEST_FILES.withKeyframe }]
     });
 
     expect(parsed.keyframes).toBeDefined();
@@ -183,9 +198,12 @@ describe('CssParser', () => {
   it('should parse multiple files', () => {
     const parsed = parser.parse({
       css: [
-        TEST_FILES.multipleTokenGroup,
-        TEST_FILES.empty,
-        TEST_FILES.withoutAnnotations
+        { filename: 'multiple.css', content: TEST_FILES.multipleTokenGroup },
+        { filename: 'empty.css', content: TEST_FILES.empty },
+        {
+          filename: 'withoutAnnotations.css',
+          content: TEST_FILES.withoutAnnotations
+        }
       ]
     });
 
@@ -201,7 +219,7 @@ describe('CssParser', () => {
           },
           values: [
             {
-              file: '',
+              file: 'withoutAnnotations.css',
               line: 1,
               value: 'red'
             }
@@ -233,7 +251,13 @@ describe('CssParser', () => {
 
   it('should sort token groups alphabetically', () => {
     const parsed = parser.parse({
-      css: [TEST_FILES.multipleTokenGroup, TEST_FILES.withoutAnnotations]
+      css: [
+        { filename: 'multiple.css', content: TEST_FILES.multipleTokenGroup },
+        {
+          filename: 'withoutAnnotations.css',
+          content: TEST_FILES.withoutAnnotations
+        }
+      ]
     });
 
     expect(parsed.tokenGroups.map(g => g.label)).toEqual([
@@ -244,7 +268,7 @@ describe('CssParser', () => {
 
   it('should recognize aliases', () => {
     const parsed = parser.parse({
-      css: [TEST_FILES.withAliases]
+      css: [{ filename: 'withAliases.css', content: TEST_FILES.withAliases }]
     });
 
     expect(parsed).toEqual({

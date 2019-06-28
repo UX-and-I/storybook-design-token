@@ -1,5 +1,10 @@
 export interface TokenFiles {
-  css?: string[];
-  scss?: string[];
-  svgIcons?: string[];
+  css?: TokenFile[];
+  scss?: TokenFile[];
+  svgIcons?: TokenFile[];
+}
+
+export interface TokenFile {
+  content: string;
+  filename: string;
 }

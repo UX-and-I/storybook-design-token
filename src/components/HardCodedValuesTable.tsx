@@ -20,12 +20,15 @@ export const HardCodedValuesTable = ({ hardCodedValues }: Props) => {
       <tbody>
         {hardCodedValues.map(value => (
           <tr>
-            <td>{value.token.key}</td>
+            <td>
+              <strong>{value.token.key}</strong>
+            </td>
             <td>{value.token.value}</td>
             <td>
               {value.values.map(v => (
                 <>
-                  File: {v.file}, Line: {v.line}
+                  File: <strong>{v.file}</strong>, Line:{' '}
+                  <strong>{v.line}</strong>
                   <br />
                 </>
               ))}

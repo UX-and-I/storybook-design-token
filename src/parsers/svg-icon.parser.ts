@@ -21,12 +21,12 @@ export class SvgIconParser implements Parser {
       {
         label: 'Icons',
         presenter: 'Svg',
-        tokens: tokenFiles.svgIcons.map(svg => {
+        tokens: tokenFiles.svgIcons.map(file => {
           const div = document.createElement('div');
-          div.innerHTML = svg;
+          div.innerHTML = file.content;
           return {
             key: div.querySelector('svg').dataset.tokenName,
-            value: svg
+            value: file.content
           };
         })
       }

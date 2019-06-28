@@ -8,7 +8,9 @@ function loadStories() {
 }
 
 const cssReq = require.context('!!raw-loader!../src', true, /.+\.css$/);
-const cssTokenFiles = cssReq.keys().map(filename => cssReq(filename).default);
+const cssTokenFiles = cssReq
+  .keys()
+  .map(filename => ({ filename, content: cssReq(filename).default }));
 
 const scssReq = require.context(
   '!!raw-loader!../src/token',
@@ -17,7 +19,7 @@ const scssReq = require.context(
 );
 const scssTokenFiles = scssReq
   .keys()
-  .map(filename => scssReq(filename).default);
+  .map(filename => ({ filename, content: scssReq(filename).default }));
 
 const svgIconsReq = require.context(
   '!!raw-loader!../src/assets/icons',
@@ -26,7 +28,7 @@ const svgIconsReq = require.context(
 );
 const svgIconTokenFiles = svgIconsReq
   .keys()
-  .map(filename => svgIconsReq(filename).default);
+  .map(filename => ({ filename, content: svgIconsReq(filename).default }));
 
 addParameters({
   designToken: {

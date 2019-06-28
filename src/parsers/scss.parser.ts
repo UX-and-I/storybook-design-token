@@ -6,8 +6,6 @@ import { Token } from '../interfaces/token.interface';
 const parseCommentBlock = require('comment-parser/parser.js');
 const gonzales = require('gonzales-pe');
 
-// TODO: keyframe string
-
 export class ScssParser implements Parser {
   public parse(
     tokenFiles: TokenFiles
@@ -24,8 +22,8 @@ export class ScssParser implements Parser {
     }
 
     return tokenFiles.scss
-      .map((tokenFile: string) => {
-        const parsed = gonzales.parse(tokenFile, { syntax: 'scss' });
+      .map(tokenFile => {
+        const parsed = gonzales.parse(tokenFile.content, { syntax: 'scss' });
 
         return parsed.content
           .filter((item: any) => item.type === 'atrule')
@@ -47,8 +45,8 @@ export class ScssParser implements Parser {
     }
 
     return tokenFiles.scss
-      .map((tokenFile: string) => {
-        const parsed = gonzales.parse(tokenFile, { syntax: 'scss' });
+      .map(tokenFile => {
+        const parsed = gonzales.parse(tokenFile.content, { syntax: 'scss' });
 
         const tokenGroups: TokenGroup[] = parsed.content
           .filter(

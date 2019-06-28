@@ -37,18 +37,21 @@ export class CssParser implements Parser {
 
     const tokens = tokenGroups.map(tokenGroup => tokenGroup.tokens).flat();
     const declarations = tokenFiles.css
-      .map((tokenFile: string) => {
+      .map(tokenFile => {
         return mensch
-          .parse(tokenFile, {
+          .parse(tokenFile.content, {
             comments: true,
             position: true
           })
           .stylesheet.rules.map(
             rule =>
               rule.declarations &&
-              rule.declarations.filter(
-                declaration => declaration.type === 'property'
-              )
+              rule.declarations
+                .filter(declaration => declaration.type === 'property')
+                .map(declaration => ({
+                  ...declaration,
+                  filename: tokenFile.filename
+                }))
           )
           .flat();
       })
@@ -61,7 +64,7 @@ export class CssParser implements Parser {
         values: declarations
           .filter(declaration => declaration.value === token.value)
           .map(declaration => ({
-            file: '',
+            file: declaration.filename,
             line: declaration.position.start.line,
             value: declaration.value
           }))
@@ -75,12 +78,12 @@ export class CssParser implements Parser {
     }
 
     return tokenFiles.css
-      .map((tokenFile: string) => {
+      .map(tokenFile => {
         const parsed = {
           type: 'stylesheet',
           stylesheet: {
             rules: mensch
-              .parse(tokenFile, {
+              .parse(tokenFile.content, {
                 comments: true,
                 position: true
               })
@@ -100,8 +103,8 @@ export class CssParser implements Parser {
     }
 
     return tokenFiles.css
-      .map((tokenFile: string) => {
-        const parsed = mensch.parse(tokenFile, {
+      .map(tokenFile => {
+        const parsed = mensch.parse(tokenFile.content, {
           comments: true,
           position: true
         }).stylesheet.rules;

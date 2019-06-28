@@ -29,7 +29,12 @@ describe('SvgIconParser', () => {
 
   it('should parse svg files', () => {
     expect(
-      parser.parse({ svgIcons: [TEST_FILES.ICON_1, TEST_FILES.ICON_2] })
+      parser.parse({
+        svgIcons: [
+          { filename: 'icon1.svg', content: TEST_FILES.ICON_1 },
+          { filename: 'icon2.svg', content: TEST_FILES.ICON_2 }
+        ]
+      })
     ).toEqual({
       keyframes: '',
       tokenGroups: [
