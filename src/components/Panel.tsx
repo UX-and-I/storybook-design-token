@@ -86,8 +86,8 @@ export const DesignTokenPanel = (props: Props) => {
             {props.hardCodedValues && props.hardCodedValues.length > 0 && (
               <Note>
                 <span>
-                  There might be hard coded values in your stylesheets that
-                  could use the design tokens.
+                  There are property values in your stylesheets that match to
+                  existing design tokens.
                 </span>
                 <Button
                   onClick={() => setShowHardCodedValues(true)}
