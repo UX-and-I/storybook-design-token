@@ -7,12 +7,12 @@ The Storybook Design Token Addon allows you to generate design token documentati
 [**DEMO**](https://storybook-design-token.netlify.com)
 
 **Contents:**
-- [Storybook Design Token Addon](#storybook-design-token-addon)
-  - [Some Features](#some-features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Presenters](#presenters)
-  - [Roadmap](#roadmap)
+- [Storybook Design Token Addon](#Storybook-Design-Token-Addon)
+  - [Some Features](#Some-Features)
+  - [Installation](#Installation)
+  - [Usage](#Usage)
+  - [Presenters](#Presenters)
+  - [Roadmap](#Roadmap)
 
 ## Some Features 
 
@@ -51,13 +51,13 @@ import { configure, addParameters } from '@storybook/react';
 // [...]
 
 const cssReq = require.context('!!raw-loader!../src', true, /.\.css$/);
-const cssTokenFiles = cssReq.keys().map(filename => cssReq(filename));
+const cssTokenFiles = cssReq.keys().map(filename => ({ filename, content: cssReq(filename).default }));
 
 const scssReq = require.context('!!raw-loader!../src', true, /.\.scss$/);
-const scssTokenFiles = scssReq.keys().map(filename => scssReq(filename));
+const scssTokenFiles = scssReq.keys().map(filename => ({ filename, content: scssReq(filename).default }));
 
 const svgIconsReq = require.context('!!raw-loader!../src', true, /.\.svg$/);
-const svgIconTokenFiles = svgIconsReq.keys().map(filename => svgIconsReq(filename));
+const svgIconTokenFiles = svgIconsReq.keys().map(filename => ({ filename, content: svgIconsReq(filename).default }));
 
 addParameters({
   designToken: {

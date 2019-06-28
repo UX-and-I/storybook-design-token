@@ -42,6 +42,10 @@ addons.register(ADDON_ID, api => {
         : undefined;
 
       if (files) {
+        if (!checkFilesFormat(files)) {
+          return;
+        }
+
         parsedCss = parsedCss || cssParser.parse(files);
         parsedScss = parsedScss || scssParser.parse(files);
         parsedSvgIcons = parsedSvgIcons || svgIconParser.parse(files);
@@ -72,3 +76,20 @@ addons.register(ADDON_ID, api => {
     }
   });
 });
+
+const checkFilesFormat = (files: any) => {
+  if (files) {
+    if (
+      (files.css && files.css.find(file => typeof file === 'string')) ||
+      (files.scss && files.scss.find(file => typeof file === 'string'))
+    ) {
+      console.error(
+        '[Storybook Design Token] Sorry, we had to change the configuration format. Please check your storybook config.js against https://github.com/UX-and-I/storybook-design-token#installation.'
+      );
+
+      return false;
+    }
+  }
+
+  return true;
+};
