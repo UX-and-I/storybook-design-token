@@ -20,6 +20,7 @@ The Storybook Design Token Addon allows you to generate design token documentati
 - Parses CSS, SCSS/SASS and SVG files
 - Provides various presenters to render examples of your design tokens
 - Automatically detects aliases of your css or sass variables
+- Displays property values that match token values, so you can easily recognize hard coded values in your stylesheets
 
 ## Installation
 
