@@ -1,3 +1,4 @@
+import { HardCodedValues } from '../interfaces/hard-coded-values.interface';
 import { Parser } from '../interfaces/parser.interface';
 import { TokenFiles } from '../interfaces/token-files.interface';
 import { TokenGroup } from '../interfaces/token-group.interface';
@@ -9,11 +10,58 @@ const gonzales = require('gonzales-pe');
 export class ScssParser implements Parser {
   public parse(
     tokenFiles: TokenFiles
-  ): { tokenGroups: TokenGroup[]; keyframes: string } {
+  ): {
+    hardCodedValues: HardCodedValues[];
+    tokenGroups: TokenGroup[];
+    keyframes: string;
+  } {
+    const tokenGroups = this.mapTokenFilesToTokenGroups(tokenFiles);
+
     return {
+      hardCodedValues: this.mapTokenFilesToHardCodedValues(
+        tokenFiles,
+        tokenGroups
+      ),
       keyframes: this.mapTokenFilesToKeyframes(tokenFiles),
       tokenGroups: this.mapTokenFilesToTokenGroups(tokenFiles)
     };
+  }
+
+  private mapTokenFilesToHardCodedValues(
+    tokenFiles: TokenFiles,
+    tokenGroups: TokenGroup[]
+  ): HardCodedValues[] {
+    return tokenFiles.scss
+      .map(tokenFile => {
+        const parsed = gonzales.parse(tokenFile.content, { syntax: 'scss' });
+        const rawHardCodedValues: any[] = [];
+        const tokens = tokenGroups.map(tokenGroup => tokenGroup.tokens).flat();
+
+        parsed.traverseByType('block', block => {
+          block.forEach('declaration', declaration => {
+            const value = declaration.first('value');
+
+            if (!value.is('variable')) {
+              rawHardCodedValues.push(value);
+            }
+          });
+        });
+
+        // TODO: find tokens inside complex values
+        return tokens
+          .map(token => ({
+            token,
+            values: rawHardCodedValues
+              .filter(value => this.mapPropertyValue(value) === token.value)
+              .map(value => ({
+                file: tokenFile.filename,
+                line: value.start.line,
+                value: this.mapPropertyValue(value)
+              }))
+          }))
+          .filter(item => item.values.length > 0);
+      })
+      .flat();
   }
 
   private mapTokenFilesToKeyframes(tokenFiles: TokenFiles): string {

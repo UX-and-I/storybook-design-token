@@ -51,7 +51,10 @@ addons.register(ADDON_ID, api => {
         parsedSvgIcons = parsedSvgIcons || svgIconParser.parse(files);
 
         parsed = {
-          hardCodedValues: [...parsedCss.hardCodedValues],
+          hardCodedValues: [
+            ...parsedCss.hardCodedValues,
+            ...parsedScss.hardCodedValues
+          ],
           keyframes: parsedCss.keyframes + parsedScss.keyframes,
           tokenGroups: [
             ...parsedCss.tokenGroups,

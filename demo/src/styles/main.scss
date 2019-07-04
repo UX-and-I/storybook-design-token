@@ -1,0 +1,11 @@
+body {
+  $test: red;
+
+  background-color: #fbfbfb;
+  color: $brand;
+  line-height: $line-height;
+}
+
+p {
+  animation: fade-in 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}

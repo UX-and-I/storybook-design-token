@@ -65,6 +65,7 @@ describe('ScssParser', () => {
 
   it('should parse empty token file list', () => {
     expect(parser.parse({ css: [], scss: [] })).toEqual({
+      hardCodedValues: [],
       keyframes: '',
       tokenGroups: []
     });
@@ -77,6 +78,7 @@ describe('ScssParser', () => {
         scss: [{ filename: 'empty.css', content: TEST_FILES.empty }]
       })
     ).toEqual({
+      hardCodedValues: [],
       keyframes: '',
       tokenGroups: []
     });
@@ -99,6 +101,7 @@ describe('ScssParser', () => {
         ]
       })
     ).toEqual({
+      hardCodedValues: [],
       keyframes: '',
       tokenGroups: []
     });
@@ -111,6 +114,7 @@ describe('ScssParser', () => {
     });
 
     expect(parsed).toEqual({
+      hardCodedValues: [],
       tokenGroups: [
         {
           label: 'Colors',
@@ -129,6 +133,7 @@ describe('ScssParser', () => {
     });
 
     expect(parsed).toEqual({
+      hardCodedValues: [],
       tokenGroups: [
         {
           label: 'Colors',
@@ -152,6 +157,7 @@ describe('ScssParser', () => {
     });
 
     expect(parsed).toEqual({
+      hardCodedValues: [],
       tokenGroups: [
         {
           label: 'Colors',
@@ -197,6 +203,12 @@ describe('ScssParser', () => {
     });
 
     expect(parsed).toEqual({
+      hardCodedValues: [
+        {
+          token: { aliases: [], description: '', key: '$red', value: 'red' },
+          values: [{ file: 'withoutAnnotations.css', line: 1, value: 'red' }]
+        }
+      ],
       tokenGroups: [
         {
           label: 'Colors',
@@ -243,6 +255,7 @@ describe('ScssParser', () => {
     });
 
     expect(parsed).toEqual({
+      hardCodedValues: [],
       tokenGroups: [
         {
           label: 'Colors',

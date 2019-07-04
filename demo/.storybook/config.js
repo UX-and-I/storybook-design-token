@@ -12,11 +12,7 @@ const cssTokenFiles = cssReq
   .keys()
   .map(filename => ({ filename, content: cssReq(filename).default }));
 
-const scssReq = require.context(
-  '!!raw-loader!../src/token',
-  true,
-  /_variables\.scss$/
-);
+const scssReq = require.context('!!raw-loader!../src', true, /.+\.scss$/);
 const scssTokenFiles = scssReq
   .keys()
   .map(filename => ({ filename, content: scssReq(filename).default }));
