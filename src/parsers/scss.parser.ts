@@ -31,6 +31,10 @@ export class ScssParser implements Parser {
     tokenFiles: TokenFiles,
     tokenGroups: TokenGroup[]
   ): HardCodedValues[] {
+    if (!tokenFiles.scss) {
+      return [];
+    }
+
     const hardCodedValues = [];
     const tokens = tokenGroups.map(tokenGroup => tokenGroup.tokens).flat();
 
