@@ -31,37 +31,34 @@ export class ScssParser implements Parser {
     tokenFiles: TokenFiles,
     tokenGroups: TokenGroup[]
   ): HardCodedValues[] {
-    return tokenFiles.scss
-      .map(tokenFile => {
-        const parsed = gonzales.parse(tokenFile.content, { syntax: 'scss' });
-        const rawHardCodedValues: any[] = [];
-        const tokens = tokenGroups.map(tokenGroup => tokenGroup.tokens).flat();
+    const hardCodedValues = [];
+    const tokens = tokenGroups.map(tokenGroup => tokenGroup.tokens).flat();
 
-        parsed.traverseByType('block', block => {
-          block.forEach('declaration', declaration => {
-            const value = declaration.first('value');
+    tokenFiles.scss.forEach(tokenFile => {
+      const parsed = gonzales.parse(tokenFile.content, { syntax: 'scss' });
 
-            if (!value.is('variable')) {
-              rawHardCodedValues.push(value);
-            }
-          });
+      parsed.traverseByType('block', block => {
+        block.forEach('declaration', declaration => {
+          const value = declaration.first('value');
+
+          if (!value.is('variable')) {
+            hardCodedValues.push({
+              file: tokenFile.filename,
+              line: value.start.line,
+              value: this.mapPropertyValue(value)
+            });
+          }
         });
+      });
+    });
 
-        // TODO: find tokens inside complex values
-        return tokens
-          .map(token => ({
-            token,
-            values: rawHardCodedValues
-              .filter(value => this.mapPropertyValue(value) === token.value)
-              .map(value => ({
-                file: tokenFile.filename,
-                line: value.start.line,
-                value: this.mapPropertyValue(value)
-              }))
-          }))
-          .filter(item => item.values.length > 0);
-      })
-      .flat();
+    // TODO: find tokens inside complex values
+    return tokens
+      .map(token => ({
+        token,
+        values: hardCodedValues.filter(value => value.value === token.value)
+      }))
+      .filter(item => item.values.length > 0);
   }
 
   private mapTokenFilesToKeyframes(tokenFiles: TokenFiles): string {
