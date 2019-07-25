@@ -56,11 +56,12 @@ export class ScssParser implements Parser {
       });
     });
 
-    // TODO: find tokens inside complex values
     return tokens
       .map(token => ({
         token,
-        values: hardCodedValues.filter(value => value.value === token.value)
+        values: hardCodedValues.filter(
+          value => value.value.indexOf(token.value) > -1
+        )
       }))
       .filter(item => item.values.length > 0);
   }

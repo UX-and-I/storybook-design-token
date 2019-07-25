@@ -62,7 +62,7 @@ export class CssParser implements Parser {
       .map(token => ({
         token,
         values: declarations
-          .filter(declaration => declaration.value === token.value)
+          .filter(declaration => declaration.value.indexOf(token.value) > -1)
           .map(declaration => ({
             file: declaration.filename,
             line: declaration.position.start.line,
