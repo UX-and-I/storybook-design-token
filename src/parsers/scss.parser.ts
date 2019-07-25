@@ -60,7 +60,7 @@ export class ScssParser implements Parser {
       .map(token => ({
         token,
         values: hardCodedValues.filter(
-          value => value.value.indexOf(token.value) > -1
+          value => value.value && value.value.indexOf(token.value) > -1
         )
       }))
       .filter(item => item.values.length > 0);
