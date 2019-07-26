@@ -9,7 +9,7 @@ function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
-const cssReq = require.context('!!raw-loader!../src/styles', true, /.+\.css$/);
+const cssReq = require.context('!!raw-loader!../src', true, /.+\.css$/);
 const cssTokenFiles = cssReq
   .keys()
   .map(filename => ({ filename, content: cssReq(filename).default }));
