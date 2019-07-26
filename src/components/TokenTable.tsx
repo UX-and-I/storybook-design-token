@@ -51,6 +51,7 @@ const ExampleCell = styled.td(() => ({
 }));
 
 const ValueCell = styled.td(() => ({
+  display: 'inline-block',
   position: 'relative',
   fontFamily:
     '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
