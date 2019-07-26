@@ -1,0 +1,43 @@
+.sh-text-input {
+  display: block;
+  width: 100%;
+  min-height: 40px;
+  padding-right: var(--spacing-l);
+  padding-bottom: 1px;
+  padding-left: var(--spacing-l);
+  border: 1px solid var(--n400);
+  border-radius: var(--border-radius-m);
+  color: var(--n700);
+  background-color: var(--n0);
+  font-family: var(--font-family);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-medium);
+
+  &:focus {
+    border-color: var(--b100);
+    outline: none;
+    box-shadow: 0 0 3px var(--b100);
+  }
+
+  &:disabled {
+    border-color: var(--n200);
+    color: var(--n500);
+    background-color: var(--n200);
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: var(--n500);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+  }
+}
+
+textarea.sh-text-input {
+  min-width: 100%;
+  max-width: 100%;
+  padding-top: var(--spacing-m);
+  padding-bottom: var(--spacing-m);
+  line-height: var(--line-height);
+}

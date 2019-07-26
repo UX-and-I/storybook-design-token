@@ -1,0 +1,12 @@
+.sh-menu {
+  display: flex;
+  width: 100%;
+  min-width: 160px;
+  max-width: 280px;
+  padding-top: var(--spacing-m);
+  padding-bottom: var(--spacing-m);
+  border: 1px solid var(--n300);
+  border-radius: var(--border-radius-m);
+  background-color: var(--n0);
+  flex-direction: column;
+}

@@ -1,21 +1,27 @@
-import { configure, addParameters } from '@storybook/react';
+import { configure, addDecorator, addParameters } from '@storybook/react';
+import { withKnobs } from '@storybook/addon-knobs';
 
-// automatically import all files ending in *.stories.js
-const req = require.context('../stories', true, /\.stories\.js$/);
+import '../src/styles/main.css';
+
+const req = require.context('../src', true, /\.stories\.tsx$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
-const cssReq = require.context('!!raw-loader!../src', true, /.+\.css$/);
+const cssReq = require.context('!!raw-loader!../src/styles', true, /.+\.css$/);
 const cssTokenFiles = cssReq
   .keys()
   .map(filename => ({ filename, content: cssReq(filename).default }));
 
-const scssReq = require.context('!!raw-loader!../src', true, /.+\.scss$/);
-const scssTokenFiles = scssReq
-  .keys()
-  .map(filename => ({ filename, content: scssReq(filename).default }));
+// const scssReq = require.context(
+//   '!!raw-loader!../src/styles',
+//   true,
+//   /.+\.scss$/
+// );
+// const scssTokenFiles = scssReq
+//   .keys()
+//   .map(filename => ({ filename, content: scssReq(filename).default }));
 
 const svgIconsReq = require.context(
   '!!raw-loader!../src/assets/icons',
@@ -26,11 +32,13 @@ const svgIconTokenFiles = svgIconsReq
   .keys()
   .map(filename => ({ filename, content: svgIconsReq(filename).default }));
 
+addDecorator(withKnobs);
+
 addParameters({
   designToken: {
     files: {
       css: cssTokenFiles,
-      scss: scssTokenFiles,
+      // scss: scssTokenFiles,
       svgIcons: svgIconTokenFiles
     }
   },

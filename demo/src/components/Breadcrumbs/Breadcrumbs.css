@@ -1,0 +1,18 @@
+.sh-breadcrumbs {
+  display: flex;
+  align-items: center;
+}
+
+.sh-breadcrumbs__link {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  &:not(:first-child) {
+    margin-left: var(--spacing-s);
+  }
+  &:not(:last-child) {
+    margin-right: var(--spacing-s);
+  }
+}
