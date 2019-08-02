@@ -2,17 +2,18 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9653289f-792d-4461-bb32-2ded5108b291/deploy-status)](https://app.netlify.com/sites/storybook-design-token/deploys)
 
-The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.
+The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets. Read more about the motivation for this addon here:
+[https://dev.to/psqrrl/managing-design-tokens-using-storybook-5975](https://dev.to/psqrrl/managing-design-tokens-using-storybook-5975)
 
 [**DEMO**](https://storybook-design-token.netlify.com)
 
 **Contents:**
-- [Storybook Design Token Addon](#Storybook-Design-Token-Addon)
-  - [Some Features](#Some-Features)
-  - [Installation](#Installation)
-  - [Usage](#Usage)
-  - [Presenters](#Presenters)
-  - [Roadmap](#Roadmap)
+- [Storybook Design Token Addon](#storybook-design-token-addon)
+  - [Some Features](#some-features)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Presenters](#presenters)
+  - [Roadmap](#roadmap)
 
 ## Some Features 
 
