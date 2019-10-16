@@ -1,6 +1,6 @@
 {
   "name": "@tommyem/storybook-design-token",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.",
   "license": "MIT",
   "main": "dist/public_api.js",
