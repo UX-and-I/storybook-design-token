@@ -1,5 +1,5 @@
 {
-  "name": "storybook-design-token",
+  "name": "@tommyem/storybook-design-token",
   "version": "0.3.1",
   "description": "The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.",
   "license": "MIT",
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/UX-and-I/storybook-design-token"
+    "url": "git+https://github.com/TommyEm/storybook-design-token"
   },
   "files": [
     "demo",
