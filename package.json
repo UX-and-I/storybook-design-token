@@ -1,77 +1,77 @@
 {
-  "name": "@tommyem/storybook-design-token",
-  "version": "0.3.3",
-  "description": "The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.",
-  "license": "MIT",
-  "main": "dist/public_api.js",
-  "types": "dist/public_api.d.ts",
-  "keywords": [
-    "storybook",
-    "addon",
-    "design system",
-    "design pattern",
-    "design tokens",
-    "react",
-    "angular",
-    "vue"
-  ],
-  "author": {
-    "name": "Philipp Siekmann",
-    "email": "philipp.siekmann@uxi.de",
-    "url": "https://www.uxi.de"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TommyEm/storybook-design-token"
-  },
-  "files": [
-    "demo",
-    "dist",
-    "register.js"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "test": "jest",
-    "watch": "tsc -w",
-    "pre-release": "jest && tsc",
-    "release:patch": "yarn pre-release && yarn version --patch && yarn publish",
-    "release:minor": "yarn pre-release && yarn version --minor && yarn publish"
-  },
-  "dependencies": {
-    "@illinois/react-use-local-storage": "^1.1.0",
-    "@storybook/addons": "5.1.9",
-    "@storybook/api": "5.1.9",
-    "@storybook/components": "5.1.9",
-    "@storybook/theming": "5.1.9",
-    "comment-parser": "0.6.1",
-    "gonzales-pe": "4.2.4",
-    "mensch": "0.3.3",
-    "raw-loader": "3.1.0",
-    "react-use-clipboard": "0.1.4"
-  },
-  "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/preset-env": "7.5.5",
-    "@babel/preset-typescript": "7.3.3",
-    "@storybook/addon-knobs": "^5.1.9",
-    "@types/jest": "24.0.15",
-    "@types/node": "12.6.8",
-    "@types/react": "16.8.23",
-    "@types/webpack-env": "1.14.0",
-    "autoprefixer": "^9.6.1",
-    "babel-loader": "^8.0.6",
-    "core-js": "3.1.4",
-    "css-loader": "^3.1.0",
-    "jest": "24.8.0",
-    "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.7.0",
-    "style-loader": "^0.23.1",
-    "svg-sprite-loader": "^4.1.6",
-    "ts-jest": "24.0.2",
-    "typescript": "3.5.3",
-    "webpack": "^4.38.0"
-  },
-  "resolutions": {
-    "lodash": "4.17.13"
+	"name": "storybook-design-token",
+	"version": "0.3.1",
+	"description": "The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.",
+	"license": "MIT",
+	"main": "dist/public_api.js",
+	"types": "dist/public_api.d.ts",
+	"keywords": [
+	  "storybook",
+	  "addon",
+	  "design system",
+	  "design pattern",
+	  "design tokens",
+	  "react",
+	  "angular",
+	  "vue"
+	],
+	"author": {
+	  "name": "Philipp Siekmann",
+	  "email": "philipp.siekmann@uxi.de",
+	  "url": "https://www.uxi.de"
+	},
+	"repository": {
+	  "type": "git",
+	  "url": "https://github.com/UX-and-I/storybook-design-token"
+	},
+	"files": [
+	  "demo",
+	  "dist",
+	  "register.js"
+	],
+	"scripts": {
+	  "build": "tsc",
+	  "test": "jest",
+	  "watch": "tsc -w",
+	  "pre-release": "jest && tsc",
+	  "release:patch": "yarn pre-release && yarn version --patch && yarn publish",
+	  "release:minor": "yarn pre-release && yarn version --minor && yarn publish"
+	},
+	"dependencies": {
+	  "@illinois/react-use-local-storage": "^1.1.0",
+	  "@storybook/addons": "5.1.9",
+	  "@storybook/api": "5.1.9",
+	  "@storybook/components": "5.1.9",
+	  "@storybook/theming": "5.1.9",
+	  "comment-parser": "0.6.1",
+	  "gonzales-pe": "4.2.4",
+	  "mensch": "0.3.3",
+	  "raw-loader": "3.1.0",
+	  "react-use-clipboard": "0.1.4"
+	},
+	"devDependencies": {
+	  "@babel/core": "7.5.5",
+	  "@babel/preset-env": "7.5.5",
+	  "@babel/preset-typescript": "7.3.3",
+	  "@storybook/addon-knobs": "^5.1.9",
+	  "@types/jest": "24.0.15",
+	  "@types/node": "12.6.8",
+	  "@types/react": "16.8.23",
+	  "@types/webpack-env": "1.14.0",
+	  "autoprefixer": "^9.6.1",
+	  "babel-loader": "^8.0.6",
+	  "core-js": "3.1.4",
+	  "css-loader": "^3.1.0",
+	  "jest": "24.8.0",
+	  "postcss-loader": "^3.0.0",
+	  "postcss-preset-env": "^6.7.0",
+	  "style-loader": "^0.23.1",
+	  "svg-sprite-loader": "^4.1.6",
+	  "ts-jest": "24.0.2",
+	  "typescript": "3.5.3",
+	  "webpack": "^4.38.0"
+	},
+	"resolutions": {
+	  "lodash": "4.17.13"
+	}
   }
-}
