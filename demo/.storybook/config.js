@@ -23,6 +23,15 @@ const cssTokenFiles = cssReq
 //   .keys()
 //   .map(filename => ({ filename, content: scssReq(filename).default }));
 
+// const lessReq = require.context(
+//   '!!raw-loader!../src/styles',
+//   true,
+//   /.+\.less$/
+// );
+// const lessTokenFiles = lessReq
+//   .keys()
+//   .map(filename => ({ filename, content: lessReq(filename).default }));
+
 const svgIconsReq = require.context(
   '!!raw-loader!../src/assets/icons',
   true,
@@ -38,6 +47,7 @@ addParameters({
   designToken: {
     files: {
       css: cssTokenFiles,
+      // less: lessTokenFiles,
       // scss: scssTokenFiles,
       svgIcons: svgIconTokenFiles
     }
