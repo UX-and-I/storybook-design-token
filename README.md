@@ -18,9 +18,9 @@ The Storybook Design Token Addon allows you to generate design token documentati
 ## Some Features 
 
 - Automatically generates design token descriptions from your annotated stylesheets and icon files
-- Parses CSS, SCSS/SASS and SVG files
+- Parses CSS, SCSS/SASS, Less and SVG files
 - Provides various presenters to render examples of your design tokens
-- Automatically detects aliases of your css or sass variables
+- Automatically detects aliases of your css, sass or less variables
 - Displays property values that match token values, so you can easily recognize hard coded values in your stylesheets
 
 ## Installation
@@ -58,6 +58,9 @@ const cssTokenFiles = cssReq.keys().map(filename => ({ filename, content: cssReq
 const scssReq = require.context('!!raw-loader!../src', true, /.\.scss$/);
 const scssTokenFiles = scssReq.keys().map(filename => ({ filename, content: scssReq(filename).default }));
 
+const lessReq = require.context('!!raw-loader!../src', true, /.\.less$/);
+const lessTokenFiles = lessReq.keys().map(filename => ({ filename, content: lessReq(filename).default }));
+
 const svgIconsReq = require.context('!!raw-loader!../src', true, /.\.svg$/);
 const svgIconTokenFiles = svgIconsReq.keys().map(filename => ({ filename, content: svgIconsReq(filename).default }));
 
@@ -66,6 +69,7 @@ addParameters({
     files: { 
       css: cssTokenFiles,
       scss: scssTokenFiles,
+      less: lessTokenFiles,
       svgIcons: svgIconTokenFiles
     }
   }
