@@ -194,6 +194,7 @@ export class CssParser implements Parser {
             return {
               aliases,
               description: declaration.description,
+              editable: true,
               key: declaration.name,
               value: declaration.value
             };

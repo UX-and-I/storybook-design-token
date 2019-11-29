@@ -4,7 +4,8 @@ import styled from '@emotion/styled';
 import useLocalStorage from '@illinois/react-use-local-storage';
 
 import { TokenGroup } from '../interfaces/token-group.interface';
-import { IconChevronDown, IconChevronRight } from './Icons';
+import { Token } from '../interfaces/token.interface';
+import { IconChevronDown, IconChevronRight, IconClose } from './Icons';
 import { TokenPresenter } from './Presenter/TokenPresenter';
 import { Table } from './Primitives/Table';
 import { TokenName } from './TokenName';
@@ -58,7 +59,37 @@ const ValueCell = styled.td(() => ({
   overflow: 'auto',
   maxWidth: '200px',
   width: '200px',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+
+  '& > input': {
+    paddingTop: '6px',
+    paddingRight: '24px',
+    paddingBottom: '6px',
+    paddingLeft: '6px',
+    width: '100%'
+  },
+
+  '& > button': {
+    position: 'absolute',
+    right: '12px',
+    bottom: '6px',
+    width: '20px',
+    height: '20px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    transform: 'translate3d(0, -50%, 0)',
+    padding: 0,
+    paddingRight: '4px',
+    cursor: 'pointer',
+
+    '& svg': {
+      position: 'relative',
+      top: '-1px',
+      verticalAlign: 'middle',
+      width: '16px',
+      height: '16px'
+    }
+  }
 }));
 
 interface Props {
@@ -69,6 +100,50 @@ export const TokenTable = ({ tokenGroup }: Props) => {
   const [expanded, setExpanded] = useLocalStorage(
     `SB_DESIGN_TOKEN_EXPANSION:${tokenGroup.label}`,
     false
+  );
+
+  const [tokens, setTokens] = React.useState<Token[]>([]);
+
+  React.useEffect(() => {
+    if (tokenGroup) {
+      setTokens(tokenGroup.tokens);
+    }
+  }, [tokenGroup]);
+
+  const changeTokenValue = React.useMemo(
+    () => (token: Token, value: string) => {
+      setTokens(tokens.map(t => (t.key === token.key ? { ...t, value } : t)));
+
+      const previewIframe: HTMLIFrameElement = document.querySelector(
+        '#storybook-preview-iframe'
+      );
+
+      previewIframe.contentWindow.document.documentElement.style.setProperty(
+        token.key,
+        value
+      );
+    },
+    [tokens]
+  );
+
+  const resetTokenValue = React.useMemo(
+    () => (token: Token) => {
+      setTokens(
+        tokenGroup.tokens.map(t =>
+          t.key === token.key ? t : tokens.find(to => to.key === t.key)
+        )
+      );
+
+      const previewIframe: HTMLIFrameElement = document.querySelector(
+        '#storybook-preview-iframe'
+      );
+
+      previewIframe.contentWindow.document.documentElement.style.setProperty(
+        token.key,
+        tokenGroup.tokens.find(t => t.key === token.key).value
+      );
+    },
+    [tokens]
   );
 
   return (
@@ -88,7 +163,7 @@ export const TokenTable = ({ tokenGroup }: Props) => {
               </tr>
             </thead>
             <tbody>
-              {tokenGroup.tokens.map(token => (
+              {tokens.map(token => (
                 <tr key={token.key}>
                   <TokenCell>
                     <TokenName token={token} />
@@ -99,7 +174,28 @@ export const TokenTable = ({ tokenGroup }: Props) => {
                         index === 0 ? alias : `, ${alias}`
                       )}
                   </AliasesCell>
-                  <ValueCell>{token.value}</ValueCell>
+                  <ValueCell>
+                    {!token.editable && token.value}
+                    {token.editable && (
+                      <input
+                        onChange={event =>
+                          changeTokenValue(token, event.target.value)
+                        }
+                        type="text"
+                        value={token.value}
+                      />
+                    )}
+                    {token.editable &&
+                      tokenGroup.tokens.find(t => t.key === token.key).value !==
+                        token.value && (
+                        <button
+                          onClick={() => resetTokenValue(token)}
+                          type="button"
+                        >
+                          {IconClose}
+                        </button>
+                      )}
+                  </ValueCell>
                   <ExampleCell>
                     <TokenPresenter type={tokenGroup.presenter} token={token} />
                   </ExampleCell>

@@ -200,6 +200,7 @@ export class LessParser implements Parser {
             return {
               aliases,
               description: description ? description.content : '',
+              editable: false,
               key: '@' + key,
               value: this.mapPropertyValue(declaration.first('value'))
             };

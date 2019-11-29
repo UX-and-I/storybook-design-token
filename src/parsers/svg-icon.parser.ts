@@ -25,6 +25,7 @@ export class SvgIconParser implements Parser {
           const div = document.createElement('div');
           div.innerHTML = file.content;
           return {
+            editable: false,
             key: div.querySelector('svg').dataset.tokenName,
             value: file.content
           };
