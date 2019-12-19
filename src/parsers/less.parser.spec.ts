@@ -140,8 +140,20 @@ describe('LessParser', () => {
           position: { end: Infinity, start: 1 },
           presenter: 'Swatch',
           tokens: [
-            { aliases: [], description: '', key: '@blue', value: 'blue' },
-            { aliases: [], description: '', key: '@red', value: 'red' }
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@blue',
+              value: 'blue'
+            },
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@red',
+              value: 'red'
+            }
           ]
         }
       ],
@@ -164,8 +176,20 @@ describe('LessParser', () => {
           position: { end: 8, start: 1 },
           presenter: 'Swatch',
           tokens: [
-            { aliases: [], description: '', key: '@blue', value: 'blue' },
-            { aliases: [], description: '', key: '@red', value: 'red' }
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@blue',
+              value: 'blue'
+            },
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@red',
+              value: 'red'
+            }
           ]
         },
         {
@@ -173,7 +197,13 @@ describe('LessParser', () => {
           position: { end: Infinity, start: 9 },
           presenter: 'FontSize',
           tokens: [
-            { aliases: [], description: '', key: '@fs-m', value: '14px' }
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@fs-m',
+              value: '14px'
+            }
           ]
         }
       ],
@@ -205,7 +235,13 @@ describe('LessParser', () => {
     expect(parsed).toEqual({
       hardCodedValues: [
         {
-          token: { aliases: [], description: '', key: '@red', value: 'red' },
+          token: {
+            aliases: [],
+            description: '',
+            editable: false,
+            key: '@red',
+            value: 'red'
+          },
           values: [{ file: 'withoutAnnotations.css', line: 1, value: 'red' }]
         }
       ],
@@ -215,8 +251,20 @@ describe('LessParser', () => {
           position: { end: 8, start: 1 },
           presenter: 'Swatch',
           tokens: [
-            { aliases: [], description: '', key: '@blue', value: 'blue' },
-            { aliases: [], description: '', key: '@red', value: 'red' }
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@blue',
+              value: 'blue'
+            },
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@red',
+              value: 'red'
+            }
           ]
         },
         {
@@ -224,7 +272,13 @@ describe('LessParser', () => {
           position: { end: Infinity, start: 9 },
           presenter: 'FontSize',
           tokens: [
-            { aliases: [], description: '', key: '@fs-m', value: '14px' }
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@fs-m',
+              value: '14px'
+            }
           ]
         }
       ],
@@ -265,12 +319,14 @@ describe('LessParser', () => {
             {
               aliases: ['@primary'],
               description: '',
+              editable: false,
               key: '@blue',
               value: 'blue'
             },
             {
               aliases: ['@secondary'],
               description: '',
+              editable: false,
               key: '@red',
               value: 'red'
             }

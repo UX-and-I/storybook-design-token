@@ -145,8 +145,20 @@ describe('CssParser', () => {
           position: { end: Infinity, start: 1 },
           presenter: 'Swatch',
           tokens: [
-            { aliases: [], description: '', key: '--blue', value: 'blue' },
-            { aliases: [], description: '', key: '--red', value: 'red' }
+            {
+              aliases: [],
+              description: '',
+              editable: true,
+              key: '--blue',
+              value: 'blue'
+            },
+            {
+              aliases: [],
+              description: '',
+              editable: true,
+              key: '--red',
+              value: 'red'
+            }
           ]
         }
       ],
@@ -169,8 +181,20 @@ describe('CssParser', () => {
           position: { end: 10, start: 1 },
           presenter: 'Swatch',
           tokens: [
-            { aliases: [], description: '', key: '--blue', value: 'blue' },
-            { aliases: [], description: '', key: '--red', value: 'red' }
+            {
+              aliases: [],
+              description: '',
+              editable: true,
+              key: '--blue',
+              value: 'blue'
+            },
+            {
+              aliases: [],
+              description: '',
+              editable: true,
+              key: '--red',
+              value: 'red'
+            }
           ]
         },
         {
@@ -178,7 +202,13 @@ describe('CssParser', () => {
           position: { end: Infinity, start: 11 },
           presenter: 'FontSize',
           tokens: [
-            { aliases: [], description: '', key: '--fs-m', value: '14px' }
+            {
+              aliases: [],
+              description: '',
+              editable: true,
+              key: '--fs-m',
+              value: '14px'
+            }
           ]
         }
       ],
@@ -214,6 +244,7 @@ describe('CssParser', () => {
           token: {
             aliases: [],
             description: '',
+            editable: true,
             key: '--red',
             value: 'red'
           },
@@ -232,8 +263,20 @@ describe('CssParser', () => {
           position: { end: 10, start: 1 },
           presenter: 'Swatch',
           tokens: [
-            { aliases: [], description: '', key: '--blue', value: 'blue' },
-            { aliases: [], description: '', key: '--red', value: 'red' }
+            {
+              aliases: [],
+              description: '',
+              editable: true,
+              key: '--blue',
+              value: 'blue'
+            },
+            {
+              aliases: [],
+              description: '',
+              editable: true,
+              key: '--red',
+              value: 'red'
+            }
           ]
         },
         {
@@ -241,7 +284,13 @@ describe('CssParser', () => {
           position: { end: Infinity, start: 11 },
           presenter: 'FontSize',
           tokens: [
-            { aliases: [], description: '', key: '--fs-m', value: '14px' }
+            {
+              aliases: [],
+              description: '',
+              editable: true,
+              key: '--fs-m',
+              value: '14px'
+            }
           ]
         }
       ],
@@ -282,12 +331,14 @@ describe('CssParser', () => {
             {
               aliases: ['--primary'],
               description: '',
+              editable: true,
               key: '--blue',
               value: 'blue'
             },
             {
               aliases: ['--secondary'],
               description: '',
+              editable: true,
               key: '--red',
               value: 'red'
             }

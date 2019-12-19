@@ -43,10 +43,12 @@ describe('SvgIconParser', () => {
           presenter: 'Svg',
           tokens: [
             {
+              editable: false,
               key: 'check',
               value: TEST_FILES.ICON_1
             },
             {
+              editable: false,
               key: 'delete',
               value: TEST_FILES.ICON_2
             }
