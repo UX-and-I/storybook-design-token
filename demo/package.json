@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-scripts": "3.0.1",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "react-scripts": "3.3.0",
     "storybook-design-token": "../"
   },
   "scripts": {
@@ -26,10 +26,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "7.5.4",
-    "@storybook/addon-actions": "5.1.9",
-    "@storybook/addon-links": "5.1.9",
-    "@storybook/addons": "5.1.9",
-    "@storybook/react": "5.1.9"
+    "@babel/core": "7.7.7",
+    "@storybook/addon-actions": "5.2.8",
+    "@storybook/addon-links": "5.2.8",
+    "@storybook/addons": "5.2.8",
+    "@storybook/react": "5.2.8"
   }
 }
