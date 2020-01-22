@@ -12,6 +12,8 @@ The Storybook Design Token Addon allows you to generate design token documentati
 - [Storybook Design Token Addon](#storybook-design-token-addon)
   - [Some Features](#some-features)
   - [Installation](#installation)
+    - [Configure for Storybook 5.3 and later](#configure-for-storybook-53-and-later)
+    - [Configure for Storybook prior to version 5.3](#configure-for-storybook-prior-to-version-53)
   - [Usage](#usage)
   - [Presenters](#presenters)
 
@@ -38,7 +40,58 @@ or
 yarn add --dev storybook-design-token
 ```
 
-Then create a file called `addons.js` in your .storybook directory and import the plugin:
+### Configure for Storybook 5.3 and later
+
+Skip to the next section if you are using Storybook 5.2 or older. For Storybook 5.2 and older add the addon to your `main.js` config file in the .storybook directory:
+
+```js
+// main.js
+module.exports = {
+  stories: ['../**/*.stories.js'],
+  addons: ['storybook-design-token']
+};
+```
+
+Then add neccessary parameters to your `preview.js` in your .storybook directory:
+
+```js
+import { addParameters } from '@storybook/react';
+
+const cssReq = require.context('!!raw-loader!../src', true, /.\.css$/);
+const cssTokenFiles = cssReq
+  .keys()
+  .map(filename => ({ filename, content: cssReq(filename).default }));
+
+const scssReq = require.context('!!raw-loader!../src', true, /.\.scss$/);
+const scssTokenFiles = scssReq
+  .keys()
+  .map(filename => ({ filename, content: scssReq(filename).default }));
+
+const lessReq = require.context('!!raw-loader!../src', true, /.\.less$/);
+const lessTokenFiles = lessReq
+  .keys()
+  .map(filename => ({ filename, content: lessReq(filename).default }));
+
+const svgIconsReq = require.context('!!raw-loader!../src', true, /.\.svg$/);
+const svgIconTokenFiles = svgIconsReq
+  .keys()
+  .map(filename => ({ filename, content: svgIconsReq(filename).default }));
+
+addParameters({
+  designToken: {
+    files: {
+      css: cssTokenFiles,
+      scss: scssTokenFiles,
+      less: lessTokenFiles,
+      svgIcons: svgIconTokenFiles
+    }
+  }
+});
+```
+
+### Configure for Storybook prior to version 5.3
+
+Create a file called `addons.js` in your .storybook directory and import the plugin:
 
 ```js
 // addon.js
