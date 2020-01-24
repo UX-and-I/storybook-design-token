@@ -221,6 +221,7 @@ export class ScssParser implements Parser {
 
   private reducePropertyValues(value: any, reduced = ''): string {
     return value.content
+      .filter((node: any) => node.type !== 'default' && node.type !== 'global')
       .reduce((v: string, node: any, index: number, list: any) => {
         if (typeof node.content !== 'string') {
           return this.reducePropertyValues(node, v);

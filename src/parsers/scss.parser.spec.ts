@@ -7,7 +7,7 @@ const TEST_FILES = {
     * @presenter Swatch
     */
    
-    $blue: blue;
+    $blue: blue !default;
     $red: red;
   
     /**
