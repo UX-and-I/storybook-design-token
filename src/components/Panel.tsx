@@ -22,6 +22,14 @@ const Container = styled.div(() => ({
   padding: '12px'
 }));
 
+const Separator = styled.hr(() => ({
+  backgroundColor: '#f1f1f1',
+  border: 'none',
+  height: '1px',
+  margin: '12px 0',
+  width: '100%'
+}));
+
 export const DesignTokenPanel = (props: Props) => {
   if (!props.active) {
     return null;
@@ -42,6 +50,8 @@ export const DesignTokenPanel = (props: Props) => {
         {tokenGroups.map((tokenGroup, index) => (
           <TokenOverview key={index} tokenGroup={tokenGroup} />
         ))}
+
+        <Separator />
 
         <HardCodedValuesTable hardCodedValues={props.hardCodedValues} />
       </Container>

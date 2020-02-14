@@ -6,6 +6,7 @@ import { TokenPresenter } from './presenter/TokenPresenter';
 import { Card } from './primitives/Card';
 import { Collapsible } from './primitives/Collapsible';
 import { IconClose } from './primitives/Icons';
+import { Input } from './primitives/Input';
 import { TokenName } from './primitives/TokenName';
 
 interface Props {
@@ -66,32 +67,25 @@ export const TokenOverview = ({ tokenGroup }: Props) => {
             description={token.description}
             key={token.key}
             preview={
-              <TokenPresenter type={tokenGroup.presenter} token={token} />
+              tokenGroup.presenter && (
+                <TokenPresenter type={tokenGroup.presenter} token={token} />
+              )
             }
             title={<TokenName token={token} />}
             value={
               !token.editable ? (
                 <>{token.value}</>
               ) : (
-                <>
-                  <input
-                    onChange={event =>
-                      changeTokenValue(token, event.target.value)
-                    }
-                    type="text"
-                    value={token.value}
-                  />
-                  {token.editable &&
+                <Input
+                  value={token.value}
+                  onChange={value => changeTokenValue(token, value)}
+                  onReset={() => resetTokenValue(token)}
+                  showReset={
+                    token.editable &&
                     tokenGroup.tokens.find(t => t.key === token.key).value !==
-                      token.value && (
-                      <button
-                        onClick={() => resetTokenValue(token)}
-                        type="button"
-                      >
-                        {IconClose}
-                      </button>
-                    )}
-                </>
+                      token.value
+                  }
+                />
               )
             }
           ></Card>

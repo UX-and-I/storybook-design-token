@@ -7,5 +7,9 @@ interface Props {
 }
 
 export const ShadowToken = ({ shadow }: Props) => {
-  return <Box style={{ boxShadow: shadow }} />;
+  return (
+    <Box
+      style={{ boxShadow: shadow, margin: '30px', width: 'calc(100% - 60px)' }}
+    />
+  );
 };

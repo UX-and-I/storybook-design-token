@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { HardCodedValues } from '../interfaces/hard-coded-values.interface';
+import { Collapsible } from './primitives/Collapsible';
 
 interface Props {
   hardCodedValues: HardCodedValues[];
@@ -8,7 +9,7 @@ interface Props {
 
 export const HardCodedValuesTable = ({ hardCodedValues }: Props) => {
   return (
-    <>
+    <Collapsible id="hard-coded-values" title="Matching hard coded values">
       {hardCodedValues.map((value, index) => (
         <div key={value.token.key + index}>
           {value.token.key}
@@ -23,6 +24,6 @@ export const HardCodedValuesTable = ({ hardCodedValues }: Props) => {
           ))}
         </div>
       ))}
-    </>
+    </Collapsible>
   );
 };

@@ -45,15 +45,10 @@ const Body = styled.div(() => ({
   padding: '8px',
 
   '& > *': {
-    flexBasis: 'calc(50% - 8px)',
+    flexBasis: '100%',
     flexGrow: 0,
     flexShrink: 0,
-    marginBottom: '8px',
-    marginRight: '8px',
-
-    '&:nth-child(even)': {
-      marginRight: 0
-    }
+    marginBottom: '8px'
   }
 }));
 

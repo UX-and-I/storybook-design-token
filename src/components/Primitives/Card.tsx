@@ -32,12 +32,6 @@ const Section = styled.div(() => ({
   '& > strong': {
     display: 'block',
     marginBottom: '4px'
-  },
-
-  '& > input': {
-    display: 'block',
-    padding: '4px',
-    width: '100%'
   }
 }));
 
@@ -46,6 +40,10 @@ const Preview = styled.div(() => ({
   margin: '8px',
   overflow: 'hidden',
   padding: '2px'
+}));
+
+const Value = styled.div(() => ({
+  fontFamily: 'monospace'
 }));
 
 export const Card = ({
@@ -62,7 +60,7 @@ export const Card = ({
         {preview && <Preview>{preview}</Preview>}
         <Section>
           <strong>Value</strong>
-          {value}
+          <Value>{value}</Value>
         </Section>
         {description && (
           <Section>
