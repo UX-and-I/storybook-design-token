@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Text } from '../Primitives/Text';
+import { Text } from '../primitives/Text';
 
 interface Props {
   fontFamily: string;

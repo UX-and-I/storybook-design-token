@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Box } from '../Primitives/Box';
+import { Box } from '../primitives/Box';
 
 interface Props {
   shadow: string;

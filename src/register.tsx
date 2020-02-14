@@ -64,7 +64,8 @@ addons.register(ADDON_ID, api => {
             ...parsedLess.hardCodedValues,
             ...parsedScss.hardCodedValues
           ],
-          keyframes: parsedCss.keyframes + parsedLess.keyframes + parsedScss.keyframes,
+          keyframes:
+            parsedCss.keyframes + parsedLess.keyframes + parsedScss.keyframes,
           tokenGroups: [
             ...parsedCss.tokenGroups,
             ...parsedLess.tokenGroups,
@@ -98,7 +99,9 @@ const checkFilesFormat = (files: any) => {
       (files.scss && files.scss.find(file => typeof file === 'string'))
     ) {
       console.error(
-        '[Storybook Design Token] Sorry, we had to change the configuration format. Please check your storybook config.js against https://github.com/UX-and-I/storybook-design-token#installation.'
+        `[Storybook Design Token] Sorry, we had to change the configuration 
+        format. Please check your storybook config.js against 
+        https://github.com/UX-and-I/storybook-design-token#installation.`
       );
 
       return false;
