@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { useLocalStorageState } from 'react-storage-hooks';
 
 import styled from '@emotion/styled';
-import useLocalStorage from '@illinois/react-use-local-storage';
 
 import { TokenGroup } from '../interfaces/token-group.interface';
 import { Token } from '../interfaces/token.interface';
@@ -97,7 +97,7 @@ interface Props {
 }
 
 export const TokenTable = ({ tokenGroup }: Props) => {
-  const [expanded, setExpanded] = useLocalStorage(
+  const [expanded, setExpanded] = useLocalStorageState(
     `SB_DESIGN_TOKEN_EXPANSION:${tokenGroup.label}`,
     false
   );

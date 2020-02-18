@@ -38,7 +38,6 @@
     "release:minor": "yarn pre-release && yarn version --minor && yarn publish"
   },
   "dependencies": {
-    "@illinois/react-use-local-storage": "1.1.0",
     "@storybook/addons": "5.2.8",
     "@storybook/api": "5.2.8",
     "@storybook/components": "5.2.8",
@@ -47,6 +46,7 @@
     "gonzales-pe": "4.2.4",
     "mensch": "0.3.4",
     "raw-loader": "3.1.0",
+    "react-storage-hooks": "^3.0.3",
     "react-use-clipboard": "0.1.4"
   },
   "devDependencies": {
