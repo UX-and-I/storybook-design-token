@@ -1,7 +1,7 @@
 [build]
   publish = "demo/storybook-static/"
-  command = "yarn build && cd demo && yarn && yarn build-storybook"
+  command = "npm run build && cd demo && npm install && npm run build-storybook"
 
 [context.branch-deploy]
   publish = "demo/storybook-static/"
-  command = "yarn build && cd demo && yarn && yarn build-storybook"
+  command = "npm run build && cd demo && npm install && npm run build-storybook"
