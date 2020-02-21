@@ -44,3 +44,5 @@ node_modules/
 /.pnp
 .pnp.js
 TODO.md
+# Local Netlify folder
+.netlify
