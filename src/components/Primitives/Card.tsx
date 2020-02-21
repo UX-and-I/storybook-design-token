@@ -19,7 +19,11 @@ const Container = styled.div(() => ({
 }));
 
 const Header = styled.div(() => ({
-  backgroundColor: '#f1f1f1',
+  // backgroundColor: '#f1f1f1',
+  backgroundColor: '#343434',
+  borderTopLeftRadius: '4px',
+  borderTopRightRadius: '4px',
+  color: '#fff',
   fontWeight: 500,
   padding: '8px'
 }));
