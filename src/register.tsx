@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import addons from '@storybook/addons';
+import addons, { types } from '@storybook/addons';
+import { AddonPanel } from '@storybook/components';
 
 import { DesignTokenPanel } from './components/Panel';
 import { HardCodedValues } from './interfaces/hard-coded-values.interface';
@@ -38,7 +39,8 @@ addons.register(ADDON_ID, api => {
 
   addons.addPanel(PANEL_ID, {
     title: PANEL_TITLE,
-    render: ({ active }) => {
+    type: types.PANEL,
+    render: ({ active, key }) => {
       const storyData: any = api.getCurrentStoryData();
       const cssParser = new CssParser();
       const lessParser = new LessParser();
@@ -77,14 +79,16 @@ addons.register(ADDON_ID, api => {
 
       return (
         parsed && (
-          <DesignTokenPanel
-            channel={channel}
-            api={api}
-            active={active}
-            hardCodedValues={parsed.hardCodedValues}
-            keyframes={parsed.keyframes}
-            tokenGroups={parsed.tokenGroups}
-          />
+          <AddonPanel key={key} active={active}>
+            <DesignTokenPanel
+              channel={channel}
+              api={api}
+              active={active}
+              hardCodedValues={parsed.hardCodedValues}
+              keyframes={parsed.keyframes}
+              tokenGroups={parsed.tokenGroups}
+            />
+          </AddonPanel>
         )
       );
     }

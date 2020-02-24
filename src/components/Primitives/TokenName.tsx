@@ -23,7 +23,6 @@ const Container = styled.div(() => ({
 }));
 
 const Name = styled.div(() => ({
-  flexGrow: 1,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap'

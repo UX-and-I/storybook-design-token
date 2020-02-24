@@ -42,6 +42,7 @@ const Body = styled.div(() => ({
   borderTop: '1px solid #dedede',
   display: 'flex',
   flexWrap: 'wrap',
+  overflow: 'auto',
   padding: '8px',
 
   '& > *': {

@@ -8,6 +8,7 @@ import { HardCodedValues } from '../interfaces/hard-coded-values.interface';
 import { TokenGroup } from '../interfaces/token-group.interface';
 import { HardCodedValuesTable } from './HardCodedValuesTable';
 import { TokenOverview } from './TokenOverview';
+import { ViewSwitch } from './ViewSwitch';
 
 interface Props {
   active: boolean;
@@ -30,31 +31,53 @@ const Separator = styled.hr(() => ({
   width: '100%'
 }));
 
-export const DesignTokenPanel = (props: Props) => {
-  if (!props.active) {
-    return null;
+export class DesignTokenPanel extends React.Component<Props, any> {
+  constructor(props) {
+    super(props);
+    this.state = { viewType: 'card' };
   }
 
-  const tokenGroups = props.tokenGroups.sort((a, b) => {
-    const labelA = a.label.toUpperCase();
-    const labelB = b.label.toUpperCase();
+  public render() {
+    if (!this.props.active) {
+      return <>Test</>;
+    }
 
-    return labelA < labelB ? -1 : labelA > labelB ? 1 : 0;
-  });
+    const tokenGroups = this.props.tokenGroups.sort((a, b) => {
+      const labelA = a.label.toUpperCase();
+      const labelB = b.label.toUpperCase();
 
-  return (
-    <>
-      <style>{props.keyframes}</style>
+      return labelA < labelB ? -1 : labelA > labelB ? 1 : 0;
+    });
 
-      <Container>
-        {tokenGroups.map((tokenGroup, index) => (
-          <TokenOverview key={index} tokenGroup={tokenGroup} />
-        ))}
+    return (
+      <>
+        <style>{this.props.keyframes}</style>
 
-        <Separator />
+        <Container>
+          <ViewSwitch
+            onChange={newViewType =>
+              this.setState(() => ({
+                viewType: newViewType
+              }))
+            }
+            value={this.state.viewType}
+          />
 
-        <HardCodedValuesTable hardCodedValues={props.hardCodedValues} />
-      </Container>
-    </>
-  );
-};
+          <Separator />
+
+          {tokenGroups.map((tokenGroup, index) => (
+            <TokenOverview
+              key={index}
+              tokenGroup={tokenGroup}
+              viewType={this.state.viewType}
+            />
+          ))}
+
+          <Separator />
+
+          <HardCodedValuesTable hardCodedValues={this.props.hardCodedValues} />
+        </Container>
+      </>
+    );
+  }
+}
