@@ -43,7 +43,7 @@ const Body = styled.div(() => ({
   display: 'flex',
   flexWrap: 'wrap',
   overflow: 'auto',
-  padding: '8px',
+  padding: '8px 4px',
 
   '& > *': {
     flexBasis: '100%',

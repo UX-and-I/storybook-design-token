@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { styled } from '@storybook/theming';
 
+import { usePanelWidth } from '../../hooks/usePanelWidth';
+
 interface Props {
   aliases?: string;
   description?: React.ReactNode;
@@ -10,16 +12,23 @@ interface Props {
   value: React.ReactNode;
 }
 
-const Container = styled.div(() => ({
+const Container = styled.div(({ panelWidth }: any) => ({
   border: '1px solid #f1f1f1',
   borderRadius: '4px',
   display: 'flex',
+  flexBasis:
+    panelWidth === 'narrow'
+      ? 'calc(100% - 8px)'
+      : panelWidth === 'wide'
+      ? 'calc(50% - 8px)'
+      : 'calc(25% - 8px)',
   flexDirection: 'column',
+  marginRight: '4px',
+  marginLeft: '4px',
   minWidth: 0
 }));
 
 const Header = styled.div(() => ({
-  // backgroundColor: '#f1f1f1',
   backgroundColor: '#343434',
   borderTopLeftRadius: '4px',
   borderTopRightRadius: '4px',
@@ -57,8 +66,10 @@ export const Card = ({
   title,
   value
 }: Props) => {
+  const panelWidth = usePanelWidth();
+
   return (
-    <Container>
+    <Container panelWidth={panelWidth}>
       <Header>{title}</Header>
       <Body>
         {preview && <Preview>{preview}</Preview>}

@@ -12,18 +12,13 @@ export const Table = styled.table(() => ({
   },
 
   'th, td': {
+    minWidth: '120px',
     paddingBottom: '8px',
+    paddingLeft: '8px',
+    paddingRight: '8px',
     paddingTop: '8px',
     textAlign: 'left',
     verticalAlign: 'top',
-
-    '&:not(:first-of-type)': {
-      paddingLeft: '8px'
-    },
-
-    '&:not(:last-of-type)': {
-      paddingRight: '8px'
-    },
 
     '&:first-of-type': {
       fontWeight: 500

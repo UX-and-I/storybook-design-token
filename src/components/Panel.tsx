@@ -53,7 +53,7 @@ export class DesignTokenPanel extends React.Component<Props, any> {
       <>
         <style>{this.props.keyframes}</style>
 
-        <Container>
+        <Container className="design-token-container">
           <ViewSwitch
             onChange={newViewType =>
               this.setState(() => ({
