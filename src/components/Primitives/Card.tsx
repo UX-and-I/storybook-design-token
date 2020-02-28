@@ -7,6 +7,7 @@ import { usePanelWidth } from '../../hooks/usePanelWidth';
 interface Props {
   aliases?: string;
   description?: React.ReactNode;
+  descriptionLabel?: string;
   preview?: React.ReactNode;
   title: React.ReactNode;
   value: React.ReactNode;
@@ -62,6 +63,7 @@ const Value = styled.div(() => ({
 export const Card = ({
   aliases,
   description,
+  descriptionLabel = 'Description',
   preview,
   title,
   value
@@ -79,7 +81,7 @@ export const Card = ({
         </Section>
         {description && (
           <Section>
-            <strong>Description</strong>
+            <strong>{descriptionLabel}</strong>
             {description}
           </Section>
         )}

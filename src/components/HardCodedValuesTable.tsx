@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { HardCodedValues } from '../interfaces/hard-coded-values.interface';
+import { Card } from './primitives/Card';
 import { Collapsible } from './primitives/Collapsible';
 
 interface Props {
@@ -11,18 +12,20 @@ export const HardCodedValuesTable = ({ hardCodedValues }: Props) => {
   return (
     <Collapsible id="hard-coded-values" title="Matching Hard Coded Values">
       {hardCodedValues.map((value, index) => (
-        <div key={value.token.key + index}>
-          {value.token.key}
-          <br />
-          {value.token.value}
-          <br />
-          {value.values.map((v, index) => (
-            <span key={index}>
-              File: <strong>{v.file}</strong>, Line: <strong>{v.line}</strong>
-              <br />
-            </span>
+        <Card
+          description={value.values.map((v, index) => (
+            <div
+              key={index}
+              style={{ marginBottom: '8px', wordBreak: 'break-all' }}
+            >
+              {v.file}, line {v.line}
+            </div>
           ))}
-        </div>
+          descriptionLabel="Files"
+          key={value.token.key + index}
+          title={value.token.key}
+          value={value.token.value}
+        />
       ))}
     </Collapsible>
   );
