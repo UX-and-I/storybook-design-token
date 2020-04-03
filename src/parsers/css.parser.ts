@@ -105,14 +105,16 @@ export class CssParser implements Parser {
       return [];
     }
 
-    return tokenFiles.css
-      .map(tokenFile => {
-        const parsed = mensch.parse(tokenFile.content, {
-          comments: true,
-          position: true
-        }).stylesheet.rules;
+    const parsedTokenFiles: any[] = tokenFiles.css.map(tokenFile => {
+      return mensch.parse(tokenFile.content, {
+        comments: true,
+        position: true
+      }).stylesheet.rules;
+    });
 
-        const tokenGroups = parsed
+    return parsedTokenFiles
+      .map(tokenFile => {
+        const tokenGroups = tokenFile
           .filter(
             (item: any) =>
               item.type === 'comment' && item.text.indexOf('@tokens') > -1
@@ -122,7 +124,12 @@ export class CssParser implements Parser {
             parsedText: this.parseCommentBlock(item.text)
           }))
           .map((item: any, index: number, items: any[]) =>
-            this.mapTokenGroup(item, items[index + 1], parsed)
+            this.mapTokenGroup(
+              item,
+              items[index + 1],
+              tokenFile,
+              parsedTokenFiles
+            )
           );
 
         return tokenGroups;
@@ -133,7 +140,8 @@ export class CssParser implements Parser {
   private mapTokenGroup(
     item: any,
     nextItem: any,
-    parsedTokenFile: any[]
+    parsedTokenFile: any[],
+    parsedTokenFiles: any[]
   ): TokenGroup {
     const presenterTag = item.parsedText.tags.find(
       (t: any) => t.tag === 'presenter'
@@ -152,13 +160,15 @@ export class CssParser implements Parser {
         presenter: presenterTag ? presenterTag.name : undefined,
         tokens: [] as Token[]
       },
-      parsedTokenFile
+      parsedTokenFile,
+      parsedTokenFiles
     );
   }
 
   private addTokensToTokenGroup(
     tokenGroup: TokenGroup,
-    parsedTokenFile: any[]
+    parsedTokenFile: any[],
+    parsedTokenFiles: any[]
   ): TokenGroup {
     const relevantRules: any = parsedTokenFile
       .filter(item => item.type === 'rule')
@@ -187,7 +197,22 @@ export class CssParser implements Parser {
               declaration.type === 'property' && declaration.name.match(/^--/)
           )
           .map((declaration: any, index: number, declarations: any[]) => {
-            const aliases = declarations
+            const declarationsFromOtherFiles: any[] = parsedTokenFiles
+              .map(tokenFile => {
+                return tokenFile
+                  .filter(item => item.type === 'rule')
+                  .map(item => item.declarations)
+                  .map((declarations: any) => {
+                    return declarations.filter(
+                      declaration =>
+                        declaration.type === 'property' &&
+                        declaration.name.match(/^--/)
+                    );
+                  });
+              })
+              .flat(Infinity);
+
+            const aliases = declarationsFromOtherFiles
               .filter(d => d.value === `var(${declaration.name})`)
               .map(declaration => declaration.name);
 

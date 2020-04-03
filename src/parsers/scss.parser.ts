@@ -94,11 +94,13 @@ export class ScssParser implements Parser {
       return [];
     }
 
-    return tokenFiles.scss
-      .map(tokenFile => {
-        const parsed = gonzales.parse(tokenFile.content, { syntax: 'scss' });
+    const parsedTokenFiles: any[] = tokenFiles.scss.map(tokenFile => {
+      return gonzales.parse(tokenFile.content, { syntax: 'scss' });
+    });
 
-        const tokenGroups: TokenGroup[] = parsed.content
+    return parsedTokenFiles
+      .map(tokenFile => {
+        const tokenGroups: TokenGroup[] = tokenFile.content
           .filter(
             (item: any) =>
               item.type === 'multilineComment' &&
@@ -109,7 +111,12 @@ export class ScssParser implements Parser {
             parsedText: this.parseCommentBlock(item.content)
           }))
           .map((item: any, index: number, items: any[]) =>
-            this.mapTokenGroup(item, items[index + 1], parsed.content)
+            this.mapTokenGroup(
+              item,
+              items[index + 1],
+              tokenFile.content,
+              parsedTokenFiles.map(tokenFile => tokenFile.content)
+            )
           );
 
         return tokenGroups;
@@ -120,7 +127,8 @@ export class ScssParser implements Parser {
   private mapTokenGroup(
     item: any,
     nextItem: any,
-    parsedTokenFile: any[]
+    parsedTokenFile: any[],
+    parsedTokenFiles: any[]
   ): TokenGroup {
     const presenterTag = item.parsedText.tags.find(
       (t: any) => t.tag === 'presenter'
@@ -139,13 +147,15 @@ export class ScssParser implements Parser {
         presenter: presenterTag ? presenterTag.name : undefined,
         tokens: [] as Token[]
       },
-      parsedTokenFile
+      parsedTokenFile,
+      parsedTokenFiles
     );
   }
 
   private addTokensToTokenGroup(
     tokenGroup: TokenGroup,
-    parsedTokenFile: any[]
+    parsedTokenFile: any[],
+    parsedTokenFiles: any[]
   ): TokenGroup {
     const relevantRules: any = parsedTokenFile
       .filter(item => item.type === 'declaration')
@@ -155,23 +165,27 @@ export class ScssParser implements Parser {
           item.end.line <= tokenGroup.position.end
       );
 
-    const allAliases = parsedTokenFile
-      .filter(
-        (node: any) =>
-          node.is('declaration') &&
-          node.contains('value') &&
-          node.first('value').contains('variable')
+    const allAliases = parsedTokenFiles
+      .map(parsedTokenFile =>
+        parsedTokenFile
+          .filter(
+            (node: any) =>
+              node.is('declaration') &&
+              node.contains('value') &&
+              node.first('value').contains('variable')
+          )
+          .map((node: any) => ({
+            alias: node
+              .first('property')
+              .first('variable')
+              .first('ident').content,
+            source: node
+              .first('value')
+              .first('variable')
+              .first('ident').content
+          }))
       )
-      .map((node: any) => ({
-        alias: node
-          .first('property')
-          .first('variable')
-          .first('ident').content,
-        source: node
-          .first('value')
-          .first('variable')
-          .first('ident').content
-      }));
+      .flat();
 
     const allComments = parsedTokenFile.filter(
       (node: any) => node.is('singlelineComment') || node.is('multilineComment')

@@ -65,13 +65,15 @@ export class DesignTokenPanel extends React.Component<Props, any> {
 
           <Separator />
 
-          {tokenGroups.map((tokenGroup, index) => (
-            <TokenOverview
-              key={index}
-              tokenGroup={tokenGroup}
-              viewType={this.state.viewType}
-            />
-          ))}
+          {tokenGroups
+            .filter(tokenGroup => tokenGroup.tokens.length > 0)
+            .map((tokenGroup, index) => (
+              <TokenOverview
+                key={index}
+                tokenGroup={tokenGroup}
+                viewType={this.state.viewType}
+              />
+            ))}
 
           <Separator />
 
