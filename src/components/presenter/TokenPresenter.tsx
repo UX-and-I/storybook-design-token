@@ -9,6 +9,7 @@ import { EasingToken } from './EasingToken';
 import { FontFamilyToken } from './FontFamily';
 import { FontSizeToken } from './FontSizeToken';
 import { FontWeightToken } from './FontWeightToken';
+import { GradientToken } from './GradientToken';
 import { LineHeightToken } from './LineHeightToken';
 import { OpacityToken } from './OpacityToken';
 import { ShadowToken } from './ShadowToken';
@@ -38,6 +39,8 @@ const renderMatchingPresenter = (type: string, property: Token) => {
       return <FontSizeToken fontSize={property.value} />;
     case 'FontWeight':
       return <FontWeightToken fontWeight={+property.value} />;
+    case 'Gradient':
+      return <GradientToken gradient={property.value} />;
     case 'LineHeight':
       return <LineHeightToken lineHeight={+property.value} />;
     case 'Opacity':

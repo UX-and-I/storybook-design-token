@@ -1,41 +1,32 @@
 import * as React from 'react';
 import useClipboard from 'react-use-clipboard';
 
-import styled from '@emotion/styled';
+import { styled } from '@storybook/theming';
 
-import { Token } from '../interfaces/token.interface';
-
-const Name = styled.span(() => ({
-  cursor: 'pointer',
-  fontWeight: 'bold',
-  whiteSpace: 'nowrap',
-
-  '&:hover': {
-    '& > .copy-notice': {
-      opacity: 1
-    }
-  },
-
-  '& > span': {
-    display: 'block',
-    marginTop: '4px',
-    color: '#666',
-    fontSize: '12px',
-    fontWeight: 'normal',
-    whiteSpace: 'normal'
-  },
-
-  '& > .copy-notice': {
-    color: '#1ea7fd',
-    display: 'inline-block',
-    marginLeft: '4px',
-    opacity: 0
-  }
-}));
+import { Token } from '../../interfaces/token.interface';
 
 interface Props {
   token: Token;
 }
+
+const Container = styled.div(() => ({
+  alignItems: 'center',
+  cursor: 'pointer',
+  display: 'flex',
+
+  '& > span': {
+    fontSize: '10px',
+    fontWeight: 400,
+    paddingLeft: '8px',
+    whiteSpace: 'nowrap'
+  }
+}));
+
+const Name = styled.div(() => ({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap'
+}));
 
 export const TokenName = ({ token }: Props) => {
   const [showCopiedLabel, setShowCopiedLabel] = React.useState(false);
@@ -54,17 +45,16 @@ export const TokenName = ({ token }: Props) => {
   }, [showCopiedLabel]);
 
   return (
-    <Name
+    <Container
       onClick={() => {
         setCopied();
         setShowCopiedLabel(true);
       }}
     >
-      {token.key}{' '}
+      <Name>{token.key}</Name>
       <span className="copy-notice">
         {showCopiedLabel ? 'Copied!' : 'Click to copy'}
       </span>
-      {token.description && <span>{token.description}</span>}
-    </Name>
+    </Container>
   );
 };

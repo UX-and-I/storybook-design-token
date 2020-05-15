@@ -56,6 +56,16 @@
  */
 
 :root {
+  --b100: #b3d3ff; /* A description text of your token */
+  --b200: #77acff;
+  --b300: #3c81ff;
+  --b400: #1e6cff;
+  --b500: #05f;
+  --b600: #004fdf;
+  --b700: #0048bf;
+  --b800: #00419f;
+  --b900: #003880;
+
   --n0: #fff;
   --n100: #fbfbfb;
   --n200: #f5f6f7;
@@ -67,16 +77,6 @@
   --n800: #404347;
   --n900: #1b1b1b;
   --n1000: #000;
-
-  --b100: #b3d3ff;
-  --b200: #77acff;
-  --b300: #3c81ff;
-  --b400: #1e6cff;
-  --b500: #05f;
-  --b600: #004fdf;
-  --b700: #0048bf;
-  --b800: #00419f;
-  --b900: #003880;
 
   --g500: #09c675;
 
@@ -100,9 +100,17 @@
   --text-light: var(--n0);
 }
 
+/** 
+ * @tokens Gradients
+ * @presenter Gradient
+ */
+ :root {
+   --gradient-primary-linear: linear-gradient(#b3d3ff, #3c81ff);
+   --gradient-primary-radial: radial-gradient(#b3d3ff, #3c81ff);
+ }
+
 /**
  * @tokens Durations
- * @presenter Duration
  */
 
 :root {

@@ -1,6 +1,6 @@
 {
   "name": "storybook-design-token",
-  "version": "0.5.1",
+  "version": "0.7.2",
   "description": "The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.",
   "license": "MIT",
   "main": "dist/public_api.js",
@@ -44,6 +44,7 @@
     "@storybook/theming": "5.2.8",
     "comment-parser": "0.7.1",
     "gonzales-pe": "4.2.4",
+    "javascript-detect-element-resize": "^0.5.3",
     "mensch": "0.3.4",
     "raw-loader": "3.1.0",
     "react-storage-hooks": "^3.0.3",
@@ -56,7 +57,6 @@
     "@storybook/addon-knobs": "5.2.8",
     "@types/jest": "24.0.24",
     "@types/node": "12.12.21",
-    "@types/react": "16.9.16",
     "@types/webpack-env": "1.14.1",
     "autoprefixer": "9.7.3",
     "babel-loader": "8.0.6",
@@ -69,7 +69,7 @@
     "svg-sprite-loader": "4.1.6",
     "ts-jest": "24.2.0",
     "typescript": "3.7.3",
-    "webpack": "4.41.4"
+    "webpack": "4.41.5"
   },
   "resolutions": {
     "lodash": "4.17.13",

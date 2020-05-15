@@ -7,52 +7,8 @@ import { styled } from '@storybook/theming';
 import { HardCodedValues } from '../interfaces/hard-coded-values.interface';
 import { TokenGroup } from '../interfaces/token-group.interface';
 import { HardCodedValuesTable } from './HardCodedValuesTable';
-import { IconChevronLeft, IconChevronRight } from './Icons';
-import { TokenTable } from './TokenTable';
-
-const Panel = styled.div(() => ({
-  color: '#444',
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-  fontWeight: 'normal',
-  lineHeight: 1.5,
-  maxWidth: '940px',
-  padding: '20px'
-}));
-
-const Button = styled.button(() => ({
-  background: 'transparent',
-  border: 'none',
-  color: '#1ea7fd',
-  cursor: 'pointer',
-  fontWeight: 'bold',
-  padding: 0,
-
-  '& svg': {
-    verticalAlign: 'middle',
-    position: 'relative',
-    top: '-1px',
-    width: '16px',
-    height: '16px'
-  }
-}));
-
-const Note = styled.div(() => ({
-  backgroundColor: '#1ea7fd',
-  borderRadius: '4px',
-  color: '#fff',
-  display: 'flex',
-  padding: '8px 12px',
-  marginBottom: '20px',
-
-  '& span': {
-    flexGrow: 1
-  },
-
-  '& button': {
-    color: '#fff'
-  }
-}));
+import { TokenOverview } from './TokenOverview';
+import { ViewSwitch } from './ViewSwitch';
 
 interface Props {
   active: boolean;
@@ -63,55 +19,67 @@ interface Props {
   tokenGroups: TokenGroup[];
 }
 
-export const DesignTokenPanel = (props: Props) => {
-  const [showHardCodedValues, setShowHardCodedValues] = React.useState(false);
+const Container = styled.div(() => ({
+  padding: '12px'
+}));
 
-  if (!props.active) {
-    return null;
+const Separator = styled.hr(() => ({
+  backgroundColor: '#f1f1f1',
+  border: 'none',
+  height: '1px',
+  margin: '12px 0',
+  width: '100%'
+}));
+
+export class DesignTokenPanel extends React.Component<Props, any> {
+  constructor(props) {
+    super(props);
+    this.state = { viewType: 'card' };
   }
 
-  const tokenGroups = props.tokenGroups.sort((a, b) => {
-    const labelA = a.label.toUpperCase();
-    const labelB = b.label.toUpperCase();
+  public render() {
+    if (!this.props.active) {
+      return <>Test</>;
+    }
 
-    return labelA < labelB ? -1 : labelA > labelB ? 1 : 0;
-  });
+    const tokenGroups = this.props.tokenGroups.sort((a, b) => {
+      const labelA = a.label.toUpperCase();
+      const labelB = b.label.toUpperCase();
 
-  return (
-    <>
-      <style>{props.keyframes}</style>
-      <Panel>
-        {!showHardCodedValues && (
-          <>
-            {props.hardCodedValues && props.hardCodedValues.length > 0 && (
-              <Note>
-                <span>
-                  There are property values in your stylesheets that match
-                  existing design tokens.
-                </span>
-                <Button
-                  onClick={() => setShowHardCodedValues(true)}
-                  type="button"
-                >
-                  Show {IconChevronRight}
-                </Button>
-              </Note>
-            )}
-            {tokenGroups.map((tokenGroup, index) => (
-              <TokenTable key={index} tokenGroup={tokenGroup} />
+      return labelA < labelB ? -1 : labelA > labelB ? 1 : 0;
+    });
+
+    return (
+      <>
+        <style>{this.props.keyframes}</style>
+
+        <Container className="design-token-container">
+          <ViewSwitch
+            onChange={newViewType =>
+              this.setState(() => ({
+                viewType: newViewType
+              }))
+            }
+            value={this.state.viewType}
+          />
+
+          <Separator />
+
+          {tokenGroups
+            .filter(tokenGroup => tokenGroup.tokens.length > 0)
+            .map((tokenGroup, index) => (
+              <TokenOverview
+                key={index}
+                tokenGroup={tokenGroup}
+                viewType={this.state.viewType}
+              />
             ))}
-          </>
-        )}
 
-        {showHardCodedValues && (
-          <>
-            <Button onClick={() => setShowHardCodedValues(false)} type="button">
-              {IconChevronLeft} Back
-            </Button>
-            <HardCodedValuesTable hardCodedValues={props.hardCodedValues} />
-          </>
-        )}
-      </Panel>
-    </>
-  );
-};
+          <Separator />
+
+          <HardCodedValuesTable hardCodedValues={this.props.hardCodedValues} />
+        </Container>
+      </>
+    );
+  }
+}

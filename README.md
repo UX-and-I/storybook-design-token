@@ -232,6 +232,7 @@ Presenters are used to render examples for your design tokens. The following pre
 - FontFamily
 - FontSize
 - FontWeight
+- Gradient
 - LineHeight
 - Opacity
 - Shadow
