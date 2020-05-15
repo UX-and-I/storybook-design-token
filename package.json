@@ -1,6 +1,6 @@
 {
   "name": "storybook-design-token",
-  "version": "0.7.2",
+  "version": "0.7.2-ie11.1",
   "description": "The Storybook Design Token Addon allows you to generate design token documentation from your stylesheets.",
   "license": "MIT",
   "main": "dist/public_api.js",
@@ -42,7 +42,6 @@
     "@storybook/api": "5.2.8",
     "@storybook/components": "5.2.8",
     "@storybook/theming": "5.2.8",
-    "comment-parser": "0.7.1",
     "gonzales-pe": "4.2.4",
     "javascript-detect-element-resize": "^0.5.3",
     "mensch": "0.3.4",

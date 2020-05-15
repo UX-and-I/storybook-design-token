@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { useLocalStorageState } from 'react-storage-hooks';
 
-import useLocalStorage from '@illinois/react-use-local-storage';
 import { styled } from '@storybook/theming';
 
 import { IconChevronDown, IconChevronRight } from './Icons';
@@ -54,7 +54,7 @@ const Body = styled.div(() => ({
 }));
 
 export const Collapsible = ({ children, id, title }: Props) => {
-  const [expanded, setExpanded] = useLocalStorage(
+  const [expanded, setExpanded] = useLocalStorageState(
     `SB_DESIGN_TOKEN_EXPANSION:${id}`,
     false
   );

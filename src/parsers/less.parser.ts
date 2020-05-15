@@ -3,8 +3,8 @@ import { Parser } from '../interfaces/parser.interface';
 import { TokenFiles } from '../interfaces/token-files.interface';
 import { TokenGroup } from '../interfaces/token-group.interface';
 import { Token } from '../interfaces/token.interface';
+import { parse as parseCommentBlock } from './comment-parser';
 
-const parseCommentBlock = require('comment-parser/parser.js');
 const gonzales = require('gonzales-pe');
 
 export class LessParser implements Parser {
@@ -36,13 +36,13 @@ export class LessParser implements Parser {
     }
 
     const hardCodedValues = [];
-    const tokens = tokenGroups.map(tokenGroup => tokenGroup.tokens).flat();
+    const tokens = tokenGroups.map((tokenGroup) => tokenGroup.tokens).flat();
 
-    tokenFiles.less.forEach(tokenFile => {
+    tokenFiles.less.forEach((tokenFile) => {
       const parsed = gonzales.parse(tokenFile.content, { syntax: 'less' });
 
-      parsed.traverseByType('block', block => {
-        block.forEach('declaration', declaration => {
+      parsed.traverseByType('block', (block) => {
+        block.forEach('declaration', (declaration) => {
           const value = declaration.first('value');
 
           if (!value.is('variable')) {
@@ -57,13 +57,13 @@ export class LessParser implements Parser {
     });
 
     return tokens
-      .map(token => ({
+      .map((token) => ({
         token,
         values: hardCodedValues.filter(
-          value => value.value && value.value.indexOf(token.value) > -1
+          (value) => value.value && value.value.indexOf(token.value) > -1
         )
       }))
-      .filter(item => item.values.length > 0);
+      .filter((item) => item.values.length > 0);
   }
 
   private mapTokenFilesToKeyframes(tokenFiles: TokenFiles): string {
@@ -72,7 +72,7 @@ export class LessParser implements Parser {
     }
 
     return tokenFiles.less
-      .map(tokenFile => {
+      .map((tokenFile) => {
         const parsed = gonzales.parse(tokenFile.content, { syntax: 'less' });
 
         return parsed.content
@@ -94,12 +94,12 @@ export class LessParser implements Parser {
       return [];
     }
 
-    const parsedTokenFiles: any[] = tokenFiles.less.map(tokenFile =>
+    const parsedTokenFiles: any[] = tokenFiles.less.map((tokenFile) =>
       gonzales.parse(tokenFile.content, { syntax: 'less' })
     );
 
     return parsedTokenFiles
-      .map(tokenFile => {
+      .map((tokenFile) => {
         const tokenGroups: TokenGroup[] = tokenFile.content
           .filter(
             (item: any) =>
@@ -115,7 +115,7 @@ export class LessParser implements Parser {
               item,
               items[index + 1],
               tokenFile.content,
-              parsedTokenFiles.map(tokenFile => tokenFile.content)
+              parsedTokenFiles.map((tokenFile) => tokenFile.content)
             )
           );
 
@@ -158,15 +158,15 @@ export class LessParser implements Parser {
     parsedTokenFiles: any[]
   ): TokenGroup {
     const relevantRules: any = parsedTokenFile
-      .filter(item => item.type === 'declaration')
+      .filter((item) => item.type === 'declaration')
       .filter(
-        item =>
+        (item) =>
           item.start.line >= tokenGroup.position.start &&
           item.end.line <= tokenGroup.position.end
       );
 
     const allAliases = parsedTokenFiles
-      .map(parsedTokenFile =>
+      .map((parsedTokenFile) =>
         parsedTokenFile
           .filter(
             (node: any) =>
@@ -175,14 +175,9 @@ export class LessParser implements Parser {
               node.first('value').contains('variable')
           )
           .map((node: any) => ({
-            alias: node
-              .first('property')
-              .first('variable')
-              .first('ident').content,
-            source: node
-              .first('value')
-              .first('variable')
-              .first('ident').content
+            alias: node.first('property').first('variable').first('ident')
+              .content,
+            source: node.first('value').first('variable').first('ident').content
           }))
       )
       .flat();
@@ -203,10 +198,10 @@ export class LessParser implements Parser {
           .map((declaration: any) => {
             const key = declaration.first('property').first('variable').content;
             const aliases = allAliases
-              .filter(alias => alias.source === key[0].content)
-              .map(alias => '@' + alias.alias);
+              .filter((alias) => alias.source === key[0].content)
+              .map((alias) => '@' + alias.alias);
             const description = allComments.find(
-              c =>
+              (c) =>
                 c.start.line === declaration.start.line &&
                 c.end.line === declaration.end.line
             );

@@ -3,9 +3,9 @@ import { Parser } from '../interfaces/parser.interface';
 import { TokenFiles } from '../interfaces/token-files.interface';
 import { TokenGroup } from '../interfaces/token-group.interface';
 import { Token } from '../interfaces/token.interface';
+import { parse as parseCommentBlock } from './comment-parser';
 
 const mensch: any = require('mensch');
-const parseCommentBlock = require('comment-parser/parser.js');
 
 export class CssParser implements Parser {
   public parse(
@@ -35,20 +35,20 @@ export class CssParser implements Parser {
       return [];
     }
 
-    const tokens = tokenGroups.map(tokenGroup => tokenGroup.tokens).flat();
+    const tokens = tokenGroups.map((tokenGroup) => tokenGroup.tokens).flat();
     const declarations = tokenFiles.css
-      .map(tokenFile => {
+      .map((tokenFile) => {
         return mensch
           .parse(tokenFile.content, {
             comments: true,
             position: true
           })
           .stylesheet.rules.map(
-            rule =>
+            (rule) =>
               rule.declarations &&
               rule.declarations
-                .filter(declaration => declaration.type === 'property')
-                .map(declaration => ({
+                .filter((declaration) => declaration.type === 'property')
+                .map((declaration) => ({
                   ...declaration,
                   filename: tokenFile.filename
                 }))
@@ -56,23 +56,23 @@ export class CssParser implements Parser {
           .flat();
       })
       .flat()
-      .filter(item => !!item && item.name.indexOf('--') !== 0);
+      .filter((item) => !!item && item.name.indexOf('--') !== 0);
 
     return tokens
-      .map(token => ({
+      .map((token) => ({
         token,
         values: declarations
           .filter(
-            declaration =>
+            (declaration) =>
               declaration.value && declaration.value.indexOf(token.value) > -1
           )
-          .map(declaration => ({
+          .map((declaration) => ({
             file: declaration.filename,
             line: declaration.position.start.line,
             value: declaration.value
           }))
       }))
-      .filter(item => item.values.length > 0);
+      .filter((item) => item.values.length > 0);
   }
 
   private mapTokenFilesToKeyframes(tokenFiles: TokenFiles): string {
@@ -81,7 +81,7 @@ export class CssParser implements Parser {
     }
 
     return tokenFiles.css
-      .map(tokenFile => {
+      .map((tokenFile) => {
         const parsed = {
           type: 'stylesheet',
           stylesheet: {
@@ -105,7 +105,7 @@ export class CssParser implements Parser {
       return [];
     }
 
-    const parsedTokenFiles: any[] = tokenFiles.css.map(tokenFile => {
+    const parsedTokenFiles: any[] = tokenFiles.css.map((tokenFile) => {
       return mensch.parse(tokenFile.content, {
         comments: true,
         position: true
@@ -113,7 +113,7 @@ export class CssParser implements Parser {
     });
 
     return parsedTokenFiles
-      .map(tokenFile => {
+      .map((tokenFile) => {
         const tokenGroups = tokenFile
           .filter(
             (item: any) =>
@@ -171,9 +171,9 @@ export class CssParser implements Parser {
     parsedTokenFiles: any[]
   ): TokenGroup {
     const relevantRules: any = parsedTokenFile
-      .filter(item => item.type === 'rule')
+      .filter((item) => item.type === 'rule')
       .find(
-        item =>
+        (item) =>
           item.position.start.line >= tokenGroup.position.start &&
           item.position.end.line <= tokenGroup.position.end
       );
@@ -198,13 +198,13 @@ export class CssParser implements Parser {
           )
           .map((declaration: any, index: number, declarations: any[]) => {
             const declarationsFromOtherFiles: any[] = parsedTokenFiles
-              .map(tokenFile => {
+              .map((tokenFile) => {
                 return tokenFile
-                  .filter(item => item.type === 'rule')
-                  .map(item => item.declarations)
+                  .filter((item) => item.type === 'rule')
+                  .map((item) => item.declarations)
                   .map((declarations: any) => {
                     return declarations.filter(
-                      declaration =>
+                      (declaration) =>
                         declaration.type === 'property' &&
                         declaration.name.match(/^--/)
                     );
@@ -213,8 +213,8 @@ export class CssParser implements Parser {
               .flat(Infinity);
 
             const aliases = declarationsFromOtherFiles
-              .filter(d => d.value === `var(${declaration.name})`)
-              .map(declaration => declaration.name);
+              .filter((d) => d.value === `var(${declaration.name})`)
+              .map((declaration) => declaration.name);
 
             return {
               aliases,

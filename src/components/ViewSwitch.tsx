@@ -1,7 +1,6 @@
 import * as React from 'react';
+import { useLocalStorageState } from 'react-storage-hooks';
 
-import useLocalStorage from '@illinois/react-use-local-storage';
-import { useEffect } from '@storybook/addons';
 import { styled } from '@storybook/theming';
 
 interface Props {
@@ -45,7 +44,7 @@ const Button = styled.button(() => ({
 }));
 
 export const ViewSwitch = ({ onChange, value }: Props) => {
-  const [persistedValue, setPersistedValue] = useLocalStorage(
+  const [persistedValue, setPersistedValue] = useLocalStorageState(
     `SB_DESIGN_TOKEN_EXPANSION:VIEW_TYPE`,
     value
   );
