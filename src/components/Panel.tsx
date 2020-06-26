@@ -77,11 +77,11 @@ export class DesignTokenPanel extends React.Component<Props, any> {
 
           <Separator />
 
-          {this.props.hardCodedValues.length && (
+          {this.props.hardCodedValues.length ? (
             <HardCodedValuesTable
               hardCodedValues={this.props.hardCodedValues}
             />
-          )}
+          ) : null}
         </Container>
       </>
     );
