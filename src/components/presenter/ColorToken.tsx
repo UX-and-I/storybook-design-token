@@ -7,5 +7,5 @@ interface Props {
 }
 
 export const ColorToken = (props: Props) => {
-  return <Box style={{ backgroundColor: props.color }} />;
+  return <Box style={{ background: props.color }} />;
 };

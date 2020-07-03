@@ -25,6 +25,7 @@ const TEST_FILES = {
      $blue: blue;
      $red: red;
      $hsl: hsl(0, 100%, 50%);
+     $gradient: linear-gradient(90deg, #f00 50%, #0f0 100%);
   `,
   withAliases: `/**
     * @tokens Colors
@@ -161,6 +162,13 @@ describe('ScssParser', () => {
               editable: false,
               key: '$hsl',
               value: 'hsl(0, 100%, 50%)'
+            },
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '$gradient',
+              value: 'linear-gradient(90deg, #f00 50%, #0f0 100%)'
             }
           ]
         }

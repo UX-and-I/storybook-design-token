@@ -219,13 +219,7 @@ export class ScssParser implements Parser {
   }
 
   private mapPropertyValue(value: any): string {
-    const rawValue = this.reducePropertyValues(value);
-
-    if (value.contains('color')) {
-      return this.addValueUnit(rawValue, 'color');
-    }
-
-    return rawValue;
+    return this.reducePropertyValues(value);
   }
 
   private reducePropertyValues(value: any, reduced = ''): string {
@@ -233,7 +227,8 @@ export class ScssParser implements Parser {
       .filter((node: any) => node.type !== 'default' && node.type !== 'global')
       .reduce((v: string, node: any, index: number, list: any) => {
         if (typeof node.content === 'string') {
-          node.content = this.addValueUnit(node.content, value.type);
+          const type = value.type === 'percentage' ? value.type : node.type;
+          node.content = this.addValueUnit(node.content, type);
         }
 
         if (value.type === 'function' && index > 0) {

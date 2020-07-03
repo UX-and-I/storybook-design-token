@@ -218,21 +218,16 @@ export class LessParser implements Parser {
     return { ...tokenGroup, tokens };
   }
 
-  private mapPropertyValue(value: any, reduce = true): string {
-    const rawValue = this.reducePropertyValues(value);
-
-    if (value.contains('color')) {
-      return this.addValueUnit(rawValue, 'color');
-    }
-
-    return rawValue;
+  private mapPropertyValue(value: any): string {
+    return this.reducePropertyValues(value);
   }
 
   private reducePropertyValues(value: any, reduced = ''): string {
     return value.content
       .reduce((v: string, node: any, index: number, list: any) => {
         if (typeof node.content === 'string') {
-          node.content = this.addValueUnit(node.content, value.type);
+          const type = value.type === 'percentage' ? value.type : node.type;
+          node.content = this.addValueUnit(node.content, type);
         }
 
         if (value.type === 'function' && index > 0) {
