@@ -24,6 +24,7 @@ const TEST_FILES = {
 
      @blue: blue;
      @red: red;
+     @hsl: hsl(0, 100%, 50%);
   `,
   withAliases: `/**
     * @tokens Colors
@@ -153,6 +154,13 @@ describe('LessParser', () => {
               editable: false,
               key: '@red',
               value: 'red'
+            },
+            {
+              aliases: [],
+              description: '',
+              editable: false,
+              key: '@hsl',
+              value: 'hsl(0, 100%, 50%)'
             }
           ]
         }
@@ -297,7 +305,7 @@ describe('LessParser', () => {
       ]
     });
 
-    expect(parsed.tokenGroups.map(g => g.label)).toEqual([
+    expect(parsed.tokenGroups.map((g) => g.label)).toEqual([
       'Colors',
       'Font Sizes'
     ]);

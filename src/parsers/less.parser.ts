@@ -218,11 +218,11 @@ export class LessParser implements Parser {
     return { ...tokenGroup, tokens };
   }
 
-  private mapPropertyValue(value: any): string {
+  private mapPropertyValue(value: any, reduce = true): string {
     const rawValue = this.reducePropertyValues(value);
 
     if (value.contains('color')) {
-      return `#${rawValue}`;
+      return this.addValueUnit(rawValue, 'color');
     }
 
     return rawValue;
@@ -231,21 +231,39 @@ export class LessParser implements Parser {
   private reducePropertyValues(value: any, reduced = ''): string {
     return value.content
       .reduce((v: string, node: any, index: number, list: any) => {
+        if (typeof node.content === 'string') {
+          node.content = this.addValueUnit(node.content, value.type);
+        }
+
+        if (value.type === 'function' && index > 0) {
+          return v;
+        }
+
         if (typeof node.content !== 'string') {
           return this.reducePropertyValues(node, v);
         }
 
         if (value.type === 'function') {
-          return `${v}${node.content}(`;
-        }
-
-        if (value.type === 'arguments' && index === list.length - 1) {
-          return `${v}${node.content})`;
+          return `${v}${node.content}(${this.reducePropertyValues(
+            list[index + 1]
+          )})`;
         }
 
         return `${v}${node.content}`;
       }, reduced)
       .trim();
+  }
+
+  private addValueUnit(value: string, type: string): string {
+    if (type === 'color') {
+      return `#${value}`;
+    }
+
+    if (type === 'percentage') {
+      return `${value}%`;
+    }
+
+    return value;
   }
 
   private parseCommentBlock(string: string): any {
