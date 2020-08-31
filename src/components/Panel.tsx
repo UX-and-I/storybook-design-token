@@ -37,12 +37,34 @@ export class DesignTokenPanel extends React.Component<Props, any> {
     this.state = { viewType: 'card' };
   }
 
+  public tokenGroups;
+
+  public handleChange(payload) {
+    const { key, value, resetting } = payload;
+    this.tokenGroups.map((tokenGroup, groupIndex) => {
+      tokenGroup.tokens.map((token, tokenIndex) => {
+        if (token.key === key) {
+          if (resetting) {
+            this.tokenGroups[groupIndex].tokens[tokenIndex].value = this.tokenGroups[groupIndex].tokens[tokenIndex].originalValue;
+            this.tokenGroups[groupIndex].tokens[tokenIndex].updated = false;
+          } else {
+            if (!this.tokenGroups[groupIndex].tokens[tokenIndex].originalValue) {
+              this.tokenGroups[groupIndex].tokens[tokenIndex].originalValue = this.tokenGroups[groupIndex].tokens[tokenIndex].value;
+            }
+            this.tokenGroups[groupIndex].tokens[tokenIndex].value = value;
+            this.tokenGroups[groupIndex].tokens[tokenIndex].updated = true;
+          }
+        }
+      });
+    });
+  }
+
   public render() {
     if (!this.props.active) {
       return <>Test</>;
     }
 
-    const tokenGroups = this.props.tokenGroups.sort((a, b) => {
+    this.tokenGroups = this.props.tokenGroups.sort((a, b) => {
       const labelA = a.label.toUpperCase();
       const labelB = b.label.toUpperCase();
 
@@ -65,12 +87,14 @@ export class DesignTokenPanel extends React.Component<Props, any> {
 
           <Separator />
 
-          {tokenGroups
+          {this.tokenGroups
             .filter(tokenGroup => tokenGroup.tokens.length > 0)
             .map((tokenGroup, index) => (
               <TokenOverview
                 key={index}
+                tokenGroups={this.tokenGroups}
                 tokenGroup={tokenGroup}
+                onChange={this.handleChange}
                 viewType={this.state.viewType}
               />
             ))}

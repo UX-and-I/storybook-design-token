@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { parseVariables } from '../../parsers/variables.parser';
 import { Token } from '../../interfaces/token.interface';
 import { AnimationToken } from './AnimationToken';
 import { BorderRadiusToken } from './BorderRadiusToken';
@@ -15,47 +16,50 @@ import { OpacityToken } from './OpacityToken';
 import { ShadowToken } from './ShadowToken';
 import { SpacingToken } from './SpacingToken';
 import { SvgToken } from './SvgToken';
+import { TokenGroup } from 'src/interfaces/token-group.interface';
 
 interface Props {
+  tokenGroups: TokenGroup[];
   token: Token;
   type: string;
 }
 
-const renderMatchingPresenter = (type: string, property: Token) => {
+const renderMatchingPresenter = (type: string, property: Token, catalog: TokenGroup[]) => {
+  const value = parseVariables(property.value, catalog);
   switch (type) {
     case 'Animation':
-      return <AnimationToken animation={property.value} />;
+      return <AnimationToken animation={value} />;
     case 'Border':
-      return <BorderToken border={property.value} />;
+      return <BorderToken border={value} />;
     case 'BorderRadius':
-      return <BorderRadiusToken borderRadius={property.value} />;
+      return <BorderRadiusToken borderRadius={value} />;
     case 'Color':
-      return <ColorToken color={property.value} />;
+      return <ColorToken color={value} />;
     case 'Easing':
-      return <EasingToken easing={property.value} />;
+      return <EasingToken easing={value} />;
     case 'FontFamily':
-      return <FontFamilyToken fontFamily={property.value} />;
+      return <FontFamilyToken fontFamily={value} />;
     case 'FontSize':
-      return <FontSizeToken fontSize={property.value} />;
+      return <FontSizeToken fontSize={value} />;
     case 'FontWeight':
-      return <FontWeightToken fontWeight={+property.value} />;
+      return <FontWeightToken fontWeight={+value} />;
     case 'Gradient':
-      return <GradientToken gradient={property.value} />;
+      return <GradientToken gradient={value} />;
     case 'LineHeight':
-      return <LineHeightToken lineHeight={+property.value} />;
+      return <LineHeightToken lineHeight={+value} />;
     case 'Opacity':
-      return <OpacityToken opacity={+property.value} />;
+      return <OpacityToken opacity={+value} />;
     case 'Shadow':
-      return <ShadowToken shadow={property.value} />;
+      return <ShadowToken shadow={value} />;
     case 'Spacing':
-      return <SpacingToken spacing={property.value} />;
+      return <SpacingToken spacing={value} />;
     case 'Svg':
-      return <SvgToken svg={property.value} />;
+      return <SvgToken svg={value} />;
     default:
       return <></>;
   }
 };
 
 export const TokenPresenter = (props: Props) => {
-  return renderMatchingPresenter(props.type, props.token);
+  return renderMatchingPresenter(props.type, props.token, props.tokenGroups);
 };

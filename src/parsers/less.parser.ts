@@ -230,6 +230,10 @@ export class LessParser implements Parser {
           node.content = this.addValueUnit(node.content, type);
         }
 
+        if (node.type === 'variable' && node.syntax === 'less') {
+          return `${v}@${node.content[0].content}`;
+        }
+
         if (value.type === 'function' && index > 0) {
           return v;
         }

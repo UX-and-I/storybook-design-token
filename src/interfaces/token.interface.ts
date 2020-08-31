@@ -4,4 +4,6 @@ export interface Token {
   editable?: boolean;
   key: string;
   value: string;
+  originalValue?: string;
+  updated?: boolean;
 }

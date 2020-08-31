@@ -22,6 +22,17 @@ module.exports = ({ config }) => {
     f => f.test.toString() !== '/\\.css$/'
   );
 
+  // config.module.rules.push({
+  //   test: /\.s[ac]ss$/,
+  //   loaders: [
+  //     'style-loader',
+  //     'css-loader',
+  //     {
+  //       loader: 'sass-loader',
+  //     }
+  //   ],
+  // });
+
   config.module.rules.push({
     test: /\.css$/,
     loaders: [

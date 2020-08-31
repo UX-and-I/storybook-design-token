@@ -99,10 +99,10 @@
   --text-dark: var(--n900);
   --text-light: var(--n0);
 
-  --gradient: linear-gradient(90deg, #f00 0%, #0f0 50%, #f00 100%);
+  --gradient: linear-gradient(90deg,var(--r500) 0%, #0f0 50%, var(--g500) 100%);
 }
 
-/** 
+/**
  * @tokens Gradients
  * @presenter Gradient
  */

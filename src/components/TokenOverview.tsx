@@ -8,13 +8,17 @@ import { Collapsible } from './primitives/Collapsible';
 import { Input } from './primitives/Input';
 import { Table } from './primitives/Table';
 import { TokenName } from './primitives/TokenName';
+import { parseVariables } from '../parsers/variables.parser';
 
 interface Props {
+  onChange: (value: any) => any;
+  tokenGroups: TokenGroup[];
   tokenGroup: TokenGroup;
   viewType: 'card' | 'table';
 }
 
-export const TokenOverview = ({ tokenGroup, viewType }: Props) => {
+export const TokenOverview = (props: Props) => {
+  const { tokenGroups, tokenGroup, viewType } = props;
   const [tokens, setTokens] = React.useState<Token[]>([]);
 
   React.useEffect(() => {
@@ -31,9 +35,11 @@ export const TokenOverview = ({ tokenGroup, viewType }: Props) => {
         '#storybook-preview-iframe'
       );
 
+      props.onChange({ key: token.key, value, resetting: false });
+
       previewIframe.contentWindow.document.documentElement.style.setProperty(
         token.key,
-        value
+        parseVariables(value, tokenGroups, false)
       );
     },
     [tokens]
@@ -51,9 +57,11 @@ export const TokenOverview = ({ tokenGroup, viewType }: Props) => {
         '#storybook-preview-iframe'
       );
 
+      props.onChange({ key: token.key, undefined, resetting: true });
+
       previewIframe.contentWindow.document.documentElement.style.setProperty(
         token.key,
-        tokenGroup.tokens.find(t => t.key === token.key).value
+        parseVariables(tokenGroup.tokens.find(t => t.key === token.key).value, tokenGroups)
       );
     },
     [tokens]
@@ -70,7 +78,7 @@ export const TokenOverview = ({ tokenGroup, viewType }: Props) => {
               key={token.key}
               preview={
                 tokenGroup.presenter && (
-                  <TokenPresenter type={tokenGroup.presenter} token={token} />
+                  <TokenPresenter tokenGroups={tokenGroups} type={tokenGroup.presenter} token={token} />
                 )
               }
               title={<TokenName token={token} />}
@@ -121,8 +129,7 @@ export const TokenOverview = ({ tokenGroup, viewType }: Props) => {
                         onReset={() => resetTokenValue(token)}
                         showReset={
                           token.editable &&
-                          tokenGroup.tokens.find(t => t.key === token.key)
-                            .value !== token.value
+                          tokenGroup.tokens.find(t => t.key === token.key).updated === true
                         }
                       />
                     )}
@@ -131,6 +138,7 @@ export const TokenOverview = ({ tokenGroup, viewType }: Props) => {
                     {tokenGroup.presenter && (
                       <TokenPresenter
                         type={tokenGroup.presenter}
+                        tokenGroups={tokenGroups}
                         token={token}
                       />
                     )}
