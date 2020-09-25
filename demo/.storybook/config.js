@@ -6,13 +6,18 @@ import '../src/styles/main.css';
 const req = require.context('../src', true, /\.stories\.tsx$/);
 
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach(function (filename) {
+    return req(filename);
+  });
 }
 
 const cssReq = require.context('!!raw-loader!../src', true, /.+\.css$/);
-const cssTokenFiles = cssReq
-  .keys()
-  .map(filename => ({ filename, content: cssReq(filename).default }));
+const cssTokenFiles = cssReq.keys().map(function (filename) {
+  return {
+    filename: filename,
+    content: cssReq(filename).default
+  };
+});
 
 // const scssReq = require.context(
 //   '!!raw-loader!../src/styles',
@@ -37,9 +42,12 @@ const svgIconsReq = require.context(
   true,
   /.\.svg$/
 );
-const svgIconTokenFiles = svgIconsReq
-  .keys()
-  .map(filename => ({ filename, content: svgIconsReq(filename).default }));
+const svgIconTokenFiles = svgIconsReq.keys().map(function (filename) {
+  return {
+    filename: filename,
+    content: svgIconsReq(filename).default
+  };
+});
 
 addDecorator(withKnobs);
 
