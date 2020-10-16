@@ -12,7 +12,7 @@ import { ScssParser } from './parsers/scss.parser';
 import { SvgIconParser } from './parsers/svg-icon.parser';
 import { ADDON_ID, PANEL_ID, PANEL_TITLE } from './shared';
 
-addons.register(ADDON_ID, api => {
+addons.register(ADDON_ID, (api) => {
   const channel = addons.getChannel();
 
   let parsedCss: {
@@ -41,11 +41,23 @@ addons.register(ADDON_ID, api => {
     title: PANEL_TITLE,
     type: types.PANEL,
     render: ({ active, key }) => {
+      const defaultOptions = {
+        hideMatchingHardCodedValues: false
+      };
+
       const storyData: any = api.getCurrentStoryData();
       const cssParser = new CssParser();
       const lessParser = new LessParser();
       const scssParser = new ScssParser();
       const svgIconParser = new SvgIconParser();
+      const options = storyData
+        ? {
+            ...defaultOptions,
+            ...storyData.parameters.designToken.options
+          }
+        : {
+            ...defaultOptions
+          };
       const files = storyData
         ? storyData.parameters.designToken.files
         : undefined;
@@ -84,7 +96,11 @@ addons.register(ADDON_ID, api => {
               channel={channel}
               api={api}
               active={active}
-              hardCodedValues={parsed.hardCodedValues}
+              hardCodedValues={
+                options.hideMatchingHardCodedValues
+                  ? []
+                  : parsed.hardCodedValues
+              }
               keyframes={parsed.keyframes}
               tokenGroups={parsed.tokenGroups}
             />
@@ -98,9 +114,9 @@ addons.register(ADDON_ID, api => {
 const checkFilesFormat = (files: any) => {
   if (files) {
     if (
-      (files.css && files.css.find(file => typeof file === 'string')) ||
-      (files.less && files.less.find(file => typeof file === 'string')) ||
-      (files.scss && files.scss.find(file => typeof file === 'string'))
+      (files.css && files.css.find((file) => typeof file === 'string')) ||
+      (files.less && files.less.find((file) => typeof file === 'string')) ||
+      (files.scss && files.scss.find((file) => typeof file === 'string'))
     ) {
       console.error(
         `[Storybook Design Token] Sorry, we had to change the configuration 

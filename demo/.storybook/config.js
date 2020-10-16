@@ -58,6 +58,9 @@ addParameters({
       // less: lessTokenFiles,
       // scss: scssTokenFiles,
       svgIcons: svgIconTokenFiles
+    },
+    options: {
+      hideMatchingHardCodedValues: false
     }
   },
   options: {
