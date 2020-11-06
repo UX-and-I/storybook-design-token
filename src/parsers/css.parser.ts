@@ -212,6 +212,25 @@ export class CssParser implements Parser {
               })
               .flat(Infinity);
 
+            let tokenValue = declaration.value;
+
+            if (declaration.value.startsWith('var(')) {
+              const variableNameMatch = declaration.value.match(
+                /^var\((--.+)\)$/
+              );
+
+              if (variableNameMatch.length > 0) {
+                const variableName = variableNameMatch[1];
+                const referencedDeclaration = declarationsFromOtherFiles.find(
+                  (decl) => decl.name === variableName
+                );
+
+                if (referencedDeclaration) {
+                  tokenValue = referencedDeclaration.value;
+                }
+              }
+            }
+
             const aliases = declarationsFromOtherFiles
               .filter((d) => d.value === `var(${declaration.name})`)
               .map((declaration) => declaration.name);
@@ -221,10 +240,18 @@ export class CssParser implements Parser {
               description: declaration.description,
               editable: true,
               key: declaration.name,
-              value: declaration.value
+              value: tokenValue
             };
           })
-          .filter((token: Token) => !token.value.match(/^var\(--.+/));
+          .filter((token: Token, _: number, tokens: Token[]) => {
+            return (
+              !token.value.match(/^var\(--.+/) &&
+              !tokens.some(
+                (t) =>
+                  t.key !== token.key && t.aliases.some((a) => a === token.key)
+              )
+            );
+          });
 
     return { ...tokenGroup, tokens };
   }

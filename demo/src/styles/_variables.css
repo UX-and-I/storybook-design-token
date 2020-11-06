@@ -56,7 +56,7 @@
  */
 
 :root {
-  --b100: #b3d3ff; /* A description text of your token */
+  --b100: var(--external); /* A description text of your token */
   --b200: #77acff;
   --b300: #3c81ff;
   --b400: #1e6cff;
