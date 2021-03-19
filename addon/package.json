@@ -2,15 +2,29 @@
   "name": "storybook-design-token",
   "version": "1.0.0-beta.0",
   "main": "dist/preset.js",
-  "author": "Philipp Siekmann <philipp.siekmann@uxi.de>",
   "license": "MIT",
+  "keywords": [
+    "storybook",
+    "addon",
+    "design system",
+    "design pattern",
+    "design tokens",
+    "react",
+    "angular",
+    "vue"
+  ],
+  "author": {
+    "name": "Philipp Siekmann",
+    "email": "philipp.siekmann@uxi.de",
+    "url": "https://www.uxi.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UX-and-I/storybook-design-token"
+  },
   "files": [
     "dist/**/*",
     "README.md"
-  ],
-  "keywords": [
-    "storybook",
-    "addons"
   ],
   "scripts": {
     "start": "tsc -p . -w",
