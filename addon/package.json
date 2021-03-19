@@ -12,7 +12,6 @@
     "storybook",
     "addons"
   ],
-  "private": true,
   "scripts": {
     "start": "tsc -p . -w",
     "build": "rm -rf dist && tsc -p ."
