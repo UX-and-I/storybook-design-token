@@ -1462,11 +1462,6 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@illinois/react-use-local-storage@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@illinois/react-use-local-storage/-/react-use-local-storage-1.1.0.tgz#127aba1c2843b3edeb4ab1c74a8dd112f4c7ec29"
-  integrity sha512-ohuwk+ogqr3AVNHLUfYwgt4gbdNBi2kNq4gVDbhD2pwpJcX4VbkWJ9Q0fuXkVD4IB1BP6COSgMSPHPKjg9ep7g==
-
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -4303,11 +4298,6 @@ commander@^4.0.1, commander@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
-
-comment-parser@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/comment-parser/-/comment-parser-0.7.1.tgz#99607706e369305f89b0268f138fca7e795a60fc"
-  integrity sha512-YLgOoek/4xgO9wDbNi54wwnzpWseqz4ju2qbezDOv6PIf72w8Z7YajwVfEmd6dhnuRrEmo0vCIuG8B6gKz2d8A==
 
 common-tags@^1.8.0:
   version "1.8.0"
@@ -11024,6 +11014,11 @@ react-sizeme@^2.6.7:
     shallowequal "^1.1.0"
     throttle-debounce "^2.1.0"
 
+react-storage-hooks@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-storage-hooks/-/react-storage-hooks-3.0.3.tgz#c1cbb79398434af0694e9c6f0c687cb87bbe85b4"
+  integrity sha512-kRUk+ZnRx4dIAkNwmwRhTHxMZlVpXAW5a3qmbqr17CH+/ZfhJ9ksxyYjCUufB/BCkKOXIOEka7sp3HvtB1A1Gw==
+
 react-syntax-highlighter@^11.0.2:
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/react-syntax-highlighter/-/react-syntax-highlighter-11.0.2.tgz#4e3f376e752b20d2f54e4c55652fd663149e4029"
@@ -12238,18 +12233,17 @@ storybook-chromatic@^2.2.2:
     uuid "^3.3.2"
 
 storybook-design-token@../:
-  version "0.6.0-alpha.1"
+  version "0.8.1"
   dependencies:
-    "@illinois/react-use-local-storage" "1.1.0"
     "@storybook/addons" "5.2.8"
     "@storybook/api" "5.2.8"
     "@storybook/components" "5.2.8"
     "@storybook/theming" "5.2.8"
-    comment-parser "0.7.1"
     gonzales-pe "4.2.4"
     javascript-detect-element-resize "^0.5.3"
     mensch "0.3.4"
     raw-loader "3.1.0"
+    react-storage-hooks "^3.0.3"
     react-use-clipboard "0.1.4"
 
 stream-browserify@^2.0.1:
