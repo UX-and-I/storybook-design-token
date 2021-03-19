@@ -1,0 +1,131 @@
+:root {
+  /**
+  * @tokens Animations
+  * @presenter Animation
+  */
+
+  --animation-rotate: rotate 1.2s infinite cubic-bezier(0.55, 0, 0.1, 1);
+
+  /**
+  * @tokens Border Radius
+  * @presenter BorderRadius
+  */
+
+  --border-radius-s: 4px;
+  --border-radius-m: 8px;
+  --border-radius-l: 16px;
+
+  /**
+  * @tokens Borders
+  * @presenter Border
+  */
+
+  --border: 3px dashed var(--brand);
+
+  /**
+  * @tokens Colors
+  * @presenter Color
+  */
+
+  --b100: hsl(240, 100%, 90%); /* Token Description Example */
+  --b200: hsl(240, 100%, 80%);
+  --b300: hsl(240, 100%, 70%);
+  --b400: hsl(240, 100%, 60%);
+  --b500: hsl(240, 100%, 50%);
+  --b600: hsl(240, 100%, 40%);
+  --b700: hsl(240, 100%, 30%);
+  --b800: hsl(240, 100%, 20%);
+  --b900: hsl(240, 100%, 10%);
+
+  --n100: hsl(0, 0%, 90%);
+  --n200: hsl(0, 0%, 80%);
+  --n300: hsl(0, 0%, 70%);
+  --n400: hsl(0, 0%, 60%);
+  --n500: hsl(0, 0%, 50%);
+  --n600: hsl(0, 0%, 40%);
+  --n700: hsl(0, 0%, 30%);
+  --n800: hsl(0, 0%, 20%);
+  --n900: hsl(0, 0%, 10%);
+
+  --hex: #37dd35;
+  --gradient: linear-gradient(90deg, #f00 0%, #0f0 50%, #f00 100%);
+  --gradient-with-var: linear-gradient(90deg, var(--brand) 0%, #f00 100%);
+
+  /**
+  * @tokens Easings
+  * @presenter Easing
+  */
+
+  --easing-swift: cubic-bezier(0.55, 0, 0.1, 1);
+
+  /**
+  * @tokens Font Families
+  * @presenter FontFamily
+  */
+  --base-font-family: system-ui, sans-serif;
+  --mono-font-family: Monaco, monospace;
+  --web-font-family: 'Open Sans';
+
+  /**
+  * @tokens Font Sizes
+  * @presenter FontSize
+  */
+
+  --font-size-s: 0.75rem;
+  --font-size-m: 0.875rem;
+  --font-size-l: 1rem;
+
+  /**
+  * @tokens Font Weights
+  * @presenter FontWeight
+  */
+
+  --font-weight-regular: 400;
+  --font-weight-bold: 600;
+
+  /**
+  * @tokens Line Heights
+  * @presenter LineHeight
+  */
+
+  --line-height: 1.5;
+
+  /**
+  * @tokens Opacities
+  * @presenter Opacity
+  */
+
+  --opacity: 0.5;
+
+  /**
+  * @tokens Shadows
+  * @presenter Shadow
+  */
+
+  --shadow-m: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-l: 0 1px 5px rgba(0, 0, 0, 0.3);
+
+  /**
+  * @tokens Spacings
+  * @presenter Spacing
+  */
+
+  --spacing-s: 8px;
+  --spacing-m: 12px;
+  --spacing-l: 16px;
+
+  /**
+  * @tokens Z-Index
+  */
+
+  --z-index: 1000;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

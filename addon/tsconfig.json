@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": ["dom", "es2019"],
+    "jsx": "react",
+    "strict": true,
+    "target": "es5",
+    "declaration": true,
+    "declarationDir": "dist",
+    "moduleResolution": "node",
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}

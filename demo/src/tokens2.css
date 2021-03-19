@@ -1,0 +1,8 @@
+:root {
+  /**
+  * @tokens Colors
+  * @presenter Color
+  */
+
+  --brand: var(--b500);
+}

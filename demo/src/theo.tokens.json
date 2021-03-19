@@ -1,0 +1,14 @@
+{
+  "props": {
+    "color-b500": {
+      "value": "#0000ff",
+      "type": "background-color",
+      "category": "Colors"
+    },
+    "color-brand": {
+      "value": "#0000ff",
+      "type": "background-color",
+      "category": "Colors"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "storybook-design-token",
+  "version": "1.0.0-beta.0",
+  "main": "dist/preset.js",
+  "author": "Philipp Siekmann <philipp.siekmann@uxi.de>",
+  "license": "MIT",
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
+  "keywords": [
+    "storybook",
+    "addons"
+  ],
+  "private": true,
+  "scripts": {
+    "start": "tsc -p . -w",
+    "build": "rm -rf dist && tsc -p ."
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@storybook/addon-docs": "^6.1.17",
+    "@storybook/addons": "^6.1.17",
+    "@storybook/components": "^6.1.17",
+    "@storybook/theming": "^6.1.17",
+    "polished": "^4.1.0",
+    "postcss": "^7.0.35",
+    "raw-loader": "^4.0.2",
+    "react-storage-hooks": "^4.0.1",
+    "react-use-clipboard": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.25",
+    "@types/react": "^17.0.1",
+    "typescript": "^4.1.3"
+  }
+}
