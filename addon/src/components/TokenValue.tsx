@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { Icons } from '@storybook/components';
-import { Input } from '@storybook/components/dist/form/input/input';
 import { styled } from '@storybook/theming';
 
 import { Token, TokenSourceType } from '../types/token.types';
+import { Input } from './Input';
 import { ToolButton } from './ToolButton';
 
 interface TokenValueProps {
@@ -72,7 +72,6 @@ export const TokenValue = ({
             setRawValue(newRawValue);
             onValueChange(newRawValue);
           }}
-          size="100%"
           value={rawValue}
         />
       )}
