@@ -16,7 +16,9 @@ Display design token documentation generated from your stylesheets and icon file
   - [Get started](#get-started)
   - [Available presenters](#available-presenters)
   - [Advanced configuration](#advanced-configuration)
+  - [Design Token Doc Block](#design-token-doc-block)
   - [Browser support](#browser-support)
+  - [Migration from v0.x.x](#migration-from-v0xx)
 
 ## Get started
 
@@ -122,7 +124,27 @@ export const parameters = {
 };
 ```
 
+## Design Token Doc Block
+
+This addon comes with a custom Storybook Doc Block allowing you to display your design token documentation inside docs pages.
+
+```tsx
+// colors.stories.mdx
+
+import { DesignTokenDocBlock } from 'storybook-design-token/dist/doc-blocks';
+
+<DesignTokenDocBlock categoryName="Colors" viewType="card" />;
+```
+
+The `categoryName` parameter references your token category name (the part after `@tokens` in your stylesheet annotations). The `viewType` parameter can be set to `card` or `table` to switch between both presentations.
+Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v1/demo/src/design-tokens/colors.stories.mdx) for usage examples.
+
 ## Browser support
 
 - All modern browsers
 - Internet Explorer 11
+
+## Migration from v0.x.x
+
+- Please check the [Get started](#get-started) section for the updated addon configuration.
+- v1.x.x no longer supports the recognition of hard coded token values. In my experience the usefulness was pretty limited by the amount of false positive results. Feel free to open an issue if you want that feature back in v1.
