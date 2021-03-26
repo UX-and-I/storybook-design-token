@@ -1,6 +1,6 @@
 {
   "name": "storybook-design-token",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "main": "dist/preset.js",
   "license": "MIT",
   "keywords": [
@@ -43,9 +43,9 @@
     }
   },
   "dependencies": {
-    "@storybook/addons": "^6.1.17",
-    "@storybook/components": "^6.1.17",
-    "@storybook/theming": "^6.1.17",
+    "@storybook/addons": "^6.2.0-alpha.29",
+    "@storybook/components": "^6.2.0-alpha.29",
+    "@storybook/theming": "^6.2.0-alpha.29",
     "polished": "^4.1.0",
     "postcss": "^7.0.35",
     "raw-loader": "^4.0.2",
@@ -53,7 +53,7 @@
     "react-use-clipboard": "^1.0.7"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "^6.1.17",
+    "@storybook/addon-docs": "^6.2.0-alpha.29",
     "@types/node": "^14.14.25",
     "@types/react": "^17.0.1",
     "typescript": "^4.1.3"
