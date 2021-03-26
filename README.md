@@ -99,7 +99,7 @@ Please check the **[demo](https://storybook-design-token-v1.netlify.app/?path=/s
 
 ## Advanced configuration
 
-You can specify the default tab shown in the addon panel. Set it to the corresponsing category name.
+You can specify the default tab shown in the addon panel. Set it to the corresponding category name.
 
 ```javascript
 export const parameters = {
