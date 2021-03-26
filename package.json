@@ -78,6 +78,7 @@
     "node-notifier": "8.0.1",
     "prismjs": "1.23.0",
     "serialize-javascript": "3.1.0",
-    "set-value": "2.0.1"
+    "set-value": "2.0.1",
+    "ssri": "8.0.1"
   }
 }
