@@ -3,5 +3,8 @@
   "workspaces": [
     "addon",
     "demo"
-  ]
+  ],
+  "resolutions": {
+    "ssri": "8.0.1"
+  }
 }
