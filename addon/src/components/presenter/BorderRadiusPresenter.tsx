@@ -11,6 +11,15 @@ interface BorderRadiusPresenterProps {
 export const BorderRadiusPresenter = ({
   token
 }: BorderRadiusPresenterProps) => {
+  const Container = useMemo(
+    () =>
+      styled.div(() => ({
+        maxHeight: 80,
+        overflow: 'auto'
+      })),
+    []
+  );
+
   const Box = useMemo(
     () =>
       styled.div(({ theme }) => ({
@@ -24,5 +33,9 @@ export const BorderRadiusPresenter = ({
     [token]
   );
 
-  return <Box></Box>;
+  return (
+    <Container>
+      <Box></Box>
+    </Container>
+  );
 };
