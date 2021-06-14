@@ -109,14 +109,25 @@ function determineTokensForCategory(
     const description = comments.find(
       (comment) => comment.source?.start?.line === declaration.source?.end?.line
     );
-
     const value = determineTokenValue(declaration.value, declarations);
+    let presenterToken: TokenPresenter | undefined;
+
+    if(description){
+      const presenterResultsToken = /@presenter (.+)/g.exec(description.text);
+      if (presenterResultsToken){
+        presenterToken = presenterResultsToken[1] as TokenPresenter;
+        description.text = description.text.replace(
+          presenterResultsToken[0] || '',
+          ''
+        );
+      }
+    }
 
     return {
       description: description?.text,
       isAlias: value !== declaration.value,
       name: declaration.prop,
-      presenter,
+      presenter: presenterToken|| presenter,
       rawValue: declaration.value,
       sourceType,
       value
@@ -138,6 +149,8 @@ function determineTokenValue(
     referencedVariableResult?.[3] ||
     referencedVariableResult?.[5] ||
     referencedVariableResult?.[7];
+
+
 
   if (referencedVariable) {
     const value =
