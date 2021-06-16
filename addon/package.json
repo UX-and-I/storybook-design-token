@@ -47,7 +47,7 @@
     "@storybook/components": "^6.2.9",
     "@storybook/theming": "^6.2.9",
     "polished": "^4.1.0",
-    "postcss": "^7.0.35",
+    "postcss": "^7.0.36",
     "postcss-scss": "^2.1.1",
     "raw-loader": "^4.0.2",
     "react-storage-hooks": "^4.0.1",
