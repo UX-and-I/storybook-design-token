@@ -1,4 +1,4 @@
-import postcss, { AtRule, Comment, Declaration, PluginInitializer } from 'postcss';
+import postcss, { AtRule, Comment, Declaration, PluginInitializer, Syntax } from 'postcss';
 import scss from 'postcss-scss';
 
 import { Category, CategoryRange } from '../types/category.types';
@@ -204,7 +204,7 @@ async function getNodes(
 
   await Promise.all(
     files.map((file) => {
-      const syntax = file.filename.endsWith('.scss') ? scss : undefined;
+      const syntax: any = file.filename.endsWith('.scss') ? scss : undefined;
 
       return postcss([
         postcss.plugin('storybook-design-token-parser', plugin)
