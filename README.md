@@ -56,7 +56,8 @@ export const parameters = {
 };
 ```
 
-The last step is to annotate your design tokens with a category name and a presenter. You can do this by adding special comment blocks to your stylesheets. Below is an example of a css stylesheet defining two categories ("Animations" and "Colors"). It works the same way for scss and less files.
+The last step is to annotate your design tokens with a category name and a presenter. You can do this by adding special comment blocks to your stylesheets. Below is an example of a css stylesheet defining three categories ("Animations", "Colors", "Others"). It works the same way for scss and less files.
+
 
 ```css
 :root {
@@ -72,9 +73,15 @@ The last step is to annotate your design tokens with a category name and a prese
   * @presenter Color
   */
 
-  --b100: hsl(240, 100%, 90%); /* Token Description Example */
+  --b100: hsl(240, 100%, 90%); /* Token Description Example  @presenter Color */
   --b200: hsl(240, 100%, 80%);
   --b300: hsl(240, 100%, 70%);
+
+  /**
+  * @tokens Others
+  */
+  --border-normal: 3px dashed red;/* Token Description Example @presenter BorderRadius */
+ 
 }
 ```
 
