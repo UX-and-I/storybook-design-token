@@ -119,6 +119,13 @@
   */
 
   --z-index: 1000;
+
+
+  /**
+  * @tokens Others
+  */
+  --border-normal: 3px dashed red;/* Token Description Example @presenter Border */
+ 
 }
 
 @keyframes rotate {
