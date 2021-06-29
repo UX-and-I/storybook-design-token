@@ -26,9 +26,13 @@ export const BorderRadiusPresenter = ({
         background: theme.color.secondary,
         borderRadius: token.value,
         height: 32,
-        minHeight: `calc(${token.value} * 2)`,
-        minWidth: `calc(${token.value} * 2)`,
-        width: '100%'
+        width: '100%',
+        minHeight: 16,
+        minWidth: 16,
+        maxHeight: 160,
+        maxWidth: '100%',
+        resize: 'both',
+        overflow: 'hidden'
       })),
     [token]
   );
