@@ -28,7 +28,9 @@ export function useTokenTabs(config?: Config) {
       ...lessCategories,
       ...scssCategories,
       svgIconCategory
-    ].filter((category) => category !== undefined);
+    ].filter(
+      (category) => category !== undefined && category?.tokens.length > 0
+    );
 
     const categoryNames = Array.from(
       new Set(categories.map((category) => category?.name))
