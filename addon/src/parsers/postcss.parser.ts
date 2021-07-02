@@ -107,14 +107,18 @@ function determineTokensForCategory(
 
   return declarationsWithinRange.map((declaration) => {
     const description = comments.find(
-      (comment) => comment.source?.start?.line === declaration.source?.end?.line
+      (comment) =>
+        comment.source?.input.file === declaration.source?.input.file &&
+        comment.source?.start?.line === declaration.source?.end?.line
     );
+
     const value = determineTokenValue(declaration.value, declarations);
     let presenterToken: TokenPresenter | undefined;
 
-    if(description){
+    if (description) {
       const presenterResultsToken = /@presenter (.+)/g.exec(description.text);
-      if (presenterResultsToken){
+
+      if (presenterResultsToken) {
         presenterToken = presenterResultsToken[1] as TokenPresenter;
         description.text = description.text.replace(
           presenterResultsToken[0] || '',
@@ -127,7 +131,7 @@ function determineTokensForCategory(
       description: description?.text,
       isAlias: value !== declaration.value,
       name: declaration.prop,
-      presenter: presenterToken|| presenter,
+      presenter: presenterToken || presenter,
       rawValue: declaration.value,
       sourceType,
       value
@@ -149,8 +153,6 @@ function determineTokenValue(
     referencedVariableResult?.[3] ||
     referencedVariableResult?.[5] ||
     referencedVariableResult?.[7];
-
-
 
   if (referencedVariable) {
     const value =
