@@ -14,8 +14,10 @@ export const BorderRadiusPresenter = ({
   const Container = useMemo(
     () =>
       styled.div(() => ({
-        maxHeight: 80,
-        overflow: 'auto'
+        minHeight: 32,
+        height: 32,
+        overflow: 'auto',
+        resize: 'vertical'
       })),
     []
   );
@@ -25,14 +27,10 @@ export const BorderRadiusPresenter = ({
       styled.div(({ theme }) => ({
         background: theme.color.secondary,
         borderRadius: token.value,
-        height: 32,
-        width: '100%',
-        minHeight: 16,
-        minWidth: 16,
-        maxHeight: 160,
-        maxWidth: '100%',
-        resize: 'both',
-        overflow: 'hidden'
+        minHeight: `calc(${token.value} * 2)`,
+        minWidth: `calc(${token.value} * 2)`,
+        overflow: 'hidden',
+        width: '100%'
       })),
     [token]
   );
