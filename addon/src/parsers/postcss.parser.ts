@@ -1,4 +1,4 @@
-import postcss, { AtRule, Comment, Declaration, PluginInitializer, Syntax } from 'postcss';
+import postcss, { AcceptedPlugin, AtRule, Comment, Declaration, OldPlugin, Plugin } from 'postcss';
 import scss from 'postcss-scss';
 
 import { Category, CategoryRange } from '../types/category.types';
@@ -180,8 +180,9 @@ async function getNodes(
   const declarations: Declaration[] = [];
   const keyframes: AtRule[] = [];
 
-  const plugin: PluginInitializer<void> = () => {
-    return (root) => {
+  const plugin: Plugin = {
+    postcssPlugin: 'storybook-design-token-parser',
+    Once(root) {
       root.walkAtRules((atRule) => {
         if (atRule.name === 'keyframes') {
           keyframes.push(atRule);
@@ -214,16 +215,17 @@ async function getNodes(
           declarations.push(declaration);
         }
       });
-    };
+    }
   };
 
   await Promise.all(
     files.map((file) => {
       const syntax: any = file.filename.endsWith('.scss') ? scss : undefined;
 
-      return postcss([
-        postcss.plugin('storybook-design-token-parser', plugin)
-      ]).process(file.content, { from: file.filename, syntax });
+      return postcss([plugin]).process(file.content, {
+        from: file.filename,
+        syntax
+      });
     })
   );
 
