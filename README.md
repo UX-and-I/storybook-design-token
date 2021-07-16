@@ -25,7 +25,7 @@ Display design token documentation generated from your stylesheets and icon file
 First, install the addon.
 
 ```sh
-$ yarn add --dev storybook-design-token@next
+$ yarn add --dev storybook-design-token
 ```
 
 Add the addon to your storybook addon list inside `.storybook/main.js`:
@@ -58,7 +58,6 @@ export const parameters = {
 
 The last step is to annotate your design tokens with a category name and a presenter. You can do this by adding special comment blocks to your stylesheets. Below is an example of a css stylesheet defining three categories ("Animations", "Colors", "Others"). It works the same way for scss and less files.
 
-
 ```css
 :root {
   /**
@@ -80,8 +79,7 @@ The last step is to annotate your design tokens with a category name and a prese
   /**
   * @tokens Others
   */
-  --border-normal: 3px dashed red;/* Token Description Example @presenter BorderRadius */
- 
+  --border-normal: 3px dashed red; /* Token Description Example @presenter BorderRadius */
 }
 ```
 
