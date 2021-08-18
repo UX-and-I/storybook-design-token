@@ -2,6 +2,7 @@ export interface Token {
   description?: string;
   isAlias?: boolean;
   name: string;
+  categoryName?: string;
   presenter?: TokenPresenter;
   rawValue: string;
   sourceType: TokenSourceType;
