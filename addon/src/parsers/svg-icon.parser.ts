@@ -31,8 +31,7 @@ function determineTokens(files: File[]): Token[] {
           presenter: TokenPresenter.SVG,
           rawValue: svg.outerHTML,
           sourceType: TokenSourceType.SVG,
-          value: svg.outerHTML,
-          hideValue: true
+          value: svg.outerHTML
         }))
         .filter((token) => token.name);
     })
