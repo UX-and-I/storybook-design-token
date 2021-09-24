@@ -105,38 +105,46 @@ function determineTokensForCategory(
       (!range.to || (declaration.source?.start?.line || -1) <= range.to.line)
   );
 
-  return declarationsWithinRange.map((declaration) => {
-    const description = comments.find(
-      (comment) =>
-        comment.source?.input.file === declaration.source?.input.file &&
-        comment.source?.start?.line === declaration.source?.end?.line
-    );
+  return declarationsWithinRange
+    .map((declaration) => {
+      const description = comments.find(
+        (comment) =>
+          comment.source?.input.file === declaration.source?.input.file &&
+          comment.source?.start?.line === declaration.source?.end?.line
+      );
 
-    const value = determineTokenValue(declaration.value, declarations);
-    let presenterToken: TokenPresenter | undefined;
+      const value = determineTokenValue(declaration.value, declarations);
+      let presenterToken: TokenPresenter | undefined;
 
-    if (description) {
-      const presenterResultsToken = /@presenter (.+)/g.exec(description.text);
+      if (description) {
+        const presenterResultsToken = /@presenter (.+)/g.exec(description.text);
 
-      if (presenterResultsToken) {
-        presenterToken = presenterResultsToken[1] as TokenPresenter;
-        description.text = description.text.replace(
-          presenterResultsToken[0] || '',
-          ''
-        );
+        if (presenterResultsToken) {
+          presenterToken = presenterResultsToken[1] as TokenPresenter;
+          description.text = description.text.replace(
+            presenterResultsToken[0] || '',
+            ''
+          );
+        }
       }
-    }
 
-    return {
-      description: description?.text,
-      isAlias: value !== declaration.value,
-      name: declaration.prop,
-      presenter: presenterToken || presenter,
-      rawValue: declaration.value,
-      sourceType,
-      value
-    };
-  });
+      return {
+        description: description?.text,
+        isAlias: value !== declaration.value,
+        name: declaration.prop,
+        presenter: presenterToken || presenter,
+        rawValue: declaration.value,
+        sourceType,
+        value
+      };
+    })
+    .slice()
+    .reverse()
+    .filter(
+      (token, index, tokens) =>
+        index === tokens.findIndex((t) => t.name === token.name)
+    )
+    .reverse();
 }
 
 function determineTokenValue(
