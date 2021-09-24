@@ -10,7 +10,13 @@ export async function parseCssFiles(
   sourceType: TokenSourceType,
   injectVariables?: boolean
 ): Promise<{ categories: Category[]; injectionStyles: string }> {
-  const nodes = await getNodes(files.filter((file) => file.content));
+  const relevantFiles = files.filter(
+    (file, index, files) =>
+      file.content &&
+      !files.some((f, i) => f.content === file.content && i < index)
+  );
+
+  const nodes = await getNodes(relevantFiles.filter((file) => file.content));
 
   const categories = determineCategories(
     nodes.comments,
