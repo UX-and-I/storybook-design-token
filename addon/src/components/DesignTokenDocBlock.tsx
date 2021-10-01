@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 
-import { DocsContext, DocsContextProps } from '@storybook/addon-docs/blocks';
+import { DocsContext, DocsContextProps } from '@storybook/addon-docs';
 import { styled } from '@storybook/theming';
 
 import { useTokenTabs } from '../hooks/useTokenTabs';
@@ -21,9 +21,9 @@ interface CompatDocsContextProps extends DocsContextProps {
  * This is a compatibility method to get docs parameters across Storybook versions.
  */
 function getMainStory(context: CompatDocsContextProps) {
-  return typeof context.storyById === 'function' ?
-    context.storyById(context.id!) :
-    context;
+  return typeof context.storyById === 'function'
+    ? context.storyById(context.id!)
+    : context;
 }
 
 export const DesignTokenDocBlock = ({
