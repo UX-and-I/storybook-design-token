@@ -11,6 +11,7 @@ import { FontFamilyPresenter } from './presenter/FontFamilyPresenter';
 import { FontSizePresenter } from './presenter/FontSizePresenter';
 import { FontWeightPresenter } from './presenter/FontWeightPresenter';
 import { LineHeightPresenter } from './presenter/LineHeightPresenter';
+import { LetterSpacingPresenter } from './presenter/LetterSpacingPresenter';
 import { OpacityPresenter } from './presenter/OpacityPresenter';
 import { ShadowPresenter } from './presenter/ShadowPresenter';
 import { SpacingPresenter } from './presenter/SpacingPresenter';
@@ -44,6 +45,8 @@ export const TokenPreview = ({ token }: TokenPreviewProps) => {
       return <ColorPresenter token={token} />;
     case TokenPresenter.LINE_HEIGHT:
       return <LineHeightPresenter token={token} />;
+    case TokenPresenter.LETTER_SPACING:
+      return <LetterSpacingPresenter token={token} />;
     case TokenPresenter.OPACITY:
       return <OpacityPresenter token={token} />;
     case TokenPresenter.SHADOW:

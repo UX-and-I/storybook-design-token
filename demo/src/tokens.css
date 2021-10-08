@@ -91,6 +91,15 @@
   --line-height: 1.5;
 
   /**
+  * @tokens Letter Spacing
+  * @presenter LetterSpacing
+  */
+
+  --letter-spacing-none: 0;
+  --letter-spacing-s: 1px;
+  --letter-spacing-m: 2px;
+
+  /**
   * @tokens Opacities
   * @presenter Opacity
   */
