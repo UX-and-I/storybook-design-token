@@ -13,8 +13,7 @@ import { ToolButton } from './ToolButton';
 interface TokenCardsProps {
   categories: Category[];
   readonly?: boolean;
-    showValueColumn?: boolean;
-
+  showValueColumn?: boolean;
 }
 
 export const TokenCards = ({ categories, readonly, showValueColumn }: TokenCardsProps) => {
