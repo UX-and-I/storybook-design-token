@@ -19,6 +19,7 @@ export enum TokenPresenter {
   FONT_WEIGHT = 'FontWeight',
   GRADIENT = 'Gradient',
   LINE_HEIGHT = 'LineHeight',
+  LETTER_SPACING = 'LetterSpacing',
   OPACITY = 'Opacity',
   SHADOW = 'Shadow',
   SPACING = 'Spacing',
