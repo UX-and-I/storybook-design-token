@@ -17,7 +17,11 @@ interface TokenTableProps {
   showValueColumn?: boolean;
 }
 
-export const TokenTable = ({ categories, readonly, showValueColumn }: TokenTableProps) => {
+export const TokenTable = ({
+  categories,
+  readonly,
+  showValueColumn = true
+}: TokenTableProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
   }>({});
@@ -107,15 +111,12 @@ export const TokenTable = ({ categories, readonly, showValueColumn }: TokenTable
     [categories]
   );
 
-
   return (
     <Table>
       <thead className="docblock-argstable-head">
         <tr>
           <th>Name</th>
-          {showValueColumn && (
-            <th>Value X {showValueColumn}</th>
-          )}
+          {showValueColumn && <th>Value</th>}
           <th>Preview</th>
         </tr>
       </thead>

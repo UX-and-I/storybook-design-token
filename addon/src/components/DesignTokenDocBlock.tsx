@@ -9,8 +9,8 @@ import { TokenTable } from './TokenTable';
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
-  viewType?: 'card' | 'table';
   showValueColumn?: boolean;
+  viewType?: 'card' | 'table';
 }
 
 interface CompatDocsContextProps extends DocsContextProps {
@@ -29,8 +29,8 @@ function getMainStory(context: CompatDocsContextProps) {
 
 export const DesignTokenDocBlock = ({
   categoryName,
-  viewType = 'table',
   showValueColumn = true,
+  viewType = 'table'
 }: DesignTokenDocBlockProps) => {
   const context = useContext(DocsContext);
   const story = getMainStory(context);
@@ -68,11 +68,19 @@ export const DesignTokenDocBlock = ({
     <Container className="design-token-container">
       {viewType === 'table' && (
         <Card className="design-token-card">
-          <TokenTable categories={tab.categories} readonly showValueColumn={showValueColumn} />
+          <TokenTable
+            categories={tab.categories}
+            readonly
+            showValueColumn={showValueColumn}
+          />
         </Card>
       )}
       {viewType === 'card' && (
-        <TokenCards categories={tab.categories} readonly showValueColumn={showValueColumn} />
+        <TokenCards
+          categories={tab.categories}
+          readonly
+          showValueColumn={showValueColumn}
+        />
       )}
     </Container>
   );
