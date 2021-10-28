@@ -142,7 +142,7 @@ import { DesignTokenDocBlock } from 'storybook-design-token/dist/doc-blocks';
 <DesignTokenDocBlock categoryName="Colors" viewType="card" />;
 ```
 
-The `categoryName` parameter references your token category name (the part after `@tokens` in your stylesheet annotations). The `viewType` parameter can be set to `card` or `table` to switch between both presentations.
+The `categoryName` parameter references your token category name (the part after `@tokens` in your stylesheet annotations). The `viewType` parameter can be set to `card` or `table` to switch between both presentations. In some cases you might want to hide the token values. You can do that by passing `showValueColumn={false}`.
 Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v1/demo/src/design-tokens/colors.stories.mdx) for usage examples.
 
 ## Browser support

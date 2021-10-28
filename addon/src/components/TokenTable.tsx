@@ -14,9 +14,14 @@ import { ToolButton } from './ToolButton';
 interface TokenTableProps {
   categories: Category[];
   readonly?: boolean;
+  showValueColumn?: boolean;
 }
 
-export const TokenTable = ({ categories, readonly }: TokenTableProps) => {
+export const TokenTable = ({
+  categories,
+  readonly,
+  showValueColumn = true
+}: TokenTableProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
   }>({});
@@ -111,7 +116,7 @@ export const TokenTable = ({ categories, readonly }: TokenTableProps) => {
       <thead className="docblock-argstable-head">
         <tr>
           <th>Name</th>
-          <th>Value</th>
+          {showValueColumn && <th>Value</th>}
           <th>Preview</th>
         </tr>
       </thead>
@@ -145,19 +150,21 @@ export const TokenTable = ({ categories, readonly }: TokenTableProps) => {
                 </WithTooltip>
               )}
             </td>
-            <td>
-              <TokenValue
-                onValueChange={(newValue) => {
-                  setTokenValueOverwrites((tokenValueOverwrites) => ({
-                    ...tokenValueOverwrites,
-                    [token.name]:
-                      newValue === token.rawValue ? undefined : newValue
-                  }));
-                }}
-                readonly={readonly}
-                token={token}
-              />
-            </td>
+            {showValueColumn && (
+              <td>
+                <TokenValue
+                  onValueChange={(newValue) => {
+                    setTokenValueOverwrites((tokenValueOverwrites) => ({
+                      ...tokenValueOverwrites,
+                      [token.name]:
+                        newValue === token.rawValue ? undefined : newValue
+                    }));
+                  }}
+                  readonly={readonly}
+                  token={token}
+                />
+              </td>
+            )}
             <td>
               <TokenPreview
                 token={{

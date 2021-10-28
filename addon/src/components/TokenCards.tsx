@@ -13,9 +13,14 @@ import { ToolButton } from './ToolButton';
 interface TokenCardsProps {
   categories: Category[];
   readonly?: boolean;
+  showValueColumn?: boolean;
 }
 
-export const TokenCards = ({ categories, readonly }: TokenCardsProps) => {
+export const TokenCards = ({
+  categories,
+  readonly,
+  showValueColumn = true
+}: TokenCardsProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
   }>({});
@@ -86,16 +91,19 @@ export const TokenCards = ({ categories, readonly }: TokenCardsProps) => {
             </WithTooltip>
           )}
 
-          <TokenValue
-            onValueChange={(newValue) => {
-              setTokenValueOverwrites((tokenValueOverwrites) => ({
-                ...tokenValueOverwrites,
-                [token.name]: newValue === token.rawValue ? undefined : newValue
-              }));
-            }}
-            readonly={readonly}
-            token={token}
-          />
+          {showValueColumn && (
+            <TokenValue
+              onValueChange={(newValue) => {
+                setTokenValueOverwrites((tokenValueOverwrites) => ({
+                  ...tokenValueOverwrites,
+                  [token.name]:
+                    newValue === token.rawValue ? undefined : newValue
+                }));
+              }}
+              readonly={readonly}
+              token={token}
+            />
+          )}
 
           <TokenPreview
             token={{
