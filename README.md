@@ -99,6 +99,7 @@ Please check the **[demo](https://storybook-design-token-v1.netlify.app/?path=/s
 - FontFamily
 - FontSize
 - FontWeight
+- LetterSpacing
 - LineHeight
 - Opacity
 - Shadow
