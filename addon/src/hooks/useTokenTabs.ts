@@ -27,7 +27,7 @@ export function useTokenTabs(config?: Config) {
       ...cssCategories,
       ...lessCategories,
       ...scssCategories,
-      ...svgIconCategories,
+      ...svgIconCategories
     ].filter(
       (category) => category !== undefined && category?.tokens.length > 0
     );
