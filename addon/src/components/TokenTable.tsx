@@ -96,6 +96,11 @@ export const TokenTable = ({
 
           ':not(:last-of-type)': {
             paddingRight: 15
+          },
+
+          'svg': {
+            maxWidth: "100%",
+            maxHeight: "100%",
           }
         }
       })),

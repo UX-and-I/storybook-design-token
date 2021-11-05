@@ -49,6 +49,11 @@ export const TokenCards = ({
 
         '> *:not(:last-child)': {
           marginBottom: 8
+        },
+
+        'svg': {
+          maxWidth: "100%",
+          maxHeight: "100%",
         }
       })),
     []
