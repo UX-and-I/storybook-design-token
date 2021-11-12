@@ -6,7 +6,6 @@
   ],
   "resolutions": {
     "hosted-git-info": "2.8.9",
-    "prismjs": "^1.24.0",
     "ssri": "8.0.1",
     "ws": "^6.2.2"
   }
