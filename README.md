@@ -1,4 +1,4 @@
-⚠️ **This is the documentation for v1. Please check the "v0"-Branch for the documentation of older versions.** ⚠️
+⚠️ **This is the documentation for v1. Please check the "v0"-Branch for documentation of older versions.** ⚠️
 
 # Storybook Design Token Addon
 
