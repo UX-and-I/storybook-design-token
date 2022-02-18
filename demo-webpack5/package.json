@@ -1,0 +1,23 @@
+{
+  "name": "demo-webpack5",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@storybook/addon-actions": "^6.3.12",
+    "@storybook/addon-essentials": "^6.3.12",
+    "@storybook/addon-links": "^6.3.12",
+    "@storybook/builder-webpack5": "^6.3.12",
+    "@storybook/html": "^6.3.12",
+    "@storybook/manager-webpack5": "^6.3.12",
+    "babel-loader": "^8.2.3"
+  },
+  "dependencies": {
+    "storybook-design-token": "^1.4.0-webpack5.0"
+  },
+  "scripts": {
+    "start": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  }
+}

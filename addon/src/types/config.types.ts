@@ -1,6 +1,5 @@
 export interface Config {
   defaultTab?: string;
-  files: File[];
   styleInjection?: string;
 }
 

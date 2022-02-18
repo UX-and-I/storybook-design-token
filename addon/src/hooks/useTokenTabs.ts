@@ -4,7 +4,7 @@ import { useStorageState } from 'react-storage-hooks';
 import { parseCssFiles } from '../parsers/postcss.parser';
 import { parseSvgFiles } from '../parsers/svg-icon.parser';
 import { Category } from '../types/category.types';
-import { Config } from '../types/config.types';
+import { Config, File } from '../types/config.types';
 import { TokenSourceType } from '../types/token.types';
 
 export function useTokenTabs(config?: Config) {
@@ -21,6 +21,8 @@ export function useTokenTabs(config?: Config) {
   );
 
   const [styleInjections, setStyleInjections] = useState('');
+
+  const tokenFiles = (process.env.STORYBOOK_DESIGN_TOKEN as unknown) as File[];
 
   const tabs = useMemo(() => {
     const categories = [
@@ -45,16 +47,16 @@ export function useTokenTabs(config?: Config) {
   }, [cssCategories, lessCategories, scssCategories, svgIconCategories]);
 
   useEffect(() => {
-    const cssFiles = config?.files?.filter((file) =>
+    const cssFiles = tokenFiles?.filter((file) =>
       file.filename.endsWith('.css')
     );
-    const lessFiles = config?.files?.filter((file) =>
+    const lessFiles = tokenFiles?.filter((file) =>
       file.filename.endsWith('.less')
     );
-    const scssFiles = config?.files?.filter((file) =>
+    const scssFiles = tokenFiles?.filter((file) =>
       file.filename.endsWith('.scss')
     );
-    const svgFiles = config?.files?.filter((file) =>
+    const svgFiles = tokenFiles?.filter((file) =>
       file.filename.endsWith('.svg')
     );
 
