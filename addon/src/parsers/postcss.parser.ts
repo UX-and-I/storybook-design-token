@@ -1,4 +1,4 @@
-import postcss, { AcceptedPlugin, AtRule, Comment, Declaration, OldPlugin, Plugin } from 'postcss';
+import postcss, { AtRule, Comment, Declaration, Plugin } from 'postcss';
 import scss from 'postcss-scss';
 
 import { Category, CategoryRange } from '../types/category.types';

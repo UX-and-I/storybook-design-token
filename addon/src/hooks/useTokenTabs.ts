@@ -8,6 +8,8 @@ import { Config, File } from '../types/config.types';
 import { TokenSourceType } from '../types/token.types';
 
 export function useTokenTabs(config?: Config) {
+  const [tokenFiles, setTokenFiles] = useState<File[]>([]);
+
   const [cssCategories, setCssCategories] = useState<Category[]>([]);
   const [lessCategories, setLessCategories] = useState<Category[]>([]);
   const [scssCategories, setScssCategories] = useState<Category[]>([]);
@@ -21,8 +23,6 @@ export function useTokenTabs(config?: Config) {
   );
 
   const [styleInjections, setStyleInjections] = useState('');
-
-  const tokenFiles = (process.env.STORYBOOK_DESIGN_TOKEN as unknown) as File[];
 
   const tabs = useMemo(() => {
     const categories = [
@@ -45,6 +45,18 @@ export function useTokenTabs(config?: Config) {
       ) as Category[]
     }));
   }, [cssCategories, lessCategories, scssCategories, svgIconCategories]);
+
+  useEffect(() => {
+    async function fetchTokenFiles() {
+      const designTokenSorce = await (
+        await fetch('/design-tokens.source.json')
+      ).text();
+
+      setTokenFiles(JSON.parse(designTokenSorce));
+    }
+
+    fetchTokenFiles();
+  }, []);
 
   useEffect(() => {
     const cssFiles = tokenFiles?.filter((file) =>
@@ -107,7 +119,7 @@ export function useTokenTabs(config?: Config) {
     parseSvgFiles(svgFiles).then((categories) => {
       setSvgIconCategories(categories);
     });
-  }, [config]);
+  }, [config, tokenFiles]);
 
   useEffect(() => {
     if (config?.defaultTab && !activeCategory) {

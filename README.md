@@ -1,4 +1,4 @@
-⚠️ **This is the documentation for v1. Please check the "v0"-Branch for documentation of older versions.** ⚠️
+⚠️ **This is the documentation for v2. Please check the "v\*" branches for documentation of older versions.** ⚠️
 
 # Storybook Design Token Addon
 
@@ -33,26 +33,6 @@ Add the addon to your storybook addon list inside `.storybook/main.js`:
 ```javascript
 module.exports = {
   addons: ['storybook-design-token']
-};
-```
-
-Next, add the addon configuration to your `.storybook/preview.js` file. The addon works by parsing your stylesheets and svg files (token files) and extracting design token information. Therefore you need to tell the addon where your token files are located. The example below should work for most project setups. It assumes that your token files are located somewhere under a `src` directory, and use the default file extensions (.css, .less, .scss, .svg).
-
-```javascript
-const tokenContext = require.context(
-  '!!raw-loader!../src',
-  true,
-  /.\.(css|less|scss|svg)$/
-);
-
-const tokenFiles = tokenContext.keys().map(function (filename) {
-  return { filename: filename, content: tokenContext(filename).default };
-});
-
-export const parameters = {
-  designToken: {
-    files: tokenFiles
-  }
 };
 ```
 
@@ -107,27 +87,43 @@ Please check the **[demo](https://storybook-design-token-v1.netlify.app/?path=/s
 
 ## Advanced configuration
 
+### Default tab
+
 You can specify the default tab shown in the addon panel. Set it to the corresponding category name.
+
+`.storybook/preview.js`
 
 ```javascript
 export const parameters = {
   designToken: {
-    defaultTab: 'Colors',
-    files: tokenFiles
+    defaultTab: 'Colors'
   }
 };
 ```
 
+### Style injection
+
 To inject styles needed by your design token documentation, use the `styleInjection` parameter. A typical usecase are web fonts needed by your font family tokens. Please note that the styleInjection parameter only works with valid css.
+
+`.storybook/preview.js`
 
 ```javascript
 export const parameters = {
   designToken: {
-    files: tokenFiles,
     styleInjection:
       '@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");'
   }
 };
+```
+
+### Specify a custom glob for your token files
+
+By default, the addon parses all `.css`, `.scss`, `.less` and `.svg` files of your code base for annotated design tokens. If you only want to parse specific files, you can pass a [glob](https://github.com/isaacs/node-glob) via the `DESIGN_TOKEN_GLOB` environment variable.
+
+For example:
+
+```
+DESIGN_TOKEN_GLOB=**/*.tokens.{css,scss,less,svg}
 ```
 
 ## Design Token Doc Block

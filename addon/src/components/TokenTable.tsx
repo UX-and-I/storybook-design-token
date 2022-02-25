@@ -98,9 +98,9 @@ export const TokenTable = ({
             paddingRight: 15
           },
 
-          'svg': {
-            maxWidth: "100%",
-            maxHeight: "100%",
+          svg: {
+            maxWidth: '100%',
+            maxHeight: '100%'
           }
         }
       })),
