@@ -17,7 +17,7 @@
     "storybook-design-token": "^1.4.0-webpack5.0"
   },
   "scripts": {
-    "start": "start-storybook -p 6006",
+    "start": "start-storybook -p 6006 --no-manager-cache",
     "build-storybook": "build-storybook"
   }
 }
