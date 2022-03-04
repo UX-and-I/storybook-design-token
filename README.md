@@ -18,7 +18,7 @@ Display design token documentation generated from your stylesheets and icon file
   - [Advanced configuration](#advanced-configuration)
   - [Design Token Doc Block](#design-token-doc-block)
   - [Browser support](#browser-support)
-  - [Migration from v0.x.x](#migration-from-v0xx)
+  - [Migration from v0.x.x and v1.x.x](#migration-from-v0xx-and-v1xx)
 
 ## Get started
 
@@ -146,7 +146,7 @@ Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v1
 - All modern browsers
 - Internet Explorer 11
 
-## Migration from v0.x.x
+## Migration from v0.x.x and v1.x.x
 
 - Please check the [Get started](#get-started) section for the updated addon configuration.
-- v1.x.x no longer supports the recognition of hard coded token values. In my experience the usefulness was pretty limited by the amount of false positive results. Feel free to open an issue if you want that feature back in v1.
+- The `files` property required in earlier versions has been removed. Please delete it from your `.storybook/preview.js`. You are no longer required to load the token files inside `.storybook/preview.js`.
