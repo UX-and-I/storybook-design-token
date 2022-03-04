@@ -1,14 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useStorageState } from 'react-storage-hooks';
 
-import { parseCssFiles } from '../parsers/postcss.parser';
-import { parseSvgFiles } from '../parsers/svg-icon.parser';
 import { Category } from '../types/category.types';
-import { Config, File } from '../types/config.types';
-import { TokenSourceType } from '../types/token.types';
+import { Config } from '../types/config.types';
 
 export function useTokenTabs(config?: Config) {
-  const [tokenFiles, setTokenFiles] = useState<File[]>([]);
+  const [tokenFiles, setTokenFiles] = useState<{
+    [type: string]: { categories: Category[]; injectionStyles: string };
+  }>();
 
   const [cssCategories, setCssCategories] = useState<Category[]>([]);
   const [lessCategories, setLessCategories] = useState<Category[]>([]);
@@ -59,66 +58,52 @@ export function useTokenTabs(config?: Config) {
   }, []);
 
   useEffect(() => {
-    const cssFiles = tokenFiles?.filter((file) =>
-      file.filename.endsWith('.css')
-    );
-    const lessFiles = tokenFiles?.filter((file) =>
-      file.filename.endsWith('.less')
-    );
-    const scssFiles = tokenFiles?.filter((file) =>
-      file.filename.endsWith('.scss')
-    );
-    const svgFiles = tokenFiles?.filter((file) =>
-      file.filename.endsWith('.svg')
-    );
+    const cssTokens = tokenFiles?.cssTokens;
+    const lessTokens = tokenFiles?.lessTokens;
+    const scssTokens = tokenFiles?.scssTokens;
+    const svgTokens = tokenFiles?.svgTokens;
 
     setStyleInjections(config?.styleInjection || '');
 
-    parseCssFiles(cssFiles, TokenSourceType.CSS, true).then(
-      ({ categories, injectionStyles }) => {
-        setCssCategories(categories);
+    if (cssTokens) {
+      setCssCategories(cssTokens.categories);
 
-        if (!config?.defaultTab && categories.length > 0) {
-          setActiveCategory(
-            (activeCategory) => activeCategory || categories[0].name
-          );
-        }
-
-        setStyleInjections((current) => current + injectionStyles);
+      if (!config?.defaultTab && cssTokens.categories.length > 0) {
+        setActiveCategory(
+          (activeCategory) => activeCategory || cssTokens.categories[0].name
+        );
       }
-    );
 
-    parseCssFiles(scssFiles, TokenSourceType.SCSS).then(
-      ({ categories, injectionStyles }) => {
-        setScssCategories(categories);
+      setStyleInjections((current) => current + cssTokens.injectionStyles);
+    }
 
-        if (!config?.defaultTab && categories.length > 0) {
-          setActiveCategory(
-            (activeCategory) => activeCategory || categories[0].name
-          );
-        }
+    if (lessTokens) {
+      setLessCategories(lessTokens.categories);
 
-        setStyleInjections((current) => current + injectionStyles);
+      if (!config?.defaultTab && lessTokens.categories.length > 0) {
+        setActiveCategory(
+          (activeCategory) => activeCategory || lessTokens.categories[0].name
+        );
       }
-    );
 
-    parseCssFiles(lessFiles, TokenSourceType.LESS).then(
-      ({ categories, injectionStyles }) => {
-        setLessCategories(categories);
+      setStyleInjections((current) => current + lessTokens.injectionStyles);
+    }
 
-        if (!config?.defaultTab && categories.length > 0) {
-          setActiveCategory(
-            (activeCategory) => activeCategory || categories[0].name
-          );
-        }
+    if (scssTokens) {
+      setScssCategories(scssTokens.categories);
 
-        setStyleInjections((current) => current + injectionStyles);
+      if (!config?.defaultTab && scssTokens.categories.length > 0) {
+        setActiveCategory(
+          (activeCategory) => activeCategory || scssTokens.categories[0].name
+        );
       }
-    );
 
-    parseSvgFiles(svgFiles).then((categories) => {
-      setSvgIconCategories(categories);
-    });
+      setStyleInjections((current) => current + scssTokens.injectionStyles);
+    }
+
+    if (svgTokens) {
+      setSvgIconCategories(svgTokens.categories);
+    }
   }, [config, tokenFiles]);
 
   useEffect(() => {

@@ -1,27 +1,35 @@
+import { JSDOM } from 'jsdom';
+
 import { Category } from '../types/category.types';
 import { File } from '../types/config.types';
 import { Token, TokenPresenter, TokenSourceType } from '../types/token.types';
 
-export async function parseSvgFiles(files: File[] = []): Promise<Category[]> {
+export async function parseSvgFiles(
+  files: File[] = []
+): Promise<{ categories: Category[] }> {
   const tokens = determineTokens(files);
 
   let categoryNames = tokens
     .map((token) => token.categoryName)
     .filter((v, i, a) => a.indexOf(v) === i);
 
-  return categoryNames.map((name) => {
-    return {
-      name: name || 'SVG Icons',
-      presenter: TokenPresenter.SVG,
-      tokens: tokens.filter((token) => token.categoryName === name)
-    };
-  });
+  return {
+    categories: categoryNames.map((name) => {
+      return {
+        name: name || 'SVG Icons',
+        presenter: TokenPresenter.SVG,
+        tokens: tokens.filter((token) => token.categoryName === name)
+      };
+    })
+  };
 }
 
 function determineTokens(files: File[]): Token[] {
   if (!files) {
     return [];
   }
+
+  const { document } = new JSDOM().window;
 
   return files
     .map((file) => {
