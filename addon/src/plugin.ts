@@ -70,8 +70,6 @@ export class StorybookDesignTokenPluginWebpack4 {
       async (compilation: any, callback: any) => {
         const files = getTokenFilePaths(compiler);
 
-        console.log(files);
-
         addFilesToWebpackDeps(compilation, files);
 
         const sourceString = await generateTokenFilesJsonString(files);

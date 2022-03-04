@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 
-import { Icons, TooltipMessage, TooltipNote, WithTooltip } from '@storybook/components';
+import { Button, Icons, TooltipMessage, TooltipNote, WithTooltip } from '@storybook/components';
 import { styled } from '@storybook/theming';
 
 import { Category } from '../types/category.types';
@@ -17,6 +17,8 @@ interface TokenCardsProps {
   showValueColumn?: boolean;
 }
 
+const pageSize = 50;
+
 export const TokenCards = ({
   categories,
   padded = true,
@@ -27,13 +29,15 @@ export const TokenCards = ({
     [tokenName: string]: any;
   }>({});
 
+  const [page, setPage] = useState(0);
+
   const Container = useMemo(
     () =>
       styled.div(() => ({
         display: 'grid',
         columnGap: 12,
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        padding: padded ? '15px' : undefined,
+        padding: padded ? 15 : undefined,
         rowGap: 12
       })),
     []
@@ -62,6 +66,28 @@ export const TokenCards = ({
     []
   );
 
+  const Pagination = useMemo(
+    () =>
+      styled.div(({ theme }) => ({
+        alignItems: 'center',
+        color: theme.color.defaultText,
+        display: 'flex',
+        fontFamily: theme.typography.fonts.base,
+        fontSize: theme.typography.size.s1,
+        justifyContent: 'space-between',
+        paddingRight: padded ? 15 : undefined,
+        paddingBottom: padded ? 48 : undefined,
+        paddingLeft: padded ? 15 : undefined,
+        marginTop: 8,
+
+        '& > div': {
+          display: 'flex',
+          gap: 8
+        }
+      })),
+    []
+  );
+
   const tokens = useMemo(
     () =>
       categories.reduce(
@@ -71,56 +97,90 @@ export const TokenCards = ({
     [categories]
   );
 
+  const pages = useMemo(() => Math.ceil(tokens.length / pageSize), [tokens]);
+
   return (
-    <Container>
-      {tokens.map((token, index) => (
-        <Card key={token.name + '-card-' + index}>
-          {token.name}
+    <>
+      <Container>
+        {tokens
+          .slice(page * pageSize, page * pageSize + pageSize)
+          .map((token, index) => (
+            <Card key={token.name + '-card-' + index}>
+              {token.name}
 
-          <WithTooltip
-            hasChrome={false}
-            tooltip={<TooltipNote note="Copy to clipboard" />}
-          >
-            <ClipboardButton
-              button={
-                <ToolButton>
-                  <Icons icon="copy" />
-                </ToolButton>
-              }
-              value={token.name}
-            />
-          </WithTooltip>
+              <WithTooltip
+                hasChrome={false}
+                tooltip={<TooltipNote note="Copy to clipboard" />}
+              >
+                <ClipboardButton
+                  button={
+                    <ToolButton>
+                      <Icons icon="copy" />
+                    </ToolButton>
+                  }
+                  value={token.name}
+                />
+              </WithTooltip>
 
-          {token.description && (
-            <WithTooltip tooltip={<TooltipMessage desc={token.description} />}>
-              <ToolButton>
-                <Icons icon="info" />
-              </ToolButton>
-            </WithTooltip>
-          )}
+              {token.description && (
+                <WithTooltip
+                  tooltip={<TooltipMessage desc={token.description} />}
+                >
+                  <ToolButton>
+                    <Icons icon="info" />
+                  </ToolButton>
+                </WithTooltip>
+              )}
 
-          {showValueColumn && (
-            <TokenValue
-              onValueChange={(newValue) => {
-                setTokenValueOverwrites((tokenValueOverwrites) => ({
-                  ...tokenValueOverwrites,
-                  [token.name]:
-                    newValue === token.rawValue ? undefined : newValue
-                }));
-              }}
-              readonly={readonly}
-              token={token}
-            />
-          )}
+              {showValueColumn && (
+                <TokenValue
+                  onValueChange={(newValue) => {
+                    setTokenValueOverwrites((tokenValueOverwrites) => ({
+                      ...tokenValueOverwrites,
+                      [token.name]:
+                        newValue === token.rawValue ? undefined : newValue
+                    }));
+                  }}
+                  readonly={readonly}
+                  token={token}
+                />
+              )}
 
-          <TokenPreview
-            token={{
-              ...token,
-              value: tokenValueOverwrites[token.name] || token.value
-            }}
-          />
-        </Card>
-      ))}
-    </Container>
+              <TokenPreview
+                token={{
+                  ...token,
+                  value: tokenValueOverwrites[token.name] || token.value
+                }}
+              />
+            </Card>
+          ))}
+      </Container>
+
+      {pages > 1 && (
+        <Pagination>
+          <span>
+            Page {page + 1} of {pages}
+          </span>
+          <div>
+            <Button
+              disabled={page === 0}
+              onClick={() => setPage((page) => Math.max(0, page - 1))}
+              tertiary
+              small
+            >
+              Previous page
+            </Button>
+            <Button
+              disabled={page >= pages - 1}
+              onClick={() => setPage((page) => Math.min(page + 1, pages - 1))}
+              tertiary
+              small
+            >
+              Next page
+            </Button>
+          </div>
+        </Pagination>
+      )}
+    </>
   );
 };
