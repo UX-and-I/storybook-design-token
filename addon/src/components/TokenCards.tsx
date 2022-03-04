@@ -12,12 +12,14 @@ import { ToolButton } from './ToolButton';
 
 interface TokenCardsProps {
   categories: Category[];
+  padded?: boolean;
   readonly?: boolean;
   showValueColumn?: boolean;
 }
 
 export const TokenCards = ({
   categories,
+  padded = true,
   readonly,
   showValueColumn = true
 }: TokenCardsProps) => {
@@ -31,6 +33,7 @@ export const TokenCards = ({
         display: 'grid',
         columnGap: 12,
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+        padding: padded ? '15px' : undefined,
         rowGap: 12
       })),
     []
@@ -51,9 +54,9 @@ export const TokenCards = ({
           marginBottom: 8
         },
 
-        'svg': {
-          maxWidth: "100%",
-          maxHeight: "100%",
+        svg: {
+          maxWidth: '100%',
+          maxHeight: '100%'
         }
       })),
     []
@@ -70,8 +73,8 @@ export const TokenCards = ({
 
   return (
     <Container>
-      {tokens.map((token) => (
-        <Card key={token.name}>
+      {tokens.map((token, index) => (
+        <Card key={token.name + '-card-' + index}>
           {token.name}
 
           <WithTooltip

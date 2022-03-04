@@ -135,7 +135,7 @@ This addon comes with a custom Storybook Doc Block allowing you to display your 
 
 import { DesignTokenDocBlock } from 'storybook-design-token/dist/doc-blocks';
 
-<DesignTokenDocBlock categoryName="Colors" viewType="card" />;
+<DesignTokenDocBlock categoryName="Colors" maxHeight={600} viewType="card" />;
 ```
 
 The `categoryName` parameter references your token category name (the part after `@tokens` in your stylesheet annotations). The `viewType` parameter can be set to `card` or `table` to switch between both presentations. In some cases you might want to hide the token values. You can do that by passing `showValueColumn={false}`.

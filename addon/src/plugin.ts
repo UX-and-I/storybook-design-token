@@ -11,7 +11,10 @@ function getTokenFilePaths(compiler: any): string[] {
     path.join(
       compiler.context,
       process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg}'
-    )
+    ),
+    {
+      ignore: ['**/node_modules/**', '**/storybook-static/**', '**/*.chunk.*']
+    }
   );
 }
 
@@ -66,6 +69,8 @@ export class StorybookDesignTokenPluginWebpack4 {
       'StorybookDesignTokenPlugin',
       async (compilation: any, callback: any) => {
         const files = getTokenFilePaths(compiler);
+
+        console.log(files);
 
         addFilesToWebpackDeps(compilation, files);
 

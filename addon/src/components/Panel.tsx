@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useParameter } from '@storybook/api';
 import { ActionBar, ScrollArea, Tabs } from '@storybook/components';
-import { styled } from '@storybook/theming';
 
 import { useTokenTabs } from '../hooks/useTokenTabs';
 import { Config } from '../types/config.types';
@@ -21,14 +20,6 @@ export const Panel = () => {
     tabs
   } = useTokenTabs(config);
 
-  const TokenContainer = useMemo(
-    () =>
-      styled.div(() => ({
-        padding: 15
-      })),
-    []
-  );
-
   return (
     <>
       <style>{styleInjections}</style>
@@ -40,10 +31,10 @@ export const Panel = () => {
         >
           {tabs.map((tab) => (
             <div key={tab.label} id={tab.label} title={tab.label}>
-              <TokenContainer>
+              <div>
                 {cardView && <TokenCards categories={tab.categories} />}
                 {!cardView && <TokenTable categories={tab.categories} />}
-              </TokenContainer>
+              </div>
             </div>
           ))}
         </Tabs>

@@ -9,6 +9,7 @@ import { TokenTable } from './TokenTable';
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
+  maxHeight?: number;
   showValueColumn?: boolean;
   viewType?: 'card' | 'table';
 }
@@ -29,6 +30,7 @@ function getMainStory(context: CompatDocsContextProps) {
 
 export const DesignTokenDocBlock = ({
   categoryName,
+  maxHeight = 600,
   showValueColumn = true,
   viewType = 'table'
 }: DesignTokenDocBlockProps) => {
@@ -54,8 +56,7 @@ export const DesignTokenDocBlock = ({
       styled.div(() => ({
         boxShadow:
           'rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 7%) 0px 0px 0px 1px',
-        borderRadius: 4,
-        padding: 20
+        borderRadius: 4
       })),
     []
   );
@@ -70,6 +71,7 @@ export const DesignTokenDocBlock = ({
         <Card className="design-token-card">
           <TokenTable
             categories={tab.categories}
+            maxHeight={maxHeight}
             readonly
             showValueColumn={showValueColumn}
           />
@@ -78,6 +80,7 @@ export const DesignTokenDocBlock = ({
       {viewType === 'card' && (
         <TokenCards
           categories={tab.categories}
+          padded={false}
           readonly
           showValueColumn={showValueColumn}
         />

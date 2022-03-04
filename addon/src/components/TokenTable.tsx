@@ -1,5 +1,6 @@
 import { transparentize } from 'polished';
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useVirtual } from 'react-virtual';
 
 import { Icons, TooltipMessage, TooltipNote, WithTooltip } from '@storybook/components';
 import { styled } from '@storybook/theming';
@@ -13,18 +14,49 @@ import { ToolButton } from './ToolButton';
 
 interface TokenTableProps {
   categories: Category[];
+  maxHeight?: number;
   readonly?: boolean;
   showValueColumn?: boolean;
 }
 
 export const TokenTable = ({
   categories,
+  maxHeight,
   readonly,
   showValueColumn = true
 }: TokenTableProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
   }>({});
+
+  const [panelHeight, setPanelHeight] = useState<number>(maxHeight || 100);
+
+  const parentRef = useRef<HTMLDivElement | null>(null);
+
+  const tokens = useMemo(
+    () =>
+      categories.reduce(
+        (tokens, category) => [...tokens, ...category.tokens],
+        [] as Token[]
+      ),
+    [categories]
+  );
+
+  const rowVirtualizer = useVirtual({
+    size: tokens.length,
+    parentRef,
+    estimateSize: useCallback(() => 49, [])
+  });
+
+  const ScrollContainer = useMemo(
+    () =>
+      styled.div(() => ({
+        maxHeight: panelHeight ? `${panelHeight}px` : 'none',
+        overflow: 'auto',
+        padding: '15px'
+      })),
+    [panelHeight]
+  );
 
   const Table = useMemo(
     () =>
@@ -39,8 +71,13 @@ export const TokenTable = ({
         textAlign: 'left',
         width: '100%',
 
+        'thead > tr': {
+          display: 'flex'
+        },
+
         'tbody > tr': {
           borderTop: `1px solid ${theme.color.mediumlight}`,
+          display: 'flex',
 
           ':first-of-type': {
             borderTopColor: theme.color.medium
@@ -56,12 +93,22 @@ export const TokenTable = ({
           textOverflow: 'ellipsis',
           verticalAlign: 'middle',
 
+          ':nth-of-type(1)': {
+            flexBasis: '50%',
+            flexGrow: 1,
+            flexShrink: 0
+          },
+
           ':nth-of-type(2)': {
-            width: 300
+            flexBasis: '25%',
+            flexGrow: 0,
+            flexShrink: 0
           },
 
           ':nth-of-type(3)': {
-            width: 200
+            flexBasis: '25%',
+            flexGrow: 0,
+            flexShrink: 0
           }
         },
 
@@ -107,80 +154,119 @@ export const TokenTable = ({
     []
   );
 
-  const tokens = useMemo(
-    () =>
-      categories.reduce(
-        (tokens, category) => [...tokens, ...category.tokens],
-        [] as Token[]
-      ),
-    [categories]
-  );
+  useLayoutEffect(() => {
+    const resizeHandler = () => {
+      if (maxHeight !== undefined) {
+        return;
+      }
+
+      const tabPanel = parentRef.current?.closest('.os-content');
+      const tabBar = tabPanel?.querySelector('[role="tablist"]');
+
+      if (tabPanel && tabBar) {
+        const height =
+          tabPanel.getBoundingClientRect().height -
+          tabBar.getBoundingClientRect().height;
+
+        setPanelHeight(height);
+      }
+    };
+
+    setTimeout(() => {
+      resizeHandler();
+    });
+
+    window.addEventListener('resize', resizeHandler);
+
+    return () => window.removeEventListener('resize', resizeHandler);
+  }, []);
 
   return (
-    <Table>
-      <thead className="docblock-argstable-head">
-        <tr>
-          <th>Name</th>
-          {showValueColumn && <th>Value</th>}
-          <th>Preview</th>
-        </tr>
-      </thead>
-      <tbody>
-        {tokens.map((token) => (
-          <tr key={token.name}>
-            <td>
-              {token.name}
-
-              <WithTooltip
-                hasChrome={false}
-                tooltip={<TooltipNote note="Copy to clipboard" />}
-              >
-                <ClipboardButton
-                  button={
-                    <ToolButton>
-                      <Icons icon="copy" />
-                    </ToolButton>
-                  }
-                  value={token.name}
-                />
-              </WithTooltip>
-
-              {token.description && (
-                <WithTooltip
-                  tooltip={<TooltipMessage desc={token.description} />}
-                >
-                  <ToolButton>
-                    <Icons icon="info" />
-                  </ToolButton>
-                </WithTooltip>
-              )}
-            </td>
-            {showValueColumn && (
-              <td>
-                <TokenValue
-                  onValueChange={(newValue) => {
-                    setTokenValueOverwrites((tokenValueOverwrites) => ({
-                      ...tokenValueOverwrites,
-                      [token.name]:
-                        newValue === token.rawValue ? undefined : newValue
-                    }));
-                  }}
-                  readonly={readonly}
-                  token={token}
-                />
-              </td>
-            )}
-            <td>
-              <TokenPreview
-                token={{
-                  ...token,
-                  value: tokenValueOverwrites[token.name] || token.value
-                }}
-              />
-            </td>
+    <ScrollContainer ref={parentRef}>
+      <Table>
+        <thead className="docblock-argstable-head">
+          <tr>
+            <th>Name</th>
+            {showValueColumn && <th>Value</th>}
+            <th>Preview</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody
+          style={{
+            height: `${rowVirtualizer.totalSize}px`,
+            position: 'relative'
+          }}
+        >
+          {rowVirtualizer.virtualItems.map((virtualRow) => {
+            const token = tokens[virtualRow.index];
+
+            return (
+              <tr
+                key={virtualRow.index}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: `${virtualRow.size}px`,
+                  transform: `translateY(${virtualRow.start}px)`
+                }}
+              >
+                <td>
+                  {token.name}
+
+                  <WithTooltip
+                    hasChrome={false}
+                    tooltip={<TooltipNote note="Copy to clipboard" />}
+                  >
+                    <ClipboardButton
+                      button={
+                        <ToolButton>
+                          <Icons icon="copy" />
+                        </ToolButton>
+                      }
+                      value={token.name}
+                    />
+                  </WithTooltip>
+
+                  {token.description && (
+                    <WithTooltip
+                      tooltip={<TooltipMessage desc={token.description} />}
+                    >
+                      <ToolButton>
+                        <Icons icon="info" />
+                      </ToolButton>
+                    </WithTooltip>
+                  )}
+                </td>
+                {showValueColumn && (
+                  <td>
+                    <TokenValue
+                      onValueChange={(newValue) => {
+                        setTokenValueOverwrites((tokenValueOverwrites) => ({
+                          ...tokenValueOverwrites,
+                          [token.name]:
+                            newValue === token.rawValue ? undefined : newValue
+                        }));
+                      }}
+                      readonly={readonly}
+                      token={token}
+                    />
+                  </td>
+                )}
+                <td>
+                  <TokenPreview
+                    token={{
+                      ...token,
+                      value: tokenValueOverwrites[token.name] || token.value
+                    }}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </ScrollContainer>
   );
 };
