@@ -26,6 +26,8 @@ First, install the addon.
 
 ```sh
 $ yarn add --dev storybook-design-token
+# or
+$ npm add --save-dev storybook-design-token
 ```
 
 Add the addon to your storybook addon list inside `.storybook/main.js`:
