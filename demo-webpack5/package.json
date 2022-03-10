@@ -14,7 +14,7 @@
     "babel-loader": "^8.2.3"
   },
   "dependencies": {
-    "storybook-design-token": "^1.4.0-webpack5.0"
+    "storybook-design-token": "^2.0.0"
   },
   "scripts": {
     "start": "start-storybook -p 6006 --no-manager-cache",
