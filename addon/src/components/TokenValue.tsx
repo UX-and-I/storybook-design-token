@@ -44,22 +44,15 @@ export const TokenValue = ({
       '#storybook-preview-iframe'
     ) as HTMLIFrameElement;
 
-    let tokenElement = previewIframe?.contentWindow?.document.documentElement;
+    const tokenElement = previewIframe?.contentWindow?.document.documentElement;
 
     if (tokenElement !== undefined && tokenElement !== null) {
-        if (token.rawValue !== rawValue) {
-            tokenElement.style.setProperty(
-                token.name,
-                rawValue
-            );
-        } else {
-            tokenElement.style.setProperty(
-                token.name,
-                token.rawValue
-            );
-        }
+      if (token.rawValue !== rawValue) {
+        tokenElement.style.setProperty(token.name, rawValue);
+      } else {
+        tokenElement.style.setProperty(token.name, token.rawValue);
+      }
     }
-
   }, [rawValue]);
 
   return (
