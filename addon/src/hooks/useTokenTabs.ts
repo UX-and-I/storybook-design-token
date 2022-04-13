@@ -107,10 +107,10 @@ export function useTokenTabs(config?: Config) {
   }, [config, tokenFiles]);
 
   useEffect(() => {
-    if (config?.defaultTab && !activeCategory) {
+    if (config?.defaultTab) {
       setActiveCategory(config.defaultTab);
     }
-  }, [activeCategory, config]);
+  }, [config]);
 
   return {
     activeCategory,
