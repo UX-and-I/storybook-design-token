@@ -7,6 +7,7 @@ import { Panel } from './components/Panel';
 
 const ADDON_ID = 'storybook-design-token';
 const PANEL_ID = `${ADDON_ID}/panel`;
+const PARAMETER_NAME = 'designToken';
 
 addons.register(ADDON_ID, () => {
   addons.add(PANEL_ID, {
@@ -16,6 +17,7 @@ addons.register(ADDON_ID, () => {
       <AddonPanel active={active} key={key}>
         <Panel />
       </AddonPanel>
-    )
+    ),
+    paramKey: PARAMETER_NAME
   });
 });

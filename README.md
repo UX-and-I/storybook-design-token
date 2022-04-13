@@ -118,6 +118,18 @@ export const parameters = {
 };
 ```
 
+### Disable the addon panel
+
+In some cases you might only want to use the Doc Blocks and hide the addon panel. You can do so by the setting the `disable` parameter:
+
+```javascript
+export const parameters = {
+  designToken: {
+    disable: true
+  }
+};
+```
+
 ### Specify a custom glob for your token files
 
 By default, the addon parses all `.css`, `.scss`, `.less` and `.svg` files of your code base for annotated design tokens. If you only want to parse specific files, you can pass a [glob](https://github.com/isaacs/node-glob) via the `DESIGN_TOKEN_GLOB` environment variable.
