@@ -10,7 +10,7 @@ function getTokenFilePaths(compiler: any): string[] {
   return glob.sync(
     path.join(
       compiler.context,
-      process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg}'
+      process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg,png,jpeg}'
     ),
     {
       ignore: ['**/node_modules/**', '**/storybook-static/**', '**/*.chunk.*']
@@ -30,7 +30,7 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
     }))
     .filter(
       (file) =>
-        file.content.includes('@tokens') || file.filename.endsWith('.svg')
+        file.content.includes('@tokens') || file.filename.endsWith('.svg') || file.filename.endsWith('.jpeg') || file.filename.endsWith('.png')
     );
 
   const cssTokens = await parseCssFiles(
@@ -54,6 +54,14 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
   const svgTokens = await parseSvgFiles(
     tokenFiles.filter((file) => file.filename.endsWith('.svg'))
   );
+
+  // const pngTokens = await parseSvgFiles(
+  //   tokenFiles.filter((file) => file.filename.endsWith('.png'))
+  // );
+
+  // const jpgTokens = await parseSvgFiles(
+  //   tokenFiles.filter((file) => file.filename.endsWith('.jpeg'))
+  // );
 
   return JSON.stringify({
     cssTokens,
