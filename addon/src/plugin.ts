@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import glob from 'glob';
 import path from 'path';
 
-import { parsePngFiles } from './parsers/png.parser';
+import { parsePngFiles } from './parsers/image.parser';
 import { parseCssFiles } from './parsers/postcss.parser';
 import { parseSvgFiles } from './parsers/svg-icon.parser';
 import { TokenSourceType } from './types/token.types';
