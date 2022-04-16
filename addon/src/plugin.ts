@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import glob from 'glob';
 import path from 'path';
 
+import { parsePngFiles } from './parsers/png.parser';
 import { parseCssFiles } from './parsers/postcss.parser';
 import { parseSvgFiles } from './parsers/svg-icon.parser';
 import { TokenSourceType } from './types/token.types';
@@ -10,7 +11,7 @@ function getTokenFilePaths(compiler: any): string[] {
   return glob.sync(
     path.join(
       compiler.context,
-      process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg,png,jpeg}'
+      process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg,png,jpeg,gif}'
     ),
     {
       ignore: ['**/node_modules/**', '**/storybook-static/**', '**/*.chunk.*']
@@ -30,7 +31,7 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
     }))
     .filter(
       (file) =>
-        file.content.includes('@tokens') || file.filename.endsWith('.svg') || file.filename.endsWith('.jpeg') || file.filename.endsWith('.png')
+        file.content.includes('@tokens') || file.filename.endsWith('.svg') || file.filename.endsWith('.jpeg') || file.filename.endsWith('.png') || file.filename.endsWith('.gif')
     );
 
   const cssTokens = await parseCssFiles(
@@ -55,19 +56,16 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
     tokenFiles.filter((file) => file.filename.endsWith('.svg'))
   );
 
-  // const pngTokens = await parseSvgFiles(
-  //   tokenFiles.filter((file) => file.filename.endsWith('.png'))
-  // );
-
-  // const jpgTokens = await parseSvgFiles(
-  //   tokenFiles.filter((file) => file.filename.endsWith('.jpeg'))
-  // );
+  const pngTokens = await parsePngFiles(
+    tokenFiles.filter((file) => file.filename.endsWith('.png') || file.filename.endsWith('.jpeg') || file.filename.endsWith('.gif'))
+  );
 
   return JSON.stringify({
     cssTokens,
     scssTokens,
     lessTokens,
-    svgTokens
+    svgTokens,
+    pngTokens,
   });
 }
 

@@ -24,7 +24,8 @@ export enum TokenPresenter {
   OPACITY = 'Opacity',
   SHADOW = 'Shadow',
   SPACING = 'Spacing',
-  SVG = 'Svg'
+  SVG = 'Svg',
+  PNG = 'Png',
 }
 
 export enum TokenSourceType {
@@ -32,5 +33,6 @@ export enum TokenSourceType {
   LESS = 'Less',
   SCSS = 'SCSS',
   SVG = 'SVG',
-  THEO = 'THEO'
+  THEO = 'THEO',
+  PNG = 'Png',
 }

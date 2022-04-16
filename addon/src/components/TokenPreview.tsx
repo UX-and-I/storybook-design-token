@@ -55,6 +55,12 @@ export const TokenPreview = ({ token }: TokenPreviewProps) => {
       return <SpacingPresenter token={token} />;
     case TokenPresenter.SVG:
       return <SvgPresenter token={token} />;
+    case TokenPresenter.PNG:
+      return <img src={`data:image/png;base64, ${token.rawValue}`} style={{
+        height: '30px',
+        width: '30px',
+        backgroundSize: 'contain',
+      }} />
   }
 
   return <EmptyPresenter />;
