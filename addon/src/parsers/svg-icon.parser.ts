@@ -41,11 +41,11 @@ function determineTokens(files: File[]): Token[] {
       const name = basename(file.filename, extname(file.filename));
 
       return svgs
-        .map((svg) => ({
+        .map((svg, index, array) => ({
           name:
             svg?.getAttribute('data-token-name') ||
             svg?.getAttribute('id') ||
-            name,
+            (array.length > 1 ? `${name}-${index + 1}`: name),
           description: svg?.getAttribute('data-token-description') || '',
           categoryName: svg?.getAttribute('data-token-category') || 'SVG Icons',
           presenter: TokenPresenter.SVG,
