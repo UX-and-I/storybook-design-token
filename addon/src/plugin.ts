@@ -19,7 +19,13 @@ function getTokenFilePaths(compiler: any): string[] {
 }
 
 function addFilesToWebpackDeps(compilation: any, files: string[]) {
-  compilation.fileDependencies = [...compilation.fileDependencies, ...files];
+  if(Array.isArray(compilation.fileDependencies)) {
+    // If webpack4, fileDependencies will be an array
+    compilation.fileDependencies = [...compilation.fileDependencies, ...files];
+  } else {
+    // In webpack5, fileDependencies is a LazySet.
+    compilation.fileDependencies.addAll(files);
+  }
 }
 
 async function generateTokenFilesJsonString(files: string[]): Promise<string> {
