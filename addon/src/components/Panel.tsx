@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { useParameter } from '@storybook/api';
-import { ActionBar, ScrollArea, Tabs, Form, Icons } from '@storybook/components';
+import { ActionBar, ScrollArea, Tabs } from '@storybook/components';
 
 import { useTokenTabs } from '../hooks/useTokenTabs';
 import { Config } from '../types/config.types';
 import { TokenCards } from './TokenCards';
 import { TokenTable } from './TokenTable';
 import { useState } from 'react';
-import { Input } from './Input';
+import { SearchField } from './SearchField';
 import { useDebounce } from '../hooks/useDebounce';
 
 export const Panel = () => {
@@ -23,19 +23,19 @@ export const Panel = () => {
       <style>{styleInjections}</style>
 
       <ScrollArea vertical horizontal>
-        <Input value={searchText} onChange={e => setSearchText(e.target.value)} />
         <Tabs actions={{ onSelect: id => setActiveCategory(id) }} selected={activeCategory}>
           {tabs.map(tab => {
             const categories = debouncedSearchText
               ? tab.categories.map(item => ({
-                  ...item,
-                  tokens: item.tokens.filter(token => token.name.includes(debouncedSearchText)),
-                }))
+                ...item,
+                tokens: item.tokens.filter(token => token.name.includes(debouncedSearchText)),
+              }))
               : tab.categories;
 
             return (
               <div key={tab.label} id={tab.label} title={tab.label}>
                 <div>
+                  <SearchField value={searchText} onChange={setSearchText} />
                   {cardView && <TokenCards categories={categories} />}
                   {!cardView && <TokenTable categories={categories} />}
                 </div>
