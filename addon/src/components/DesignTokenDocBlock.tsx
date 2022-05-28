@@ -9,6 +9,7 @@ import { TokenTable } from './TokenTable';
 import { TokenCards } from './TokenCards';
 import { useTokenSearch } from '../hooks/useTokenSearch';
 import { SearchField } from './SearchField';
+import { Category } from '../types/category.types';
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
@@ -31,6 +32,20 @@ function getMainStory(context: CompatDocsContextProps) {
     : context;
 }
 
+const Container = styled.div(() => ({
+  margin: '25px 0 40px',
+
+  '*': {
+    boxSizing: 'border-box'
+  }
+}));
+
+const Card = styled.div(() => ({
+  boxShadow:
+    'rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 7%) 0px 0px 0px 1px',
+  borderRadius: 4
+}));
+
 export const DesignTokenDocBlock = ({
   categoryName,
   maxHeight = 600,
@@ -46,29 +61,32 @@ export const DesignTokenDocBlock = ({
     tabs
   ]);
 
-  const { searchText, setSearchText, categories } = useTokenSearch(tab?.categories ?? []);
-
-  const Container = styled.div(() => ({
-    margin: '25px 0 40px',
-
-    '*': {
-      boxSizing: 'border-box'
-    }
-  }));
-
-  const Card = useMemo(
-    () =>
-      styled.div(() => ({
-        boxShadow:
-          'rgb(0 0 0 / 10%) 0px 1px 3px 1px, rgb(0 0 0 / 7%) 0px 0px 0px 1px',
-        borderRadius: 4
-      })),
-    []
-  );
-
   if (!tab) {
     return null;
   }
+
+  return (
+    <DesignTokenDocBlockView
+      categories={tab.categories}
+      viewType={viewType}
+      maxHeight={maxHeight}
+      showValueColumn={showValueColumn}
+    />
+  );
+};
+
+interface DesignTokenDocBlockViewProps {
+  categories: Category[];
+  viewType: TokenViewType;
+  maxHeight: number;
+  showValueColumn: boolean;
+}
+/**
+ * NOTE: Every searchText change causes full page mount/unmount, so input loses focus after input of every next character. 
+ * So the aim of DesignTokenDocBlockView component prevent re-renders, as it contains searchText change inside.
+ */
+function DesignTokenDocBlockView({ viewType, categories: categoriesProp, maxHeight, showValueColumn }: DesignTokenDocBlockViewProps) {
+  const { searchText, setSearchText, categories } = useTokenSearch(categoriesProp ?? []);
 
   return (
     <Container className="design-token-container">
@@ -93,4 +111,4 @@ export const DesignTokenDocBlock = ({
       )}
     </Container>
   );
-};
+}
