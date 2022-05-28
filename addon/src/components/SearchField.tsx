@@ -10,7 +10,6 @@ const SearchHolder = styled.div(({ theme }) => ({
   '&:focus-within svg': {
     color: theme.color.defaultText,
   },
-  margin: '8px 4px'
 }));
 
 const SearchIcon = styled(Icons)(({ theme }) => ({
@@ -45,11 +44,12 @@ const SearchInput = styled(Input)(({ theme }) => ({
 }));
 
 interface SearchFieldProps {
+  style?: React.CSSProperties;
   value: string;
   onChange: (value: string) => void;
 }
 
-export function SearchField({ value, onChange }: SearchFieldProps) {
+export function SearchField({ value, onChange, style }: SearchFieldProps) {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     onChange(e.target.value)
   }, [onChange]);
@@ -64,7 +64,7 @@ export function SearchField({ value, onChange }: SearchFieldProps) {
   }, [])
 
   return (
-    <SearchHolder className="search-field">
+    <SearchHolder style={style}>
       <SearchIcon icon="search" />
       <SearchInput value={value} onChange={handleChange} placeholder='Provide a token name'/>
       <ClearIcon icon="cross" onClick={handleClear} />

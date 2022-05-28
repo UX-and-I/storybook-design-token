@@ -17,7 +17,7 @@ export function TokenTab({ categories: categoriesProp, viewType = 'table' }: Tok
 
   return (
     <div>
-      <SearchField value={searchText} onChange={setSearchText} />
+      <SearchField value={searchText} onChange={setSearchText} style={{ margin: '8px 4px' }} />
       {viewType === 'card' && <TokenCards categories={categories} />}
       {viewType === 'table' && <TokenTable categories={categories} />}
     </div>

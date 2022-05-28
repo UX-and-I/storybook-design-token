@@ -90,7 +90,7 @@ function DesignTokenDocBlockView({ viewType, categories: categoriesProp, maxHeig
 
   return (
     <Container className="design-token-container">
-      <SearchField value={searchText} onChange={setSearchText} />
+      <SearchField value={searchText} onChange={setSearchText} style={{ margin: '8px 0' }} />
       {viewType === 'table' && (
         <Card className="design-token-card">
           <TokenTable
