@@ -20,7 +20,7 @@ export const Panel = () => {
           {tabs.map(tab => {
             return (
               <div key={tab.label} id={tab.label} title={tab.label}>
-                <TokenTab categories={tab.categories} isCardView={cardView} />
+                <TokenTab categories={tab.categories} cardView={cardView} />
               </div>
             );
           })}

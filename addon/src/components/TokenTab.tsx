@@ -8,10 +8,10 @@ import { Category } from '../types/category.types';
 
 interface TokenTabProps {
   categories: Category[];
-  isCardView: boolean;
+  cardView: boolean;
 }
 
-export function TokenTab({ categories, isCardView }: TokenTabProps) {
+export function TokenTab({ categories, cardView }: TokenTabProps) {
   const [searchText, setSearchText] = useState('');
   const debouncedSearchText = useDebounce(searchText, 250);
   const resultCategories = debouncedSearchText
@@ -24,8 +24,8 @@ export function TokenTab({ categories, isCardView }: TokenTabProps) {
   return (
     <div>
       <SearchField value={searchText} onChange={setSearchText} />
-      {isCardView && <TokenCards categories={resultCategories} />}
-      {!isCardView && <TokenTable categories={resultCategories} />}
+      {cardView && <TokenCards categories={resultCategories} />}
+      {!cardView && <TokenTable categories={resultCategories} />}
     </div>
   );
 }
