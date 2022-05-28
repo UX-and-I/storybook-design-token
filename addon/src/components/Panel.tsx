@@ -5,17 +5,10 @@ import { ActionBar, ScrollArea, Tabs } from '@storybook/components';
 
 import { useTokenTabs } from '../hooks/useTokenTabs';
 import { Config } from '../types/config.types';
-import { TokenCards } from './TokenCards';
-import { TokenTable } from './TokenTable';
-import { useState } from 'react';
-import { SearchField } from './SearchField';
-import { useDebounce } from '../hooks/useDebounce';
+import { TokenTab } from './TokenTab';
 
 export const Panel = () => {
   const config = useParameter<Config>('designToken');
-  const [searchText, setSearchText] = useState('');
-  const debouncedSearchText = useDebounce(searchText, 250);
-
   const { activeCategory, cardView, setActiveCategory, setCardView, styleInjections, tabs } = useTokenTabs(config);
 
   return (
@@ -25,20 +18,9 @@ export const Panel = () => {
       <ScrollArea vertical horizontal>
         <Tabs actions={{ onSelect: id => setActiveCategory(id) }} selected={activeCategory}>
           {tabs.map(tab => {
-            const categories = debouncedSearchText
-              ? tab.categories.map(item => ({
-                ...item,
-                tokens: item.tokens.filter(token => token.name.includes(debouncedSearchText)),
-              }))
-              : tab.categories;
-
             return (
               <div key={tab.label} id={tab.label} title={tab.label}>
-                <div>
-                  <SearchField value={searchText} onChange={setSearchText} />
-                  {cardView && <TokenCards categories={categories} />}
-                  {!cardView && <TokenTable categories={categories} />}
-                </div>
+                <TokenTab categories={tab.categories} isCardView={cardView} />
               </div>
             );
           })}
