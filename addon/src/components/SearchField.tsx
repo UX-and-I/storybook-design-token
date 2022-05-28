@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Icons } from '@storybook/components';
 import { styled } from '@storybook/theming';
 import { Input } from './Input';
@@ -50,11 +50,24 @@ interface SearchFieldProps {
 }
 
 export function SearchField({ value, onChange }: SearchFieldProps) {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+    onChange(e.target.value)
+  }, [onChange]);
+
+  const handleClear = useCallback(() => {
+    () => onChange('');
+  }, [onChange]);
+
+  useEffect(() => {
+
+    return () => console.log('unmounted')
+  }, [])
+
   return (
     <SearchHolder className="search-field">
       <SearchIcon icon="search" />
-      <SearchInput value={value} onChange={e => onChange(e.target.value)} placeholder='Provide a token name'/>
-      <ClearIcon icon="cross" onClick={() => onChange('')} />
+      <SearchInput value={value} onChange={handleChange} placeholder='Provide a token name'/>
+      <ClearIcon icon="cross" onClick={handleClear} />
     </SearchHolder >
   )
 }

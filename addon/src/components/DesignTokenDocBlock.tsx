@@ -4,14 +4,17 @@ import { DocsContext, DocsContextProps } from '@storybook/addon-docs';
 import { styled } from '@storybook/theming';
 
 import { useTokenTabs } from '../hooks/useTokenTabs';
-import { TokenCards } from './TokenCards';
+import type { TokenViewType } from './TokenTab';
 import { TokenTable } from './TokenTable';
+import { TokenCards } from './TokenCards';
+import { useTokenSearch } from '../hooks/useTokenSearch';
+import { SearchField } from './SearchField';
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
   maxHeight?: number;
   showValueColumn?: boolean;
-  viewType?: 'card' | 'table';
+  viewType: TokenViewType;
 }
 
 interface CompatDocsContextProps extends DocsContextProps {
@@ -32,7 +35,7 @@ export const DesignTokenDocBlock = ({
   categoryName,
   maxHeight = 600,
   showValueColumn = true,
-  viewType = 'table'
+  viewType = 'table',
 }: DesignTokenDocBlockProps) => {
   const context = useContext(DocsContext);
   const story = getMainStory(context);
@@ -42,6 +45,8 @@ export const DesignTokenDocBlock = ({
     categoryName,
     tabs
   ]);
+
+  const { searchText, setSearchText, categories } = useTokenSearch(tab?.categories ?? []);
 
   const Container = styled.div(() => ({
     margin: '25px 0 40px',
@@ -67,10 +72,11 @@ export const DesignTokenDocBlock = ({
 
   return (
     <Container className="design-token-container">
+      <SearchField value={searchText} onChange={setSearchText} />
       {viewType === 'table' && (
         <Card className="design-token-card">
           <TokenTable
-            categories={tab.categories}
+            categories={categories}
             maxHeight={maxHeight}
             readonly
             showValueColumn={showValueColumn}
@@ -79,7 +85,7 @@ export const DesignTokenDocBlock = ({
       )}
       {viewType === 'card' && (
         <TokenCards
-          categories={tab.categories}
+          categories={categories}
           padded={false}
           readonly
           showValueColumn={showValueColumn}
