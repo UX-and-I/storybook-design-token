@@ -53,7 +53,7 @@ export function SearchField({ value, onChange }: SearchFieldProps) {
   return (
     <SearchHolder className="search-field">
       <SearchIcon icon="search" />
-      <SearchInput value={value} onChange={e => onChange(e.target.value)} />
+      <SearchInput value={value} onChange={e => onChange(e.target.value)} placeholder='Provide a token name'/>
       <ClearIcon icon="cross" onClick={() => onChange('')} />
     </SearchHolder >
   )
