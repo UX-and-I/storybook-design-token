@@ -234,7 +234,7 @@ async function getNodes(
 
   await Promise.all(
     files.map((file) => {
-      const syntax: any = file.filename.endsWith('.scss') ? scss : undefined;
+      const syntax: any = (file.filename.endsWith('.scss') || file.filename.endsWith('.less')) ? scss : undefined;
 
       return postcss([plugin]).process(file.content, {
         from: file.filename,
