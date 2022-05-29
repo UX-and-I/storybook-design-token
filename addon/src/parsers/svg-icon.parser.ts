@@ -4,7 +4,6 @@ import { basename, extname } from 'path';
 import { Category } from '../types/category.types';
 import { File } from '../types/config.types';
 import { Token, TokenPresenter, TokenSourceType } from '../types/token.types';
-import { extname, basename, dirname, relative } from 'path';
 
 export async function parseSvgFiles(
   files: File[] = []
