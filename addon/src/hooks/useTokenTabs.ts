@@ -64,7 +64,7 @@ export function useTokenTabs(config?: Config) {
     const lessTokens = tokenFiles?.lessTokens;
     const scssTokens = tokenFiles?.scssTokens;
     const svgTokens = tokenFiles?.svgTokens;
-    const pngTokens = tokenFiles?.pngTokens;
+    const imageTokens = tokenFiles?.imageTokens;
 
     setStyleInjections(config?.styleInjection || '');
 
@@ -108,8 +108,8 @@ export function useTokenTabs(config?: Config) {
       setSvgIconCategories(svgTokens.categories);
     }
 
-    if(pngTokens) {
-      setImageIconCategories(pngTokens.categories);
+    if(imageTokens) {
+      setImageIconCategories(imageTokens.categories);
     }
   }, [config, tokenFiles]);
 

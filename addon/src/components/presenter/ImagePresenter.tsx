@@ -10,8 +10,8 @@ export function ImagePresenter({ token }: ImagePresenterProps) {
   const Img = useMemo(
     () =>
       styled.img(() => ({
-        height: 32,
-        width: 32,
+        maxHeight: 32,
+        maxWidth: '100%',
         backgroundSize: 'contain',
       })),
     [token]

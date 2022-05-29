@@ -53,6 +53,7 @@ export const TokenCards = ({
         fontFamily: theme.typography.fonts.base,
         fontSize: theme.typography.size.s1,
         padding: 12,
+        overflow: 'hidden',
 
         '> *:not(:last-child)': {
           marginBottom: 8
