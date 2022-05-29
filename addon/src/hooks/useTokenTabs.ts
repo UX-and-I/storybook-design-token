@@ -47,11 +47,11 @@ export function useTokenTabs(config?: Config) {
 
   useEffect(() => {
     async function fetchTokenFiles() {
-      const designTokenSorce = await (
+      const designTokenSource = await (
         await fetch('./design-tokens.source.json')
       ).text();
 
-      setTokenFiles(JSON.parse(designTokenSorce));
+      setTokenFiles(JSON.parse(designTokenSource));
     }
 
     fetchTokenFiles();

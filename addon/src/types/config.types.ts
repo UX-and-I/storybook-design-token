@@ -1,4 +1,5 @@
 export interface Config {
+  showSearch?: boolean;
   defaultTab?: string;
   styleInjection?: string;
 }

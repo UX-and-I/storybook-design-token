@@ -16,6 +16,11 @@ Display design token documentation generated from your stylesheets and icon file
   - [Get started](#get-started)
   - [Available presenters](#available-presenters)
   - [Advanced configuration](#advanced-configuration)
+    - [Default tab](#default-tab)
+    - [Style injection](#style-injection)
+    - [Disable the addon panel](#disable-the-addon-panel)
+    - [Token search visibility](#token-search-visibility)
+    - [Specify a custom glob for your token files](#specify-a-custom-glob-for-your-token-files)
   - [Design Token Doc Block](#design-token-doc-block)
   - [Browser support](#browser-support)
   - [Migration from v0.x.x and v1.x.x](#migration-from-v0xx-and-v1xx)
@@ -128,6 +133,18 @@ export const parameters = {
     disable: true
   }
 };
+```
+
+### Token search visibility
+
+In some cases you might not need the search field to be visible. You can control its visibility by the setting the `showSearch` parameter:
+
+```javascript
+export const parameters = {
+  designToken: {
+    showSearch: false
+  }
+}
 ```
 
 ### Specify a custom glob for your token files
