@@ -4,8 +4,7 @@ module.exports = {
     '../stories/**/*.stories.@(js|jsx|ts|tsx)'
   ],
   addons: [
-    './../../addon/dist/preset.js',
-    // 'storybook-design-token',
+    'storybook-design-token',
     '@storybook/addon-links',
     '@storybook/addon-essentials'
   ],
