@@ -38,18 +38,15 @@ function determineTokens(files: File[]): Token[] {
       div.innerHTML = file.content;
 
       const svgs = Array.from(div.querySelectorAll('svg'));
-      const name = basename(file.filename, extname(file.filename));
+
       return svgs
         .map((svg) => ({
-          // name:
-          //   svg?.getAttribute('data-token-name') ||
-          //   svg?.getAttribute('id') ||
-          //   '',
-          name,
-          description: relative(process.cwd(), dirname(file.filename)),
-          // description: svg?.getAttribute('data-token-description') || '',
+          name:
+            svg?.getAttribute('data-token-name') ||
+            svg?.getAttribute('id') ||
+            '',
+          description: svg?.getAttribute('data-token-description') || '',
           categoryName: svg?.getAttribute('data-token-category') || 'SVG Icons',
-          // categoryName: dirname(file.filename),
           presenter: TokenPresenter.SVG,
           rawValue: svg.outerHTML,
           sourceType: TokenSourceType.SVG,
