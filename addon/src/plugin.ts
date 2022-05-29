@@ -37,7 +37,7 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
     }))
     .filter(
       (file) =>
-        file.content.includes('@tokens') || file.filename.endsWith('.svg') || file.filename.endsWith('.jpeg') || file.filename.endsWith('.png') || file.filename.endsWith('.gif')
+        file.content.includes('@tokens') || file.filename.endsWith('.svg') || isImageExtension(file.filename)
     );
 
   const cssTokens = await parseCssFiles(
@@ -62,8 +62,8 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
     tokenFiles.filter((file) => file.filename.endsWith('.svg'))
   );
 
-  const pngTokens = await parsePngFiles(
-    tokenFiles.filter((file) => file.filename.endsWith('.png') || file.filename.endsWith('.jpeg') || file.filename.endsWith('.gif'))
+  const imageTokens = await parsePngFiles(
+    tokenFiles.filter((file) => isImageExtension(file.filename))
   );
 
   return JSON.stringify({
@@ -71,7 +71,7 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
     scssTokens,
     lessTokens,
     svgTokens,
-    pngTokens,
+    imageTokens,
   });
 }
 
@@ -142,4 +142,8 @@ export class StorybookDesignTokenPlugin {
       );
     });
   }
+}
+
+function isImageExtension(filename: string) {
+  return filename.endsWith('.jpeg') || filename.endsWith('.png') || filename.endsWith('.gif');
 }
