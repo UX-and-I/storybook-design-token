@@ -9,7 +9,14 @@ import { TokenTab } from './TokenTab';
 
 export const Panel = () => {
   const config = useParameter<Config>('designToken');
-  const { activeCategory, cardView, setActiveCategory, setCardView, styleInjections, tabs } = useTokenTabs(config);
+  const { 
+    activeCategory,
+    cardView,
+    setActiveCategory,
+    setCardView,
+    styleInjections,
+    tabs 
+  } = useTokenTabs(config);
 
   return (
     <>

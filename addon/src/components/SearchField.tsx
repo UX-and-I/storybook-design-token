@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Icons } from '@storybook/components';
 import { styled } from '@storybook/theming';
 import { Input } from './Input';
@@ -57,11 +57,6 @@ export function SearchField({ value, onChange, style }: SearchFieldProps) {
   const handleClear = useCallback(() => {
     () => onChange('');
   }, [onChange]);
-
-  useEffect(() => {
-
-    return () => console.log('unmounted')
-  }, [])
 
   return (
     <SearchHolder style={style}>
