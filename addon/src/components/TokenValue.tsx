@@ -44,8 +44,8 @@ export const TokenValue = ({
       styled.span(() => ({
         overflow: 'hidden',
         wordBreak: 'break-all',
-        '-webkit-line-clamp': 3,
-        '-webkit-box-orient': 'vertical',
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: 'vertical',
         display: '-webkit-box',
       })),
     []
