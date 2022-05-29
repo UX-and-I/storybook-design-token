@@ -16,6 +16,9 @@ export interface DesignTokenDocBlockProps {
   maxHeight?: number;
   showValueColumn?: boolean;
   viewType: TokenViewType;
+  /**
+   * @default true
+   */
   showSearch?: boolean;
 }
 
