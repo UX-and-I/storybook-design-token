@@ -16,12 +16,24 @@ interface TokenTabProps {
   showSearch?: boolean;
 }
 
-export function TokenTab({ categories: categoriesProp, viewType = 'table', showSearch = true }: TokenTabProps) {
-  const { searchText, setSearchText, categories } = useTokenSearch(categoriesProp);
+export function TokenTab({
+  categories: categoriesProp,
+  viewType = 'table',
+  showSearch = true
+}: TokenTabProps) {
+  const { searchText, setSearchText, categories } = useTokenSearch(
+    categoriesProp
+  );
 
   return (
     <div>
-      {showSearch && <SearchField value={searchText} onChange={setSearchText} style={{ margin: '8px 4px' }} />}
+      {showSearch && (
+        <SearchField
+          value={searchText}
+          onChange={setSearchText}
+          style={{ margin: '12px 12px 8px' }}
+        />
+      )}
       {viewType === 'card' && <TokenCards categories={categories} />}
       {viewType === 'table' && <TokenTable categories={categories} />}
     </div>

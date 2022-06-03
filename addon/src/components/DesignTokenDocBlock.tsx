@@ -55,7 +55,7 @@ export const DesignTokenDocBlock = ({
   maxHeight = 600,
   showValueColumn = true,
   viewType = 'table',
-  showSearch = true,
+  showSearch = true
 }: DesignTokenDocBlockProps) => {
   const context = useContext(DocsContext);
   const story = getMainStory(context);
@@ -81,11 +81,12 @@ export const DesignTokenDocBlock = ({
   );
 };
 
-interface DesignTokenDocBlockViewProps extends Omit<DesignTokenDocBlockProps, 'categoryName'> {
+interface DesignTokenDocBlockViewProps
+  extends Omit<DesignTokenDocBlockProps, 'categoryName'> {
   categories: Category[];
 }
 /**
- * NOTE: Every searchText change causes full page mount/unmount, so input loses focus after input of every next character. 
+ * NOTE: Every searchText change causes full page mount/unmount, so input loses focus after input of every next character.
  * So the aim of DesignTokenDocBlockView component prevent re-renders, as it contains searchText change inside.
  */
 function DesignTokenDocBlockView({
@@ -95,11 +96,19 @@ function DesignTokenDocBlockView({
   showValueColumn,
   showSearch
 }: DesignTokenDocBlockViewProps) {
-  const { searchText, setSearchText, categories } = useTokenSearch(categoriesProp ?? []);
+  const { searchText, setSearchText, categories } = useTokenSearch(
+    categoriesProp ?? []
+  );
 
   return (
     <Container className="design-token-container">
-      {showSearch && <SearchField value={searchText} onChange={setSearchText} style={{ margin: '8px 0' }} />}
+      {showSearch && (
+        <SearchField
+          value={searchText}
+          onChange={setSearchText}
+          style={{ margin: '12px 0' }}
+        />
+      )}
       {viewType === 'table' && (
         <Card className="design-token-card">
           <TokenTable
