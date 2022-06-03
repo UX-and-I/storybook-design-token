@@ -8,8 +8,8 @@ const SearchHolder = styled.div(({ theme }) => ({
   flexDirection: 'column',
   position: 'relative',
   '&:focus-within svg': {
-    color: theme.color.defaultText,
-  },
+    color: theme.color.defaultText
+  }
 }));
 
 const SearchIcon = styled(Icons)(({ theme }) => ({
@@ -20,10 +20,10 @@ const SearchIcon = styled(Icons)(({ theme }) => ({
   left: 10,
   zIndex: 1,
   pointerEvents: 'none',
-  color: theme.textMutedColor,
+  color: theme.textMutedColor
 }));
 
-const ClearIcon = styled(Icons)(({ theme }) => ({
+const ClearButton = styled.button(({ theme }) => ({
   width: 16,
   height: 16,
   padding: 4,
@@ -32,14 +32,17 @@ const ClearIcon = styled(Icons)(({ theme }) => ({
   right: 8,
   zIndex: 1,
   background: 'rgba(0,0,0,0.1)',
+  border: 'none',
   borderRadius: 16,
   color: theme.color.defaultText,
-  cursor: 'pointer',
+  cursor: 'pointer'
 }));
+
+const ClearIcon = styled(Icons)(({ theme }) => ({}));
 
 const SearchInput = styled(Input)(({ theme }) => ({
   paddingLeft: 28,
-  paddingRight: 28, 
+  paddingRight: 28,
   height: 32
 }));
 
@@ -50,19 +53,28 @@ interface SearchFieldProps {
 }
 
 export function SearchField({ value, onChange, style }: SearchFieldProps) {
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
-    onChange(e.target.value)
-  }, [onChange]);
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      onChange(e.target.value);
+    },
+    [onChange]
+  );
 
   const handleClear = useCallback(() => {
-    () => onChange('');
+    onChange('');
   }, [onChange]);
 
   return (
     <SearchHolder style={style}>
       <SearchIcon icon="search" />
-      <SearchInput value={value} onChange={handleChange} placeholder='Provide a token name'/>
-      <ClearIcon icon="cross" onClick={handleClear} />
-    </SearchHolder >
-  )
+      <SearchInput
+        value={value}
+        onChange={handleChange}
+        placeholder="Provide a token name …"
+      />
+      <ClearButton onClick={handleClear}>
+        <ClearIcon icon="cross" />
+      </ClearButton>
+    </SearchHolder>
+  );
 }

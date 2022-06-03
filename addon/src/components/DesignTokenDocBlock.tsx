@@ -105,7 +105,10 @@ function DesignTokenDocBlockView({
       {showSearch && (
         <SearchField
           value={searchText}
-          onChange={setSearchText}
+          onChange={(value) => {
+            console.log(value);
+            setSearchText(value);
+          }}
           style={{ margin: '12px 0' }}
         />
       )}
