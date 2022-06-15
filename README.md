@@ -144,12 +144,12 @@ export const parameters = {
   designToken: {
     showSearch: false
   }
-}
+};
 ```
 
 ### Specify a custom glob for your token files
 
-By default, the addon parses all `.css`, `.scss`, `.less` and `.svg` files of your code base for annotated design tokens. If you only want to parse specific files, you can pass a [glob](https://github.com/isaacs/node-glob) via the `DESIGN_TOKEN_GLOB` environment variable.
+By default, the addon parses all `.css`, `.scss`, `.less`, `.svg`, `.jpeg`, `.png` and `.gif` files of your code base for annotated design tokens. If you only want to parse specific files, you can pass a [glob](https://github.com/isaacs/node-glob) via the `DESIGN_TOKEN_GLOB` environment variable.
 
 For example:
 

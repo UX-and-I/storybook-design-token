@@ -16,6 +16,7 @@ import { OpacityPresenter } from './presenter/OpacityPresenter';
 import { ShadowPresenter } from './presenter/ShadowPresenter';
 import { SpacingPresenter } from './presenter/SpacingPresenter';
 import { SvgPresenter } from './presenter/SvgPresenter';
+import { ImagePresenter } from './presenter/ImagePresenter';
 
 interface TokenPreviewProps {
   token: Token;
@@ -55,6 +56,8 @@ export const TokenPreview = ({ token }: TokenPreviewProps) => {
       return <SpacingPresenter token={token} />;
     case TokenPresenter.SVG:
       return <SvgPresenter token={token} />;
+    case TokenPresenter.IMAGE:
+      return <ImagePresenter token={token} />;
   }
 
   return <EmptyPresenter />;

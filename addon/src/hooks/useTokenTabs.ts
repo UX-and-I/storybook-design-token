@@ -13,6 +13,7 @@ export function useTokenTabs(config?: Config) {
   const [lessCategories, setLessCategories] = useState<Category[]>([]);
   const [scssCategories, setScssCategories] = useState<Category[]>([]);
   const [svgIconCategories, setSvgIconCategories] = useState<Category[]>([]);
+  const [imageCategories, setImageIconCategories] = useState<Category[]>([]);
 
   const [activeCategory, setActiveCategory] = useState<string>();
   const [cardView, setCardView] = useStorageState(
@@ -28,7 +29,8 @@ export function useTokenTabs(config?: Config) {
       ...cssCategories,
       ...lessCategories,
       ...scssCategories,
-      ...svgIconCategories
+      ...svgIconCategories,
+      ...imageCategories
     ].filter(
       (category) => category !== undefined && category?.tokens.length > 0
     );
@@ -43,7 +45,13 @@ export function useTokenTabs(config?: Config) {
         (category) => category?.name === name
       ) as Category[]
     }));
-  }, [cssCategories, lessCategories, scssCategories, svgIconCategories]);
+  }, [
+    cssCategories,
+    lessCategories,
+    scssCategories,
+    svgIconCategories,
+    imageCategories
+  ]);
 
   useEffect(() => {
     async function fetchTokenFiles() {
@@ -62,6 +70,7 @@ export function useTokenTabs(config?: Config) {
     const lessTokens = tokenFiles?.lessTokens;
     const scssTokens = tokenFiles?.scssTokens;
     const svgTokens = tokenFiles?.svgTokens;
+    const imageTokens = tokenFiles?.imageTokens;
 
     setStyleInjections(config?.styleInjection || '');
 
@@ -103,6 +112,10 @@ export function useTokenTabs(config?: Config) {
 
     if (svgTokens) {
       setSvgIconCategories(svgTokens.categories);
+    }
+
+    if (imageTokens) {
+      setImageIconCategories(imageTokens.categories);
     }
   }, [config, tokenFiles]);
 
