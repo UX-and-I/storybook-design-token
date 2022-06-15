@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import glob from 'glob';
 import path from 'path';
 
+import { parsePngFiles } from './parsers/image.parser';
 import { parseCssFiles } from './parsers/postcss.parser';
 import { parseSvgFiles } from './parsers/svg-icon.parser';
 import { TokenSourceType } from './types/token.types';
@@ -10,7 +11,7 @@ function getTokenFilePaths(compiler: any): string[] {
   return glob.sync(
     path.join(
       compiler.context,
-      process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg}'
+      process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg,png,jpeg,gif}'
     ),
     {
       ignore: ['**/node_modules/**', '**/storybook-static/**', '**/*.chunk.*']
@@ -36,7 +37,7 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
     }))
     .filter(
       (file) =>
-        file.content.includes('@tokens') || file.filename.endsWith('.svg')
+        file.content.includes('@tokens') || file.filename.endsWith('.svg') || isImageExtension(file.filename)
     );
 
   const cssTokens = await parseCssFiles(
@@ -61,11 +62,16 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
     tokenFiles.filter((file) => file.filename.endsWith('.svg'))
   );
 
+  const imageTokens = await parsePngFiles(
+    tokenFiles.filter((file) => isImageExtension(file.filename))
+  );
+
   return JSON.stringify({
     cssTokens,
     scssTokens,
     lessTokens,
-    svgTokens
+    svgTokens,
+    imageTokens,
   });
 }
 
@@ -136,4 +142,8 @@ export class StorybookDesignTokenPlugin {
       );
     });
   }
+}
+
+function isImageExtension(filename: string) {
+  return filename.endsWith('.jpeg') || filename.endsWith('.png') || filename.endsWith('.gif');
 }

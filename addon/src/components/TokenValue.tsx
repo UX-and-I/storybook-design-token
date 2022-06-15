@@ -39,6 +39,18 @@ export const TokenValue = ({
     []
   );
 
+  const RawValue = useMemo(
+    () =>
+      styled.span(() => ({
+        overflow: 'hidden',
+        wordBreak: 'break-all',
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: 'vertical',
+        display: '-webkit-box',
+      })),
+    []
+  );
+
   useEffect(() => {
     const previewIframe: HTMLIFrameElement = document.querySelector(
       '#storybook-preview-iframe'
@@ -58,21 +70,21 @@ export const TokenValue = ({
   return (
     <Container>
       {token.sourceType !== TokenSourceType.CSS &&
-        token.sourceType !== TokenSourceType.SVG && <span>{rawValue}</span>}
+        token.sourceType !== TokenSourceType.SVG && <RawValue title={rawValue}>{rawValue}</RawValue>}
 
       {(token.sourceType === TokenSourceType.CSS ||
         token.sourceType === TokenSourceType.SVG) && (
-        <Input
-          readOnly={readonly}
-          onChange={(event) => {
-            const newRawValue = (event.target as HTMLInputElement).value;
+          <Input
+            readOnly={readonly}
+            onChange={(event) => {
+              const newRawValue = (event.target as HTMLInputElement).value;
 
-            setRawValue(newRawValue);
-            onValueChange(newRawValue);
-          }}
-          value={rawValue}
-        />
-      )}
+              setRawValue(newRawValue);
+              onValueChange(newRawValue);
+            }}
+            value={rawValue}
+          />
+        )}
 
       {token.rawValue !== rawValue && (
         <ResetButton>
