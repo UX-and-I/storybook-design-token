@@ -1,6 +1,12 @@
 import React, { useMemo, useState } from 'react';
 
-import { Button, Icons, TooltipMessage, TooltipNote, WithTooltip } from '@storybook/components';
+import {
+  Button,
+  Icons,
+  TooltipMessage,
+  TooltipNote,
+  WithTooltip
+} from '@storybook/components';
 import { styled } from '@storybook/theming';
 
 import { Category } from '../types/category.types';

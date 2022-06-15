@@ -57,7 +57,7 @@ export const TokenPreview = ({ token }: TokenPreviewProps) => {
     case TokenPresenter.SVG:
       return <SvgPresenter token={token} />;
     case TokenPresenter.IMAGE:
-      return <ImagePresenter token={token} />
+      return <ImagePresenter token={token} />;
   }
 
   return <EmptyPresenter />;

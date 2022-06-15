@@ -45,7 +45,13 @@ export function useTokenTabs(config?: Config) {
         (category) => category?.name === name
       ) as Category[]
     }));
-  }, [cssCategories, lessCategories, scssCategories, svgIconCategories, imageCategories]);
+  }, [
+    cssCategories,
+    lessCategories,
+    scssCategories,
+    svgIconCategories,
+    imageCategories
+  ]);
 
   useEffect(() => {
     async function fetchTokenFiles() {
@@ -108,7 +114,7 @@ export function useTokenTabs(config?: Config) {
       setSvgIconCategories(svgTokens.categories);
     }
 
-    if(imageTokens) {
+    if (imageTokens) {
       setImageIconCategories(imageTokens.categories);
     }
   }, [config, tokenFiles]);

@@ -1,10 +1,11 @@
-import { Category } from "../types/category.types";
+import { Category } from '../types/category.types';
 import { File } from '../types/config.types';
-import { Token, TokenPresenter, TokenSourceType } from "../types/token.types";
+import { Token, TokenPresenter, TokenSourceType } from '../types/token.types';
 import { extname, basename, dirname, relative } from 'path';
 import { readFileSync } from 'fs';
 
-export async function parsePngFiles(files: File[] = []
+export async function parsePngFiles(
+  files: File[] = []
 ): Promise<{ categories: Category[] }> {
   const tokens = determineTokens(files);
 
@@ -31,7 +32,7 @@ function determineTokens(files: File[]): Token[] {
   return files
     .map((file) => {
       const path = relative(process.cwd(), file.filename);
-      return ({
+      return {
         name: basename(file.filename, extname(file.filename)),
         description: path,
         categoryName: 'Images',
@@ -39,7 +40,7 @@ function determineTokens(files: File[]): Token[] {
         rawValue: path,
         sourceType: TokenSourceType.IMAGE,
         value: toBase64(file.filename)
-      });
+      };
     })
     .filter((token) => token.name);
 }

@@ -12,7 +12,7 @@ export function ImagePresenter({ token }: ImagePresenterProps) {
       styled.img(() => ({
         maxHeight: 32,
         maxWidth: '100%',
-        backgroundSize: 'contain',
+        backgroundSize: 'contain'
       })),
     [token]
   );
