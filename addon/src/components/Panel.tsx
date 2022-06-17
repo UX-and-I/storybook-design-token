@@ -5,12 +5,10 @@ import { ActionBar, ScrollArea, Tabs } from '@storybook/components';
 
 import { useTokenTabs } from '../hooks/useTokenTabs';
 import { Config } from '../types/config.types';
-import { TokenCards } from './TokenCards';
-import { TokenTable } from './TokenTable';
+import { TokenTab } from './TokenTab';
 
 export const Panel = () => {
   const config = useParameter<Config>('designToken');
-
   const {
     activeCategory,
     cardView,
@@ -26,17 +24,20 @@ export const Panel = () => {
 
       <ScrollArea vertical horizontal>
         <Tabs
-          actions={{ onSelect: (id) => setActiveCategory(id) }}
+          actions={{ onSelect: id => setActiveCategory(id) }}
           selected={activeCategory}
         >
-          {tabs.map((tab) => (
-            <div key={tab.label} id={tab.label} title={tab.label}>
-              <div>
-                {cardView && <TokenCards categories={tab.categories} />}
-                {!cardView && <TokenTable categories={tab.categories} />}
+          {tabs.map(tab => {
+            return (
+              <div key={tab.label} id={tab.label} title={tab.label}>
+                <TokenTab
+                  categories={tab.categories}
+                  viewType={cardView ? 'card' : 'table'}
+                  showSearch={config?.showSearch}
+                />
               </div>
-            </div>
-          ))}
+            );
+          })}
         </Tabs>
       </ScrollArea>
 
@@ -47,8 +48,8 @@ export const Panel = () => {
             onClick: () => {
               setCardView(!cardView);
             },
-            title: cardView ? 'Table View' : 'Card View'
-          }
+            title: cardView ? 'Table View' : 'Card View',
+          },
         ]}
       />
     </>

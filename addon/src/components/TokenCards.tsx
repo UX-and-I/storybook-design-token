@@ -1,6 +1,12 @@
 import React, { useMemo, useState } from 'react';
 
-import { Button, Icons, TooltipMessage, TooltipNote, WithTooltip } from '@storybook/components';
+import {
+  Button,
+  Icons,
+  TooltipMessage,
+  TooltipNote,
+  WithTooltip
+} from '@storybook/components';
 import { styled } from '@storybook/theming';
 
 import { Category } from '../types/category.types';
@@ -53,6 +59,7 @@ export const TokenCards = ({
         fontFamily: theme.typography.fonts.base,
         fontSize: theme.typography.size.s1,
         padding: 12,
+        overflow: 'hidden',
 
         '> *:not(:last-child)': {
           marginBottom: 8
