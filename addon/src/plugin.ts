@@ -29,7 +29,10 @@ function addFilesToWebpackDeps(compilation: any, files: string[]) {
   }
 }
 
-async function generateTokenFilesJsonString(files: string[], preserveCSSVars?: boolean): Promise<string> {
+async function generateTokenFilesJsonString(
+  files: string[],
+  preserveCSSVars?: boolean
+): Promise<string> {
   const tokenFiles = files
     .map((path) => ({
       filename: path,
@@ -91,7 +94,10 @@ export class StorybookDesignTokenPluginWebpack4 {
 
         addFilesToWebpackDeps(compilation, files);
 
-        const sourceString = await generateTokenFilesJsonString(files, this.preserveCSSVars);
+        const sourceString = await generateTokenFilesJsonString(
+          files,
+          this.preserveCSSVars
+        );
 
         compilation.assets['design-tokens.source.json'] = {
           source: () => {
@@ -133,7 +139,10 @@ export class StorybookDesignTokenPlugin {
                   .PROCESS_ASSETS_STAGE_OPTIMIZE_INLINE
             },
             async (compilationAssets: any, callback: any) => {
-              const sourceString = await generateTokenFilesJsonString(files, this.preserveCSSVars);
+              const sourceString = await generateTokenFilesJsonString(
+                files,
+                this.preserveCSSVars
+              );
 
               compilationAssets['design-tokens.source.json'] = {
                 source: () => {

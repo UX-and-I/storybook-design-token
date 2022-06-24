@@ -124,7 +124,11 @@ function determineTokensForCategory(
           comment.source?.start?.line === declaration.source?.end?.line
       );
 
-      const value = determineTokenValue(declaration.value, declarations, preserveCSSVars);
+      const value = determineTokenValue(
+        declaration.value,
+        declarations,
+        preserveCSSVars
+      );
       let presenterToken: TokenPresenter | undefined;
 
       if (description) {
@@ -169,7 +173,10 @@ function determineTokenValue(
   const scssVars = '(\\$([a-zA-Z0-9-_]+))';
   const lessVars = '(\\@([a-zA-Z0-9-_]+))';
 
-  const vars = [!preserveCSSVars && cssVars, scssVars, lessVars].filter(Boolean) as string[];
+  const vars = [!preserveCSSVars && cssVars, scssVars, lessVars].filter(
+    Boolean
+  ) as string[];
+
   const referencedVariableResult = new RegExp(`^(${vars.join('|')})$`).exec(
     rawValue
   );
@@ -245,7 +252,10 @@ async function getNodes(
 
   await Promise.all(
     files.map((file) => {
-      const syntax: any = (file.filename.endsWith('.scss') || file.filename.endsWith('.less')) ? scss : undefined;
+      const syntax: any =
+        file.filename.endsWith('.scss') || file.filename.endsWith('.less')
+          ? scss
+          : undefined;
 
       return postcss([plugin]).process(file.content, {
         from: file.filename,
