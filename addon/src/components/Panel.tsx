@@ -24,17 +24,19 @@ export const Panel = () => {
 
       <ScrollArea vertical horizontal>
         <Tabs
-          actions={{ onSelect: id => setActiveCategory(id) }}
+          actions={{ onSelect: (id) => setActiveCategory(id) }}
           selected={activeCategory}
         >
-          {tabs.map(tab => {
+          {tabs.map((tab) => {
             return (
               <div key={tab.label} id={tab.label} title={tab.label}>
-                <TokenTab
-                  categories={tab.categories}
-                  viewType={cardView ? 'card' : 'table'}
-                  showSearch={config?.showSearch}
-                />
+                {activeCategory === tab.label && (
+                  <TokenTab
+                    categories={tab.categories}
+                    viewType={cardView ? 'card' : 'table'}
+                    showSearch={config?.showSearch}
+                  />
+                )}
               </div>
             );
           })}
@@ -48,8 +50,8 @@ export const Panel = () => {
             onClick: () => {
               setCardView(!cardView);
             },
-            title: cardView ? 'Table View' : 'Card View',
-          },
+            title: cardView ? 'Table View' : 'Card View'
+          }
         ]}
       />
     </>

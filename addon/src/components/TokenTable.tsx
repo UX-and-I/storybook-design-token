@@ -1,8 +1,19 @@
 import { transparentize } from 'polished';
-import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import { useVirtual } from 'react-virtual';
 
-import { Icons, TooltipMessage, TooltipNote, WithTooltip } from '@storybook/components';
+import {
+  Icons,
+  TooltipMessage,
+  TooltipNote,
+  WithTooltip
+} from '@storybook/components';
 import { styled } from '@storybook/theming';
 
 import { Category } from '../types/category.types';
@@ -51,7 +62,7 @@ export const TokenTable = ({
   const ScrollContainer = useMemo(
     () =>
       styled.div(() => ({
-        maxHeight: panelHeight ? `${panelHeight}px` : 'none',
+        maxHeight: panelHeight ? `${panelHeight + 30}px` : 'none',
         overflow: 'auto',
         padding: '15px'
       })),
@@ -160,16 +171,12 @@ export const TokenTable = ({
         return;
       }
 
-      const tabPanel = parentRef.current?.closest('.os-content');
-      const tabBar = tabPanel?.querySelector('[role="tablist"]');
+      const vpHeight = window.innerHeight;
+      const tableTop = parentRef.current?.getBoundingClientRect().top || 0;
 
-      if (tabPanel && tabBar) {
-        const height =
-          tabPanel.getBoundingClientRect().height -
-          tabBar.getBoundingClientRect().height;
+      const height = vpHeight - tableTop - 40;
 
-        setPanelHeight(height);
-      }
+      setPanelHeight(height);
     };
 
     setTimeout(() => {

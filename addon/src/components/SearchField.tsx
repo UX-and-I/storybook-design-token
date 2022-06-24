@@ -65,7 +65,7 @@ export function SearchField({ value, onChange, style }: SearchFieldProps) {
   }, [onChange]);
 
   return (
-    <SearchHolder style={style}>
+    <SearchHolder className="token-search" style={style}>
       <SearchIcon icon="search" />
       <SearchInput
         value={value}
