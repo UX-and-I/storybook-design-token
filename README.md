@@ -157,6 +157,27 @@ For example:
 DESIGN_TOKEN_GLOB=**/*.tokens.{css,scss,less,svg}
 ```
 
+### CSS variables
+
+By default, the addon extracts values of CSS variables at build time. As a result, presenters use fixed values at runtime. This behavior might impose limitations in some scenarios:
+
+- Stylesheet with CSS variables is loaded separately from tokens
+- Theme is replaced at runtime and new values of CSS variables are loaded
+
+If you want to preserve CSS variables in the presenters, enable `preserveCSSVars` option in your `main.js` file:
+
+```javascript
+module.exports = {
+  stories: [
+    // stories
+  ],
+  addons: [
+    { name: 'storybook-design-token', options: { preserveCSSVars: true } }
+  ]
+  // other options
+};
+```
+
 ## Design Token Doc Block
 
 This addon comes with a custom Storybook Doc Block allowing you to display your design token documentation inside docs pages.

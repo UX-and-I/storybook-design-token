@@ -29,7 +29,10 @@ function addFilesToWebpackDeps(compilation: any, files: string[]) {
   }
 }
 
-async function generateTokenFilesJsonString(files: string[]): Promise<string> {
+async function generateTokenFilesJsonString(
+  files: string[],
+  preserveCSSVars?: boolean
+): Promise<string> {
   const tokenFiles = files
     .map((path) => ({
       filename: path,
@@ -45,19 +48,22 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
   const cssTokens = await parseCssFiles(
     tokenFiles.filter((file) => file.filename.endsWith('.css')),
     TokenSourceType.CSS,
-    true
+    true,
+    preserveCSSVars
   );
 
   const scssTokens = await parseCssFiles(
     tokenFiles.filter((file) => file.filename.endsWith('.scss')),
     TokenSourceType.SCSS,
-    true
+    true,
+    preserveCSSVars
   );
 
   const lessTokens = await parseCssFiles(
     tokenFiles.filter((file) => file.filename.endsWith('.less')),
     TokenSourceType.LESS,
-    true
+    true,
+    preserveCSSVars
   );
 
   const svgTokens = await parseSvgFiles(
@@ -78,6 +84,8 @@ async function generateTokenFilesJsonString(files: string[]): Promise<string> {
 }
 
 export class StorybookDesignTokenPluginWebpack4 {
+  constructor(private preserveCSSVars?: boolean) {}
+
   public apply(compiler: any) {
     compiler.hooks.emit.tapAsync(
       'StorybookDesignTokenPlugin',
@@ -86,7 +94,10 @@ export class StorybookDesignTokenPluginWebpack4 {
 
         addFilesToWebpackDeps(compilation, files);
 
-        const sourceString = await generateTokenFilesJsonString(files);
+        const sourceString = await generateTokenFilesJsonString(
+          files,
+          this.preserveCSSVars
+        );
 
         compilation.assets['design-tokens.source.json'] = {
           source: () => {
@@ -104,6 +115,8 @@ export class StorybookDesignTokenPluginWebpack4 {
 }
 
 export class StorybookDesignTokenPlugin {
+  constructor(private preserveCSSVars?: boolean) {}
+
   public apply(compiler: any) {
     compiler.hooks.initialize.tap('StorybookDesignTokenPlugin', () => {
       const files = getTokenFilePaths(compiler);
@@ -126,7 +139,10 @@ export class StorybookDesignTokenPlugin {
                   .PROCESS_ASSETS_STAGE_OPTIMIZE_INLINE
             },
             async (compilationAssets: any, callback: any) => {
-              const sourceString = await generateTokenFilesJsonString(files);
+              const sourceString = await generateTokenFilesJsonString(
+                files,
+                this.preserveCSSVars
+              );
 
               compilationAssets['design-tokens.source.json'] = {
                 source: () => {

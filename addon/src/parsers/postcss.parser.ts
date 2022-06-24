@@ -8,7 +8,8 @@ import { Token, TokenPresenter, TokenSourceType } from '../types/token.types';
 export async function parseCssFiles(
   files: File[] = [],
   sourceType: TokenSourceType,
-  injectVariables?: boolean
+  injectVariables?: boolean,
+  preserveCSSVars?: boolean
 ): Promise<{ categories: Category[]; injectionStyles: string }> {
   const relevantFiles = files.filter(
     (file, index, files) =>
@@ -21,7 +22,8 @@ export async function parseCssFiles(
   const categories = determineCategories(
     nodes.comments,
     nodes.declarations,
-    sourceType
+    sourceType,
+    preserveCSSVars
   );
 
   let injectionStyles = nodes?.keyframes.map((k) => k.toString()).join(' ');
@@ -42,7 +44,8 @@ export async function parseCssFiles(
 function determineCategories(
   comments: Comment[],
   declarations: Declaration[],
-  sourceType: TokenSourceType
+  sourceType: TokenSourceType,
+  preserveCSSVars?: boolean
 ): Category[] {
   const categoryComments = comments.filter((comment) =>
     comment.text.includes('@tokens ')
@@ -90,7 +93,8 @@ function determineCategories(
         declarations,
         comments,
         sourceType,
-        presenter
+        presenter,
+        preserveCSSVars
       )
     };
   });
@@ -102,7 +106,8 @@ function determineTokensForCategory(
   declarations: Declaration[],
   comments: Comment[],
   sourceType: TokenSourceType,
-  presenter: TokenPresenter
+  presenter: TokenPresenter,
+  preserveCSSVars?: boolean
 ): Token[] {
   const declarationsWithinRange = declarations.filter(
     (declaration) =>
@@ -119,7 +124,11 @@ function determineTokensForCategory(
           comment.source?.start?.line === declaration.source?.end?.line
       );
 
-      const value = determineTokenValue(declaration.value, declarations);
+      const value = determineTokenValue(
+        declaration.value,
+        declarations,
+        preserveCSSVars
+      );
       let presenterToken: TokenPresenter | undefined;
 
       if (description) {
@@ -155,11 +164,20 @@ function determineTokensForCategory(
 
 function determineTokenValue(
   rawValue: string,
-  declarations: Declaration[]
+  declarations: Declaration[],
+  preserveCSSVars?: boolean
 ): string {
   rawValue = rawValue.replace(/!default/g, '').replace(/!global/g, '');
 
-  const referencedVariableResult = /^((var\(([a-zA-Z0-9-_]+)\))|(\$([a-zA-Z0-9-_]+))|(\@([a-zA-Z0-9-_]+)))$/.exec(
+  const cssVars = '(var\\(([a-zA-Z0-9-_]+)\\))';
+  const scssVars = '(\\$([a-zA-Z0-9-_]+))';
+  const lessVars = '(\\@([a-zA-Z0-9-_]+))';
+
+  const vars = [!preserveCSSVars && cssVars, scssVars, lessVars].filter(
+    Boolean
+  ) as string[];
+
+  const referencedVariableResult = new RegExp(`^(${vars.join('|')})$`).exec(
     rawValue
   );
 
@@ -177,7 +195,7 @@ function determineTokenValue(
           declaration.prop === `@${referencedVariable}`
       )?.value || '';
 
-    return determineTokenValue(value, declarations);
+    return determineTokenValue(value, declarations, preserveCSSVars);
   }
 
   return rawValue;
@@ -234,7 +252,10 @@ async function getNodes(
 
   await Promise.all(
     files.map((file) => {
-      const syntax: any = (file.filename.endsWith('.scss') || file.filename.endsWith('.less')) ? scss : undefined;
+      const syntax: any =
+        file.filename.endsWith('.scss') || file.filename.endsWith('.less')
+          ? scss
+          : undefined;
 
       return postcss([plugin]).process(file.content, {
         from: file.filename,
