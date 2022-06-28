@@ -47,57 +47,64 @@ function determineCategories(
   sourceType: TokenSourceType,
   preserveCSSVars?: boolean
 ): Category[] {
-  const categoryComments = comments.filter((comment) =>
-    comment.text.includes('@tokens ')
+  const categoryComments = comments.filter(
+    (comment) =>
+      comment.text.includes('@tokens ') || comment.text.includes('@tokens-end')
   );
 
-  return categoryComments.map((comment, index) => {
-    const nextComment = categoryComments[index + 1];
-    const nameResults = /@tokens (.+)/g.exec(comment.text);
-    const presenterResults = /@presenter (.+)/g.exec(comment.text);
+  return categoryComments
+    .map<Category | undefined>((comment, index) => {
+      if (comment.text.includes('@tokens-end')) {
+        return undefined;
+      }
 
-    const presenter: TokenPresenter = presenterResults?.[1] as TokenPresenter;
+      const nextComment = categoryComments[index + 1];
+      const nameResults = /@tokens (.+)/g.exec(comment.text);
+      const presenterResults = /@presenter (.+)/g.exec(comment.text);
 
-    if (
-      presenter &&
-      !Object.values(TokenPresenter).includes(
-        (presenter || '') as TokenPresenter
-      )
-    ) {
-      throw new Error(`Presenter "${presenter}" is not valid.`);
-    }
+      const presenter: TokenPresenter = presenterResults?.[1] as TokenPresenter;
 
-    const range: CategoryRange = {
-      from: {
-        column: comment.source?.start?.column || 0,
-        line: comment.source?.start?.line || 0
-      },
-      to: nextComment?.prev()
-        ? {
-            column: nextComment.prev()?.source?.end?.column || 0,
-            line: nextComment.prev()?.source?.end?.line || 0
-          }
-        : undefined
-    };
+      if (
+        presenter &&
+        !Object.values(TokenPresenter).includes(
+          (presenter || '') as TokenPresenter
+        )
+      ) {
+        throw new Error(`Presenter "${presenter}" is not valid.`);
+      }
 
-    const source = comment.source?.input.from || '';
+      const range: CategoryRange = {
+        from: {
+          column: comment.source?.start?.column || 0,
+          line: comment.source?.start?.line || 0
+        },
+        to: nextComment?.prev()
+          ? {
+              column: nextComment.prev()?.source?.end?.column || 0,
+              line: nextComment.prev()?.source?.end?.line || 0
+            }
+          : undefined
+      };
 
-    return {
-      name: nameResults?.[1] || '',
-      presenter,
-      range,
-      source,
-      tokens: determineTokensForCategory(
-        source,
-        range,
-        declarations,
-        comments,
-        sourceType,
+      const source = comment.source?.input.from || '';
+
+      return {
+        name: nameResults?.[1] || '',
         presenter,
-        preserveCSSVars
-      )
-    };
-  });
+        range,
+        source,
+        tokens: determineTokensForCategory(
+          source,
+          range,
+          declarations,
+          comments,
+          sourceType,
+          presenter,
+          preserveCSSVars
+        )
+      };
+    })
+    .filter<Category>(isCategory);
 }
 
 function determineTokensForCategory(
@@ -265,4 +272,8 @@ async function getNodes(
   );
 
   return { comments, declarations, keyframes };
+}
+
+function isCategory(object: any): object is Category {
+  return !!object && !!object.presenter;
 }

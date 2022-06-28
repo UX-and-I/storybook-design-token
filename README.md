@@ -21,6 +21,7 @@ Display design token documentation generated from your stylesheets and icon file
     - [Disable the addon panel](#disable-the-addon-panel)
     - [Token search visibility](#token-search-visibility)
     - [Specify a custom glob for your token files](#specify-a-custom-glob-for-your-token-files)
+    - [Preserve CSS variables](#preserve-css-variables)
   - [Design Token Doc Block](#design-token-doc-block)
   - [Browser support](#browser-support)
   - [Migration from v0.x.x and v1.x.x](#migration-from-v0xx-and-v1xx)
@@ -71,6 +72,14 @@ The last step is to annotate your design tokens with a category name and a prese
 ```
 
 The presenter controls how your token previews are rendered. See the next section for a complete list of available presenters. You can omit the presenter definition if you don't want to render a preview or no presenter works with your token.
+
+By default, a token category ends with the comment block of the next category. If you want to end a category block before the next category comment, you can insert a special comment to end the block early:
+
+```css
+/**
+  * @tokens-end
+  */
+```
 
 To list your svg icons, the addon parses your svg files searching for svg elements. **Important: Only svg elements with an `id` or `data-token-name` attribute are added to the token list.** You can provide descriptions and category names for your icons using the (optional) attributes `data-token-description` and `data-token-category`.
 
@@ -157,7 +166,7 @@ For example:
 DESIGN_TOKEN_GLOB=**/*.tokens.{css,scss,less,svg}
 ```
 
-### CSS variables
+### Preserve CSS variables
 
 By default, the addon extracts values of CSS variables at build time. As a result, presenters use fixed values at runtime. This behavior might impose limitations in some scenarios:
 
