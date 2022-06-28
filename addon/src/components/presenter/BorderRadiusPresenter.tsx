@@ -16,8 +16,7 @@ export const BorderRadiusPresenter = ({
       styled.div(() => ({
         minHeight: 32,
         height: 32,
-        overflow: 'auto',
-        resize: 'vertical'
+        overflow: 'auto'
       })),
     []
   );

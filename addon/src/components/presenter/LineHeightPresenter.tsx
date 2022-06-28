@@ -12,7 +12,9 @@ export const LineHeightPresenter = ({ token }: LineHeightPresenterProps) => {
   const Box = useMemo(
     () =>
       styled.div(() => ({
+        height: '100%',
         lineHeight: token.value,
+        overflow: 'auto',
         width: '100%'
       })),
     [token]

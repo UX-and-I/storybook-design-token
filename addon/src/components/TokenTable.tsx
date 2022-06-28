@@ -147,6 +147,7 @@ export const TokenTable = ({
           overflow: 'hidden',
           paddingBottom: 8,
           paddingTop: 8,
+          alignItems: 'center',
 
           ':not(:first-of-type)': {
             paddingLeft: 15
@@ -159,6 +160,12 @@ export const TokenTable = ({
           svg: {
             maxWidth: '100%',
             maxHeight: '100%'
+          },
+
+          span: {
+            alignItems: 'center',
+            display: 'flex',
+            height: '100%'
           }
         }
       })),
@@ -220,31 +227,33 @@ export const TokenTable = ({
                 }}
               >
                 <td>
-                  {token.name}
+                  <span>
+                    {token.name}
 
-                  <WithTooltip
-                    hasChrome={false}
-                    tooltip={<TooltipNote note="Copy to clipboard" />}
-                  >
-                    <ClipboardButton
-                      button={
-                        <ToolButton>
-                          <Icons icon="copy" />
-                        </ToolButton>
-                      }
-                      value={token.name}
-                    />
-                  </WithTooltip>
-
-                  {token.description && (
                     <WithTooltip
-                      tooltip={<TooltipMessage desc={token.description} />}
+                      hasChrome={false}
+                      tooltip={<TooltipNote note="Copy to clipboard" />}
                     >
-                      <ToolButton>
-                        <Icons icon="info" />
-                      </ToolButton>
+                      <ClipboardButton
+                        button={
+                          <ToolButton>
+                            <Icons icon="copy" />
+                          </ToolButton>
+                        }
+                        value={token.name}
+                      />
                     </WithTooltip>
-                  )}
+
+                    {token.description && (
+                      <WithTooltip
+                        tooltip={<TooltipMessage desc={token.description} />}
+                      >
+                        <ToolButton>
+                          <Icons icon="info" />
+                        </ToolButton>
+                      </WithTooltip>
+                    )}
+                  </span>
                 </td>
                 {showValueColumn && (
                   <td>
