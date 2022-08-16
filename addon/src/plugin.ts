@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import glob from 'glob';
 import path from 'path';
 
@@ -7,10 +7,10 @@ import { parseCssFiles } from './parsers/postcss.parser';
 import { parseSvgFiles } from './parsers/svg-icon.parser';
 import { TokenSourceType } from './types/token.types';
 
-function getTokenFilePaths(compiler: any): string[] {
+function getTokenFilePaths(context: any): string[] {
   return glob.sync(
     path.join(
-      compiler.context,
+      context,
       process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg,png,jpeg,gif}'
     ),
     {
@@ -90,7 +90,7 @@ export class StorybookDesignTokenPluginWebpack4 {
     compiler.hooks.emit.tapAsync(
       'StorybookDesignTokenPlugin',
       async (compilation: any, callback: any) => {
-        const files = getTokenFilePaths(compiler);
+        const files = getTokenFilePaths(compiler.context);
 
         addFilesToWebpackDeps(compilation, files);
 
@@ -119,7 +119,7 @@ export class StorybookDesignTokenPlugin {
 
   public apply(compiler: any) {
     compiler.hooks.initialize.tap('StorybookDesignTokenPlugin', () => {
-      const files = getTokenFilePaths(compiler);
+      const files = getTokenFilePaths(compiler.context);
 
       compiler.hooks.emit.tap(
         'StorybookDesignTokenPlugin',
@@ -160,6 +160,40 @@ export class StorybookDesignTokenPlugin {
       );
     });
   }
+}
+
+export function viteStorybookDesignTokenPlugin() {
+  let publicDir: string;
+
+  return {
+    name: 'vite-storybook-design-token-plugin',
+    configResolved(resolvedConfig: any) {
+      publicDir = resolvedConfig.publicDir;
+    },
+    buildStart: async function () {
+      if (!publicDir) {
+        return;
+      }
+
+      const watchFiles = this.getWatchFiles();
+      const files = getTokenFilePaths('./').map((file) => `./${file}`);
+
+      for (const file of files.filter((f) => !watchFiles.includes(f))) {
+        this.addWatchFile(file);
+      }
+
+      const sourceString = await generateTokenFilesJsonString(files);
+
+      if (!existsSync(publicDir)) {
+        mkdirSync(publicDir);
+      }
+
+      writeFileSync(
+        path.join(publicDir, 'design-tokens.source.json'),
+        sourceString
+      );
+    }
+  } as any;
 }
 
 function isImageExtension(filename: string) {

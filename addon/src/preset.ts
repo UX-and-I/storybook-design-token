@@ -1,7 +1,8 @@
 import {
-  StorybookDesignTokenPlugin,
-  StorybookDesignTokenPluginWebpack4
+    StorybookDesignTokenPlugin, StorybookDesignTokenPluginWebpack4, viteStorybookDesignTokenPlugin
 } from './plugin';
+
+const Vite = require('vite');
 
 type Options = {
   presets: any;
@@ -10,6 +11,12 @@ type Options = {
 
 export function managerEntries(entry = []) {
   return [...entry, require.resolve('./register')];
+}
+
+export async function viteFinal(config: any) {
+  return Vite.mergeConfig(config, {
+    plugins: [...config.plugins, viteStorybookDesignTokenPlugin()]
+  });
 }
 
 export async function webpackFinal(
