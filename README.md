@@ -158,12 +158,29 @@ export const parameters = {
 
 ### Specify a custom glob for your token files
 
-By default, the addon parses all `.css`, `.scss`, `.less`, `.svg`, `.jpeg`, `.png` and `.gif` files of your code base for annotated design tokens. If you only want to parse specific files, you can pass a [glob](https://github.com/isaacs/node-glob) via the `DESIGN_TOKEN_GLOB` environment variable.
+By default, the addon parses all `.css`, `.scss`, `.less`, `.svg`, `.jpeg`, `.png` and `.gif` files of your code base for annotated design tokens. If you only want to parse specific files, you can pass a [glob](https://github.com/isaacs/node-glob) via the `DESIGN_TOKEN_GLOB` environment variable or via an option in your `main.js`.
 
 For example:
 
 ```
 DESIGN_TOKEN_GLOB=**/*.tokens.{css,scss,less,svg}
+```
+
+or
+
+```javascript
+module.exports = {
+  stories: [
+    // stories
+  ],
+  addons: [
+    {
+      name: 'storybook-design-token',
+      options: { designTokenGlob: '**/*.tokens.{css,scss,less,svg}' }
+    }
+  ]
+  // other options
+};
 ```
 
 ### Preserve CSS variables

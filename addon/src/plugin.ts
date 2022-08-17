@@ -7,11 +7,13 @@ import { parseCssFiles } from './parsers/postcss.parser';
 import { parseSvgFiles } from './parsers/svg-icon.parser';
 import { TokenSourceType } from './types/token.types';
 
-function getTokenFilePaths(context: any): string[] {
+function getTokenFilePaths(context: any, designTokenGlob?: string): string[] {
   return glob.sync(
     path.join(
       context,
-      process.env.DESIGN_TOKEN_GLOB || '**/*.{css,scss,less,svg,png,jpeg,gif}'
+      designTokenGlob ||
+        process.env.DESIGN_TOKEN_GLOB ||
+        '**/*.{css,scss,less,svg,png,jpeg,gif}'
     ),
     {
       ignore: ['**/node_modules/**', '**/storybook-static/**', '**/*.chunk.*']
@@ -84,13 +86,16 @@ async function generateTokenFilesJsonString(
 }
 
 export class StorybookDesignTokenPluginWebpack4 {
-  constructor(private preserveCSSVars?: boolean) {}
+  constructor(
+    private preserveCSSVars?: boolean,
+    private designTokenGlob?: string
+  ) {}
 
   public apply(compiler: any) {
     compiler.hooks.emit.tapAsync(
       'StorybookDesignTokenPlugin',
       async (compilation: any, callback: any) => {
-        const files = getTokenFilePaths(compiler.context);
+        const files = getTokenFilePaths(compiler.context, this.designTokenGlob);
 
         addFilesToWebpackDeps(compilation, files);
 
@@ -115,11 +120,14 @@ export class StorybookDesignTokenPluginWebpack4 {
 }
 
 export class StorybookDesignTokenPlugin {
-  constructor(private preserveCSSVars?: boolean) {}
+  constructor(
+    private preserveCSSVars?: boolean,
+    private designTokenGlob?: string
+  ) {}
 
   public apply(compiler: any) {
     compiler.hooks.initialize.tap('StorybookDesignTokenPlugin', () => {
-      const files = getTokenFilePaths(compiler.context);
+      const files = getTokenFilePaths(compiler.context, this.designTokenGlob);
 
       compiler.hooks.emit.tap(
         'StorybookDesignTokenPlugin',
@@ -162,7 +170,7 @@ export class StorybookDesignTokenPlugin {
   }
 }
 
-export function viteStorybookDesignTokenPlugin() {
+export function viteStorybookDesignTokenPlugin(options: any) {
   let publicDir: string;
 
   return {
@@ -176,7 +184,9 @@ export function viteStorybookDesignTokenPlugin() {
       }
 
       const watchFiles = this.getWatchFiles();
-      const files = getTokenFilePaths('./').map((file) => `./${file}`);
+      const files = getTokenFilePaths('./', options?.designTokenGlob).map(
+        (file) => `./${file}`
+      );
 
       for (const file of files.filter((f) => !watchFiles.includes(f))) {
         this.addWatchFile(file);

@@ -1,4 +1,4 @@
-const { viteFinal } = require('storybook-design-token/dist/preset');
+const { viteFinalFactory } = require('storybook-design-token/dist/preset');
 
 module.exports = {
   stories: [
@@ -13,5 +13,5 @@ module.exports = {
   core: {
     builder: '@storybook/builder-vite'
   },
-  viteFinal
+  viteFinal: viteFinalFactory()
 };
