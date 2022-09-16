@@ -43,6 +43,7 @@ export const TokenTable = ({
   const [panelHeight, setPanelHeight] = useState<number>(maxHeight || 100);
 
   const parentRef = useRef<HTMLDivElement | null>(null);
+  const theadRef = useRef<HTMLTableSectionElement | null>(null);
 
   const tokens = useMemo(
     () =>
@@ -197,20 +198,23 @@ export const TokenTable = ({
 
   return (
     <ScrollContainer ref={parentRef}>
-      <Table>
-        <thead className="docblock-argstable-head">
+      <Table
+        style={{
+          height: `${
+            rowVirtualizer.totalSize +
+            (theadRef.current?.getBoundingClientRect().height || 0)
+          }px`,
+          position: 'relative'
+        }}
+      >
+        <thead className="docblock-argstable-head" ref={theadRef}>
           <tr>
             <th>Name</th>
             {showValueColumn && <th>Value</th>}
             <th>Preview</th>
           </tr>
         </thead>
-        <tbody
-          style={{
-            height: `${rowVirtualizer.totalSize}px`,
-            position: 'relative'
-          }}
-        >
+        <tbody>
           {rowVirtualizer.virtualItems.map((virtualRow) => {
             const token = tokens[virtualRow.index];
 
@@ -223,7 +227,10 @@ export const TokenTable = ({
                   left: 0,
                   width: '100%',
                   height: `${virtualRow.size}px`,
-                  transform: `translateY(${virtualRow.start}px)`
+                  transform: `translateY(${
+                    virtualRow.start +
+                    (theadRef.current?.getBoundingClientRect().height || 0)
+                  }px)`
                 }}
               >
                 <td>
