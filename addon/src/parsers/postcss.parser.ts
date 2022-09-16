@@ -83,6 +83,11 @@ function determineCategories(
               column: nextComment.prev()?.source?.end?.column || 0,
               line: nextComment.prev()?.source?.end?.line || 0
             }
+          : nextComment
+          ? {
+              column: nextComment.source?.start?.column || 0,
+              line: nextComment.source?.start?.line || 0
+            }
           : undefined
       };
 

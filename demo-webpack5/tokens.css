@@ -1,5 +1,23 @@
 :root {
   /**
+     * @tokens 1
+     * @presenter Color
+     */
+  --grey1100: rgb(26, 28, 32);
+  --grey1000: (42, 46, 52);
+}
+
+body.theme-dark {
+  /**
+    * @tokens 2
+    * @presenter Color
+    */
+  --cu-background-app-background: rgb(var(--_cu-grey1000));
+  --cu-background-app-background-inverse: rgb(var(--_cu-white));
+}
+
+:root {
+  /**
   * @tokens Animations
   * @presenter Animation
   */
