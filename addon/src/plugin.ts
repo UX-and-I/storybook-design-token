@@ -172,25 +172,23 @@ export class StorybookDesignTokenPlugin {
 
 export function viteStorybookDesignTokenPlugin(options: any) {
   let publicDir: string;
+  let rootDir: string;
+  let files: string[];
 
   return {
     name: 'vite-storybook-design-token-plugin',
     configResolved(resolvedConfig: any) {
       publicDir = resolvedConfig.publicDir;
+      rootDir = resolvedConfig.root;
     },
-    buildStart: async function () {
+    transform: async function () {
       if (!publicDir) {
         return;
       }
 
-      const watchFiles = this.getWatchFiles();
-      const files = getTokenFilePaths('./', options?.designTokenGlob).map(
+      files = getTokenFilePaths('./', options?.designTokenGlob).map(
         (file) => `./${file}`
       );
-
-      for (const file of files.filter((f) => !watchFiles.includes(f))) {
-        this.addWatchFile(file);
-      }
 
       const sourceString = await generateTokenFilesJsonString(files);
 

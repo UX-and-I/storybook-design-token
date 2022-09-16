@@ -16,6 +16,7 @@ Display design token documentation generated from your stylesheets and icon file
   - [Get started](#get-started)
   - [Available presenters](#available-presenters)
   - [Advanced configuration](#advanced-configuration)
+    - [Using the Vite builder](#using-the-vite-builder)
     - [Default tab](#default-tab)
     - [Style injection](#style-injection)
     - [Disable the addon panel](#disable-the-addon-panel)
@@ -103,6 +104,22 @@ Please check the **[demo](https://storybook-design-token-v1.netlify.app/?path=/s
 
 ## Advanced configuration
 
+### Using the Vite builder
+
+From version 2.7.0, this addon has experimental Vite support. If you are using Storybook's Vite builder, use the following configuratiuon in your `.storybook/main.js`:
+
+```javascript
+const { viteFinalFactory } = require('storybook-design-token/dist/preset');
+
+module.exports = {
+  // … your config
+  core: {
+    builder: '@storybook/builder-vite'
+  },
+  viteFinal: viteFinalFactory()
+};
+```
+
 ### Default tab
 
 You can specify the default tab shown in the addon panel. Set it to the corresponding category name.
@@ -164,23 +181,6 @@ For example:
 
 ```
 DESIGN_TOKEN_GLOB=**/*.tokens.{css,scss,less,svg}
-```
-
-or
-
-```javascript
-module.exports = {
-  stories: [
-    // stories
-  ],
-  addons: [
-    {
-      name: 'storybook-design-token',
-      options: { designTokenGlob: '**/*.tokens.{css,scss,less,svg}' }
-    }
-  ]
-  // other options
-};
 ```
 
 ### Preserve CSS variables

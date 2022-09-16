@@ -16,5 +16,6 @@ node_modules/
 build/
 dist/
 storybook-static/
+design-tokens.source.json
 
 .DS_Store
