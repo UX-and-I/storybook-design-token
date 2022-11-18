@@ -207,7 +207,11 @@ export const TokenTable = ({
           position: 'relative'
         }}
       >
-        <thead className="docblock-argstable-head" ref={theadRef}>
+        <thead
+          className="docblock-argstable-head"
+          ref={theadRef}
+          style={{ height: '28px' }}
+        >
           <tr>
             <th>Name</th>
             {showValueColumn && <th>Value</th>}
