@@ -1,10 +1,12 @@
 import {
-    StorybookDesignTokenPlugin, StorybookDesignTokenPluginWebpack4, viteStorybookDesignTokenPlugin
+  StorybookDesignTokenPlugin,
+  StorybookDesignTokenPluginWebpack4,
+  viteStorybookDesignTokenPlugin
 } from './plugin';
 
 const { mergeConfig } = require('vite');
 
-type Options = {
+type AddonOptions = {
   designTokenGlob?: string;
   presets: any;
   preserveCSSVars?: boolean;
@@ -22,9 +24,20 @@ export function viteFinalFactory(options?: any) {
   };
 }
 
+export const viteFinal = async (
+  viteConfig: Record<string, any>,
+  options: any
+) => {
+  viteConfig.plugins = viteConfig.plugins || [];
+
+  viteConfig.plugins.push(viteStorybookDesignTokenPlugin(options));
+
+  return viteConfig;
+};
+
 export async function webpackFinal(
   config: any,
-  { designTokenGlob, presets, preserveCSSVars }: Options
+  { designTokenGlob, presets, preserveCSSVars }: AddonOptions
 ) {
   const version = await presets.apply('webpackVersion');
 
