@@ -1,6 +1,6 @@
 {
   "name": "storybook-design-token",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "main": "dist/preset.js",
   "license": "MIT",
   "keywords": [
