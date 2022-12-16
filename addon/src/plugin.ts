@@ -8,17 +8,18 @@ import { parseSvgFiles } from './parsers/svg-icon.parser';
 import { TokenSourceType } from './types/token.types';
 
 function getTokenFilePaths(context: any, designTokenGlob?: string): string[] {
-  return glob.sync(
-    path.join(
+  const pattern = path
+    .join(
       context,
       designTokenGlob ||
         process.env.DESIGN_TOKEN_GLOB ||
         '**/*.{css,scss,less,svg,png,jpeg,gif}'
-    ),
-    {
-      ignore: ['**/node_modules/**', '**/storybook-static/**', '**/*.chunk.*']
-    }
-  );
+    )
+    .replace(/\\/g, '/');
+
+  return glob.sync(pattern, {
+    ignore: ['**/node_modules/**', '**/storybook-static/**', '**/*.chunk.*']
+  });
 }
 
 function addFilesToWebpackDeps(compilation: any, files: string[]) {
