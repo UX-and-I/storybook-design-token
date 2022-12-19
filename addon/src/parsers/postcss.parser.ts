@@ -59,6 +59,8 @@ function determineCategories(
       }
 
       const nextComment = categoryComments[index + 1];
+      const nextCommentIsInAnotherFile =
+        comment.source?.input.file !== nextComment?.source?.input.file;
       const nameResults = /@tokens (.+)/g.exec(comment.text);
       const presenterResults = /@presenter (.+)/g.exec(comment.text);
 
@@ -78,17 +80,18 @@ function determineCategories(
           column: comment.source?.start?.column || 0,
           line: comment.source?.start?.line || 0
         },
-        to: nextComment?.prev()
-          ? {
-              column: nextComment.prev()?.source?.end?.column || 0,
-              line: nextComment.prev()?.source?.end?.line || 0
-            }
-          : nextComment
-          ? {
-              column: nextComment.source?.start?.column || 0,
-              line: nextComment.source?.start?.line || 0
-            }
-          : undefined
+        to:
+          !nextCommentIsInAnotherFile && nextComment?.prev()
+            ? {
+                column: nextComment.prev()?.source?.end?.column || 0,
+                line: nextComment.prev()?.source?.end?.line || 0
+              }
+            : !nextCommentIsInAnotherFile && nextComment
+            ? {
+                column: nextComment.source?.start?.column || 0,
+                line: nextComment.source?.start?.line || 0
+              }
+            : undefined
       };
 
       const source = comment.source?.input.from || '';
@@ -280,5 +283,5 @@ async function getNodes(
 }
 
 function isCategory(object: any): object is Category {
-  return !!object && !!object.presenter;
+  return !!object && object.hasOwnProperty('presenter');
 }
