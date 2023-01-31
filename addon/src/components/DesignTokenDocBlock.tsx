@@ -11,7 +11,7 @@ import { useTokenSearch } from '../hooks/useTokenSearch';
 import { SearchField } from './SearchField';
 import { Category } from '../types/category.types';
 
-export interface DesignTokenDocBlockProps {
+export type DesignTokenDocBlockProps = {
   categoryName: string;
   maxHeight?: number;
   showValueColumn?: boolean;
@@ -20,7 +20,16 @@ export interface DesignTokenDocBlockProps {
    * @default true
    */
   showSearch?: boolean;
-}
+} & (
+    | {
+      viewType: 'card',
+      pageSize?: number;
+    }
+    | {
+      viewType: 'table',
+      pageSize?: never;
+    }
+  )
 
 interface CompatDocsContextProps extends DocsContextProps {
   storyById?: (id: string) => any;
@@ -55,7 +64,8 @@ export const DesignTokenDocBlock = ({
   maxHeight = 600,
   showValueColumn = true,
   viewType = 'table',
-  showSearch = true
+  showSearch = true,
+  pageSize,
 }: DesignTokenDocBlockProps) => {
   const context = useContext(DocsContext);
   const story = getMainStory(context);
@@ -77,6 +87,7 @@ export const DesignTokenDocBlock = ({
       maxHeight={maxHeight}
       showValueColumn={showValueColumn}
       showSearch={showSearch}
+      pageSize={pageSize}
     />
   );
 };
@@ -94,7 +105,8 @@ function DesignTokenDocBlockView({
   categories: categoriesProp,
   maxHeight,
   showValueColumn,
-  showSearch
+  showSearch,
+  pageSize
 }: DesignTokenDocBlockViewProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
     categoriesProp ?? []
@@ -128,6 +140,7 @@ function DesignTokenDocBlockView({
           padded={false}
           readonly
           showValueColumn={showValueColumn}
+          pageSize={pageSize}
         />
       )}
     </Container>
