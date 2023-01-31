@@ -21,7 +21,7 @@ export function TokenTab({
   categories: categoriesProp,
   viewType = 'table',
   showSearch = true,
-  pageSize = 50,
+  pageSize,
 }: TokenTabProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
     categoriesProp
