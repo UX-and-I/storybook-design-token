@@ -11,7 +11,7 @@ import { useTokenSearch } from '../hooks/useTokenSearch';
 import { SearchField } from './SearchField';
 import { Category } from '../types/category.types';
 
-export type DesignTokenDocBlockProps = {
+export interface DesignTokenDocBlockProps {
   categoryName: string;
   maxHeight?: number;
   showValueColumn?: boolean;
@@ -20,16 +20,8 @@ export type DesignTokenDocBlockProps = {
    * @default true
    */
   showSearch?: boolean;
-} & (
-    | {
-      viewType: 'card',
-      pageSize?: number;
-    }
-    | {
-      viewType: 'table',
-      pageSize?: never;
-    }
-  )
+  pageSize?: number;
+}
 
 interface CompatDocsContextProps extends DocsContextProps {
   storyById?: (id: string) => any;

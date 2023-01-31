@@ -35,6 +35,7 @@ export const Panel = () => {
                     categories={tab.categories}
                     viewType={cardView ? 'card' : 'table'}
                     showSearch={config?.showSearch}
+                    pageSize={config?.pageSize}
                   />
                 )}
               </div>

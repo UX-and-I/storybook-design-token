@@ -9,17 +9,19 @@ export type TokenViewType = 'card' | 'table';
 
 interface TokenTabProps {
   categories: Category[];
-  viewType?: TokenViewType;
+  viewType: TokenViewType;
   /**
    * @default true
    */
   showSearch?: boolean;
+  pageSize?: number;
 }
 
 export function TokenTab({
   categories: categoriesProp,
   viewType = 'table',
-  showSearch = true
+  showSearch = true,
+  pageSize = 50,
 }: TokenTabProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
     categoriesProp
@@ -34,7 +36,7 @@ export function TokenTab({
           style={{ margin: '12px 12px 8px' }}
         />
       )}
-      {viewType === 'card' && <TokenCards categories={categories} />}
+      {viewType === 'card' && <TokenCards categories={categories} pageSize={pageSize} />}
       {viewType === 'table' && <TokenTable categories={categories} />}
     </div>
   );
