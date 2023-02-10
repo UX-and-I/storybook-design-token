@@ -20,6 +20,7 @@ Display design token documentation generated from your stylesheets and icon file
     - [Style injection](#style-injection)
     - [Disable the addon panel](#disable-the-addon-panel)
     - [Token search visibility](#token-search-visibility)
+    - [Pagination](#pagination)
     - [Specify a custom glob for your token files](#specify-a-custom-glob-for-your-token-files)
     - [Preserve CSS variables](#preserve-css-variables)
   - [Design Token Doc Block](#design-token-doc-block)
@@ -152,6 +153,29 @@ In some cases you might not need the search field to be visible. You can control
 export const parameters = {
   designToken: {
     showSearch: false
+  }
+};
+```
+
+### Pagination
+
+By default `pageSize` of card view is 50 items. You can configure it by the setting the `pageSize` parameter:
+
+```javascript
+export const parameters = {
+  designToken: {
+    pageSize: 3,
+  }
+};
+```
+
+You can disable pagination in the following way:
+
+```javascript
+export const parameters = {
+  designToken: {
+    // specify max value to disable pagination
+    pageSize: Number.MAX_VALUE,
   }
 };
 ```
