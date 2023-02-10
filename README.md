@@ -159,12 +159,12 @@ export const parameters = {
 
 ### Pagination
 
-By default `pageSize` of card view is 50 items. You can configure it by the setting the `pageSize` parameter:
+By default `pageSize` of the card view is 50 items. You can configure it by setting the `pageSize` parameter:
 
 ```javascript
 export const parameters = {
   designToken: {
-    pageSize: 3,
+    pageSize: 10
   }
 };
 ```
@@ -175,7 +175,7 @@ You can disable pagination in the following way:
 export const parameters = {
   designToken: {
     // specify max value to disable pagination
-    pageSize: Number.MAX_VALUE,
+    pageSize: Number.MAX_VALUE
   }
 };
 ```
