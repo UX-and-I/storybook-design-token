@@ -23,3 +23,15 @@ NoSearch.parameters = {
     showSearch: false
   }
 };
+
+export const CustomPageSize: Story<ButtonProps> = (args) => <DtButton {...args} />;
+
+CustomPageSize.args = {
+  label: 'Custom pageSize'
+};
+CustomPageSize.parameters = {
+  designToken: {
+    pageSize: 3,
+  }
+};
+

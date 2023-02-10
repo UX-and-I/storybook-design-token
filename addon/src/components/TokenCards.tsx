@@ -21,15 +21,15 @@ interface TokenCardsProps {
   padded?: boolean;
   readonly?: boolean;
   showValueColumn?: boolean;
+  pageSize?: number;
 }
-
-const pageSize = 50;
 
 export const TokenCards = ({
   categories,
   padded = true,
   readonly,
-  showValueColumn = true
+  showValueColumn = true,
+  pageSize = 50,
 }: TokenCardsProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;

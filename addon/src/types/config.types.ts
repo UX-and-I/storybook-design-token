@@ -2,6 +2,7 @@ export interface Config {
   showSearch?: boolean;
   defaultTab?: string;
   styleInjection?: string;
+  pageSize?: number;
 }
 
 export interface File {
