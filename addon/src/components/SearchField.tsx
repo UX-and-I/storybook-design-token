@@ -38,7 +38,11 @@ const ClearButton = styled.button(({ theme }) => ({
   cursor: 'pointer'
 }));
 
-const ClearIcon = styled(Icons)(({ theme }) => ({}));
+const ClearIcon = styled(Icons)(({ theme }) => ({
+  position: 'absolute',
+  bottom: 0,
+  right: 0
+}));
 
 const SearchInput = styled(Input)(({ theme }) => ({
   paddingLeft: 28,
