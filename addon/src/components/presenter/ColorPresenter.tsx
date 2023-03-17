@@ -2,13 +2,9 @@ import React, { useMemo } from 'react';
 
 import { styled } from '@storybook/theming';
 
-import { Token } from '../../types/token.types';
+import { PresenterProps } from '../../types/token.types';
 
-interface ColorPresenterProps {
-  token: Token;
-}
-
-export const ColorPresenter = ({ token }: ColorPresenterProps) => {
+export const ColorPresenter = ({ token }: PresenterProps) => {
   const Color = useMemo(
     () =>
       styled.div(() => ({

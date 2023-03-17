@@ -1,10 +1,16 @@
 import { Meta, Story } from '@storybook/react';
+import { presenters } from '../../Presenters';
 
 import { ButtonProps, DtButton } from './Button';
 
 export default {
   title: 'Components/Button',
-  component: DtButton
+  component: DtButton,
+  parameters: {
+    designToken: {
+      presenters: presenters
+    }
+  }
 } as Meta;
 
 export const Button: Story<ButtonProps> = (args) => <DtButton {...args} />;

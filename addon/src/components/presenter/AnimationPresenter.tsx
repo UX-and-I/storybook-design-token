@@ -2,13 +2,9 @@ import React, { useMemo } from 'react';
 
 import { styled } from '@storybook/theming';
 
-import { Token } from '../../types/token.types';
+import { PresenterProps } from '../../types/token.types';
 
-interface AnimationPresenterProps {
-  token: Token;
-}
-
-export const AnimationPresenter = ({ token }: AnimationPresenterProps) => {
+export const AnimationPresenter = ({ token }: PresenterProps) => {
   const Animation = useMemo(
     () =>
       styled.div(({ theme }) => ({

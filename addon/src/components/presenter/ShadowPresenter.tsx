@@ -2,13 +2,9 @@ import React, { useMemo } from 'react';
 
 import { styled } from '@storybook/theming';
 
-import { Token } from '../../types/token.types';
+import { PresenterProps } from '../../types/token.types';
 
-interface ShadowPresenterProps {
-  token: Token;
-}
-
-export const ShadowPresenter = ({ token }: ShadowPresenterProps) => {
+export const ShadowPresenter = ({ token }: PresenterProps) => {
   const Box = useMemo(
     () =>
       styled.div(({ theme }) => ({

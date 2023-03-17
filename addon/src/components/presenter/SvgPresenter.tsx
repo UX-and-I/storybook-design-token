@@ -2,13 +2,9 @@ import React, { useMemo } from 'react';
 
 import { styled } from '@storybook/theming';
 
-import { Token } from '../../types/token.types';
+import { PresenterProps } from '../../types/token.types';
 
-interface SvgPresenterProps {
-  token: Token;
-}
-
-export const SvgPresenter = ({ token }: SvgPresenterProps) => {
+export const SvgPresenter = ({ token }: PresenterProps) => {
   const Box = useMemo(
     () =>
       styled.div(() => ({

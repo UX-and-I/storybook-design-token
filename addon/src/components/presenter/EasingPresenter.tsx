@@ -2,13 +2,9 @@ import React, { useMemo } from 'react';
 
 import { keyframes, styled } from '@storybook/theming';
 
-import { Token } from '../../types/token.types';
+import { PresenterProps } from '../../types/token.types';
 
-interface EasingPresenterProps {
-  token: Token;
-}
-
-export const EasingPresenter = ({ token }: EasingPresenterProps) => {
+export const EasingPresenter = ({ token }: PresenterProps) => {
   const animation = keyframes`
     0% {
       transform: scaleX(0);

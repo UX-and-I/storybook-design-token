@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Token, TokenPresenter } from '../types/token.types';
+import { PresenterProps, Token, TokenPresenter } from '../types/token.types';
 import { AnimationPresenter } from './presenter/AnimationPresenter';
 import { BorderPresenter } from './presenter/BorderPresenter';
 import { BorderRadiusPresenter } from './presenter/BorderRadiusPresenter';
@@ -20,45 +20,43 @@ import { ImagePresenter } from './presenter/ImagePresenter';
 
 interface TokenPreviewProps {
   token: Token;
+  presenters: PresenterMapType;
 }
 
-export const TokenPreview = ({ token }: TokenPreviewProps) => {
+export const TokenPreview = ({ token, presenters }: TokenPreviewProps) => {
   const presenter = token.presenter;
+  
+  const all = {...PresenterMap, ...(presenters || {})}; 
 
-  switch (presenter) {
-    case TokenPresenter.ANIMATION:
-      return <AnimationPresenter token={token} />;
-    case TokenPresenter.BORDER:
-      return <BorderPresenter token={token} />;
-    case TokenPresenter.BORDER_RADIUS:
-      return <BorderRadiusPresenter token={token} />;
-    case TokenPresenter.COLOR:
-      return <ColorPresenter token={token} />;
-    case TokenPresenter.EASING:
-      return <EasingPresenter token={token} />;
-    case TokenPresenter.FONT_FAMILY:
-      return <FontFamilyPresenter token={token} />;
-    case TokenPresenter.FONT_SIZE:
-      return <FontSizePresenter token={token} />;
-    case TokenPresenter.FONT_WEIGHT:
-      return <FontWeightPresenter token={token} />;
-    case TokenPresenter.GRADIENT:
-      return <ColorPresenter token={token} />;
-    case TokenPresenter.LINE_HEIGHT:
-      return <LineHeightPresenter token={token} />;
-    case TokenPresenter.LETTER_SPACING:
-      return <LetterSpacingPresenter token={token} />;
-    case TokenPresenter.OPACITY:
-      return <OpacityPresenter token={token} />;
-    case TokenPresenter.SHADOW:
-      return <ShadowPresenter token={token} />;
-    case TokenPresenter.SPACING:
-      return <SpacingPresenter token={token} />;
-    case TokenPresenter.SVG:
-      return <SvgPresenter token={token} />;
-    case TokenPresenter.IMAGE:
-      return <ImagePresenter token={token} />;
-  }
+  const PresenterComponent = presenter != null ? all[presenter] : EmptyPresenter;
 
-  return <EmptyPresenter />;
+  return <PresenterComponent token={token} />;
 };
+
+export interface PresenterMapType {
+  [key: string]: React.FunctionComponent<PresenterProps> | React.ComponentClass<PresenterProps>;
+}
+
+const PresenterMap: PresenterMapType = {
+  [`${TokenPresenter.ANIMATION}`]: AnimationPresenter,
+  [`${TokenPresenter.BORDER}`]: BorderPresenter,
+  [`${TokenPresenter.BORDER_RADIUS}`]: BorderRadiusPresenter,
+  [`${TokenPresenter.COLOR}`]: ColorPresenter,
+  [`${TokenPresenter.EASING}`]: EasingPresenter,
+  [`${TokenPresenter.FONT_FAMILY}`]: FontFamilyPresenter,
+  [`${TokenPresenter.FONT_SIZE}`]: FontSizePresenter,
+  [`${TokenPresenter.FONT_WEIGHT}`]: FontWeightPresenter,
+  [`${TokenPresenter.LINE_HEIGHT}`]: LineHeightPresenter,
+  [`${TokenPresenter.LETTER_SPACING}`]: LetterSpacingPresenter,
+  [`${TokenPresenter.OPACITY}`]: OpacityPresenter,
+  [`${TokenPresenter.SHADOW}`]: ShadowPresenter,
+  [`${TokenPresenter.SPACING}`]: SpacingPresenter,
+  [`${TokenPresenter.SVG}`]: SvgPresenter,
+  [`${TokenPresenter.IMAGE}`]: ImagePresenter,
+};
+
+export function registerPresenter(name: string, presenter: React.FunctionComponent<PresenterProps> | React.ComponentClass<PresenterProps>) {
+  PresenterMap[name] = presenter;
+
+  // console.dir(PresenterMap);
+}

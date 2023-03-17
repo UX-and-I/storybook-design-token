@@ -1,5 +1,6 @@
 import { Meta, Story, Canvas } from '@storybook/addon-docs';
 import { DesignTokenDocBlock } from 'storybook-design-token/dist/doc-blocks';
+import { presenters } from './../Presenters';
 
 <Meta title="Design Tokens/Images" />
 
@@ -11,8 +12,8 @@ odit facere eum vel reiciendis eius repellat, totam aperiam. Molestiae error
 voluptatibus et neque vel libero, harum nam quibusdam mollitia, sapiente rerum
 iste modi sit deserunt? Officiis, quaerat!
 
-<DesignTokenDocBlock categoryName="Images" />
+<DesignTokenDocBlock categoryName="Images" presenters={presenters}/>
 
 ## As cards
 
-<DesignTokenDocBlock categoryName="Images" viewType="card" />
+<DesignTokenDocBlock categoryName="Images" viewType="card" presenters={presenters} />

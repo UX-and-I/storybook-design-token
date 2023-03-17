@@ -48,6 +48,6 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.12",
     "babel-loader": "^8.2.3",
-    "storybook-design-token": "^2.0.0"
+    "storybook-design-token": "file:./../addon/"
   }
 }

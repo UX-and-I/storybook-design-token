@@ -10,6 +10,7 @@ import { TokenCards } from './TokenCards';
 import { useTokenSearch } from '../hooks/useTokenSearch';
 import { SearchField } from './SearchField';
 import { Category } from '../types/category.types';
+import { PresenterMapType } from './TokenPreview';
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
@@ -21,6 +22,7 @@ export interface DesignTokenDocBlockProps {
    */
   showSearch?: boolean;
   pageSize?: number;
+  presenters: PresenterMapType;
 }
 
 interface CompatDocsContextProps extends DocsContextProps {
@@ -58,6 +60,7 @@ export const DesignTokenDocBlock = ({
   viewType = 'table',
   showSearch = true,
   pageSize,
+  presenters,
 }: DesignTokenDocBlockProps) => {
   const context = useContext(DocsContext);
   const story = getMainStory(context);
@@ -80,6 +83,7 @@ export const DesignTokenDocBlock = ({
       showValueColumn={showValueColumn}
       showSearch={showSearch}
       pageSize={pageSize}
+      presenters={presenters}
     />
   );
 };
@@ -98,7 +102,8 @@ function DesignTokenDocBlockView({
   maxHeight,
   showValueColumn,
   showSearch,
-  pageSize
+  pageSize,
+  presenters
 }: DesignTokenDocBlockViewProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
     categoriesProp ?? []
@@ -123,6 +128,7 @@ function DesignTokenDocBlockView({
             maxHeight={maxHeight}
             readonly
             showValueColumn={showValueColumn}
+            presenters={presenters}
           />
         </Card>
       )}
@@ -133,6 +139,7 @@ function DesignTokenDocBlockView({
           readonly
           showValueColumn={showValueColumn}
           pageSize={pageSize}
+          presenters={presenters}
         />
       )}
     </Container>

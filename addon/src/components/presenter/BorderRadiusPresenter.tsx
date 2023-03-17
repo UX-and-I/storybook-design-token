@@ -2,15 +2,11 @@ import React, { useMemo } from 'react';
 
 import { styled } from '@storybook/theming';
 
-import { Token } from '../../types/token.types';
-
-interface BorderRadiusPresenterProps {
-  token: Token;
-}
+import { PresenterProps } from '../../types/token.types';
 
 export const BorderRadiusPresenter = ({
   token
-}: BorderRadiusPresenterProps) => {
+}: PresenterProps) => {
   const Container = useMemo(
     () =>
       styled.div(() => ({

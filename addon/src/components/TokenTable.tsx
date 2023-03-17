@@ -19,7 +19,7 @@ import { styled } from '@storybook/theming';
 import { Category } from '../types/category.types';
 import { Token } from '../types/token.types';
 import { ClipboardButton } from './ClipboardButton';
-import { TokenPreview } from './TokenPreview';
+import { PresenterMapType, TokenPreview } from './TokenPreview';
 import { TokenValue } from './TokenValue';
 import { ToolButton } from './ToolButton';
 
@@ -28,13 +28,15 @@ interface TokenTableProps {
   maxHeight?: number;
   readonly?: boolean;
   showValueColumn?: boolean;
+  presenters: PresenterMapType;
 }
 
 export const TokenTable = ({
   categories,
   maxHeight,
   readonly,
-  showValueColumn = true
+  showValueColumn = true,
+  presenters
 }: TokenTableProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
@@ -99,7 +101,11 @@ export const TokenTable = ({
             borderBottom: `1px solid ${theme.color.mediumlight}`
           }
         },
-
+        'tr': {
+          ':hover': {
+            backgroundColor: 'rgba(0,0,0, 0.1)',
+          }
+        },
         'td, th': {
           border: 'none',
           textOverflow: 'ellipsis',
@@ -200,10 +206,9 @@ export const TokenTable = ({
     <ScrollContainer ref={parentRef}>
       <Table
         style={{
-          height: `${
-            rowVirtualizer.totalSize +
+          height: `${rowVirtualizer.totalSize +
             (theadRef.current?.getBoundingClientRect().height || 0)
-          }px`,
+            }px`,
           position: 'relative'
         }}
       >
@@ -231,10 +236,9 @@ export const TokenTable = ({
                   left: 0,
                   width: '100%',
                   height: `${virtualRow.size}px`,
-                  transform: `translateY(${
-                    virtualRow.start +
+                  transform: `translateY(${virtualRow.start +
                     (theadRef.current?.getBoundingClientRect().height || 0)
-                  }px)`
+                    }px)`
                 }}
               >
                 <td>
@@ -283,6 +287,7 @@ export const TokenTable = ({
                 )}
                 <td>
                   <TokenPreview
+                    presenters={presenters}
                     token={{
                       ...token,
                       value: tokenValueOverwrites[token.name] || token.value

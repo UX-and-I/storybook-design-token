@@ -2,13 +2,10 @@ import React, { useMemo } from 'react';
 
 import { styled } from '@storybook/theming';
 
-import { Token } from '../../types/token.types';
+import { PresenterProps } from '../../types/token.types';
 
-interface SpacingPresenterProps {
-  token: Token;
-}
 
-export const SpacingPresenter = ({ token }: SpacingPresenterProps) => {
+export const SpacingPresenter = ({ token }: PresenterProps) => {
   const Box = useMemo(
     () =>
       styled.div(({ theme }) => ({

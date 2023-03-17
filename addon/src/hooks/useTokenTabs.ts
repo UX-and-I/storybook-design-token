@@ -8,7 +8,7 @@ export function useTokenTabs(config?: Config) {
   const [tokenFiles, setTokenFiles] = useState<{
     [type: string]: { categories: Category[]; injectionStyles: string };
   }>();
-
+  
   const [cssCategories, setCssCategories] = useState<Category[]>([]);
   const [lessCategories, setLessCategories] = useState<Category[]>([]);
   const [scssCategories, setScssCategories] = useState<Category[]>([]);

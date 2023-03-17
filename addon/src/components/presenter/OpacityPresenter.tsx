@@ -2,13 +2,10 @@ import React, { useMemo } from 'react';
 
 import { styled } from '@storybook/theming';
 
-import { Token } from '../../types/token.types';
+import { PresenterProps } from '../../types/token.types';
 
-interface OpacityPresenterProps {
-  token: Token;
-}
 
-export const OpacityPresenter = ({ token }: OpacityPresenterProps) => {
+export const OpacityPresenter = ({ token }: PresenterProps) => {
   const Container = useMemo(
     () =>
       styled.div(() => ({

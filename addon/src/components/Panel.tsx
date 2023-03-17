@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useParameter } from '@storybook/api';
 import { ActionBar, ScrollArea, Tabs } from '@storybook/components';
@@ -6,9 +6,11 @@ import { ActionBar, ScrollArea, Tabs } from '@storybook/components';
 import { useTokenTabs } from '../hooks/useTokenTabs';
 import { Config } from '../types/config.types';
 import { TokenTab } from './TokenTab';
+import { registerPresenter } from './TokenPreview';
 
 export const Panel = () => {
   const config = useParameter<Config>('designToken');
+  console.dir(config);
   const {
     activeCategory,
     cardView,
@@ -18,9 +20,24 @@ export const Panel = () => {
     tabs
   } = useTokenTabs(config);
 
+  // useEffect(() => {
+  //   if (config?.getCustomPresenters()) {
+  //     for (const presenterName in config.getCustomPresenters()) {
+  //       const PresenterComponent = config.getCustomPresenters()[presenterName];
+  //       registerPresenter(presenterName, PresenterComponent)
+  //     }
+  //   }
+
+  // }, [config?.getCustomPresenters()]);
+
+  const ImagePresenter = config?.presenters?.['Image'];
+  
   return (
     <>
       <style>{styleInjections}</style>
+
+      {/* ERROR Will happen here */}
+      {ImagePresenter && <ImagePresenter token={{} as any}/>}
 
       <ScrollArea vertical horizontal>
         <Tabs
@@ -36,6 +53,7 @@ export const Panel = () => {
                     viewType={cardView ? 'card' : 'table'}
                     showSearch={config?.showSearch}
                     pageSize={config?.pageSize}
+                    presenters={{}}
                   />
                 )}
               </div>
