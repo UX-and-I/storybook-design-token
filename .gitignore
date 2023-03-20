@@ -13,6 +13,7 @@ node_modules/
 .pnp/
 .pnp.js
 
+.cache/
 build/
 dist/
 storybook-static/

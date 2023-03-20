@@ -599,6 +599,14 @@
     remark-slug "^6.0.0"
     ts-dedent "^2.0.0"
 
+"@storybook/api@^7.0.0-rc.5":
+  version "7.0.0-rc.5"
+  resolved "https://registry.yarnpkg.com/@storybook/api/-/api-7.0.0-rc.5.tgz#88d2c630059f8a29ac4bf4c8793d6a01099d7026"
+  integrity sha512-YhAMdzpmzQDXPz2hT2kdM295ogaQHVpjz4uKqwSHy05OY/QIQ/iuNg/U1qJ/a6DxQkILnjz0bZuT679J8adXBQ==
+  dependencies:
+    "@storybook/client-logger" "7.0.0-rc.5"
+    "@storybook/manager-api" "7.0.0-rc.5"
+
 "@storybook/blocks@7.0.0-rc.5":
   version "7.0.0-rc.5"
   resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-7.0.0-rc.5.tgz#e9bde1070541390e377b7b222f5561a3a7ce2a8e"

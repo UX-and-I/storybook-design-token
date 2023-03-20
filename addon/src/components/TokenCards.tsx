@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import {
   Button,
@@ -29,7 +29,7 @@ export const TokenCards = ({
   padded = true,
   readonly,
   showValueColumn = true,
-  pageSize = 50,
+  pageSize = 50
 }: TokenCardsProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;

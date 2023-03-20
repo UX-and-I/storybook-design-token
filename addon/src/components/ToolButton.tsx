@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactNode, useMemo } from 'react';
+import { MouseEventHandler, ReactNode, useMemo } from 'react';
 
 import { styled } from '@storybook/theming';
 

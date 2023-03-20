@@ -12,7 +12,7 @@ type AddonOptions = {
 };
 
 export function managerEntries(entry = []) {
-  return [...entry, require.resolve('./register')];
+  return [...entry, require.resolve('./manager')];
 }
 
 export function viteFinalFactory(options?: any) {

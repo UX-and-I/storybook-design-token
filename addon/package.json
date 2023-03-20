@@ -38,6 +38,7 @@
   "devDependencies": {
     "@storybook/addon-docs": "^7.0.0-rc.5",
     "@storybook/components": "^7.0.0-rc.5",
+    "@storybook/api": "^7.0.0-rc.5",
     "@storybook/manager-api": "^7.0.0-rc.5",
     "@storybook/theming": "^7.0.0-rc.5",
     "@storybook/types": "^7.0.0-rc.5",

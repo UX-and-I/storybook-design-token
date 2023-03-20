@@ -1,16 +1,14 @@
-import React, { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { DocsContext, DocsContextProps } from '@storybook/addon-docs';
 import { styled } from '@storybook/theming';
 
+import { useTokenSearch } from '../hooks/useTokenSearch';
 import { useTokenTabs } from '../hooks/useTokenTabs';
+import { Category } from '../types/category.types';
+import { SearchField } from './SearchField';
+import { TokenCards } from './TokenCards';
 import type { TokenViewType } from './TokenTab';
 import { TokenTable } from './TokenTable';
-import { TokenCards } from './TokenCards';
-import { useTokenSearch } from '../hooks/useTokenSearch';
-import { SearchField } from './SearchField';
-import { Category } from '../types/category.types';
-import { PreparedStory, StoryId } from '@storybook/types';
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
@@ -22,14 +20,6 @@ export interface DesignTokenDocBlockProps {
    */
   showSearch?: boolean;
   pageSize?: number;
-}
-
-interface CompatDocsContextProps extends DocsContextProps {
-  storyById: (id?: StoryId) => PreparedStory;
-}
-
-function getMainStory(context: CompatDocsContextProps) {
-  return context.storyById((context as any).id!);
 }
 
 const Container = styled.div(() => ({
@@ -54,9 +44,7 @@ export const DesignTokenDocBlock = ({
   showSearch = true,
   pageSize
 }: DesignTokenDocBlockProps) => {
-  const context = useContext(DocsContext);
-  const story = getMainStory(context);
-  const { tabs } = useTokenTabs(story.parameters.designToken);
+  const { tabs } = useTokenTabs({ pageSize, showSearch });
 
   const tab = useMemo(
     () => tabs.find((t) => t.label === categoryName),

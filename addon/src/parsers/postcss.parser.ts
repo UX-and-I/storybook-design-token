@@ -216,9 +216,7 @@ function determineTokenValue(
   return rawValue;
 }
 
-async function getNodes(
-  files: File[]
-): Promise<{
+async function getNodes(files: File[]): Promise<{
   comments: Comment[];
   declarations: Declaration[];
   keyframes: AtRule[];

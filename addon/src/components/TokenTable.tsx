@@ -1,11 +1,5 @@
 import { transparentize } from 'polished';
-import React, {
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useVirtual } from 'react-virtual';
 
 import {
@@ -101,7 +95,7 @@ export const TokenTable = ({
         },
 
         'td, th': {
-          border: 'none',
+          border: 'none !important',
           textOverflow: 'ellipsis',
           verticalAlign: 'middle',
 
@@ -269,6 +263,7 @@ export const TokenTable = ({
                 {showValueColumn && (
                   <td>
                     <TokenValue
+                      key={token.name}
                       onValueChange={(newValue) => {
                         setTokenValueOverwrites((tokenValueOverwrites) => ({
                           ...tokenValueOverwrites,

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Icons } from '@storybook/components';
 import { styled } from '@storybook/theming';
 import { Input } from './Input';
@@ -35,7 +35,10 @@ const ClearButton = styled.button(({ theme }) => ({
   border: 'none',
   borderRadius: 16,
   color: theme.color.defaultText,
-  cursor: 'pointer'
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 }));
 
 const ClearIcon = styled(Icons)(({ theme }) => ({}));
