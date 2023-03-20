@@ -1,0 +1,31 @@
+:root {
+  /**
+  * @tokens Animations
+  * @presenter Animation
+  */
+
+  --animation-rotate: rotate 1.2s infinite cubic-bezier(0.55, 0, 0.1, 1);
+
+  /**
+  * @tokens Colors
+  * @presenter Color
+  */
+
+  --b100: hsl(240, 100%, 90%); /* Token Description Example  @presenter Color */
+  --b200: hsl(240, 100%, 80%);
+  --b300: hsl(240, 100%, 70%);
+
+  /**
+  * @tokens Others
+  */
+  --border-normal: 3px dashed red; /* Token Description Example @presenter Border */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0def);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
