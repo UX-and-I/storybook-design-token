@@ -1,4 +1,3 @@
-import React from 'react';
 import { TokenCards } from './TokenCards';
 import { TokenTable } from './TokenTable';
 import { SearchField } from './SearchField';
@@ -21,11 +20,10 @@ export function TokenTab({
   categories: categoriesProp,
   viewType = 'table',
   showSearch = true,
-  pageSize,
+  pageSize
 }: TokenTabProps) {
-  const { searchText, setSearchText, categories } = useTokenSearch(
-    categoriesProp
-  );
+  const { searchText, setSearchText, categories } =
+    useTokenSearch(categoriesProp);
 
   return (
     <div>
@@ -36,7 +34,9 @@ export function TokenTab({
           style={{ margin: '12px 12px 8px' }}
         />
       )}
-      {viewType === 'card' && <TokenCards categories={categories} pageSize={pageSize} />}
+      {viewType === 'card' && (
+        <TokenCards categories={categories} pageSize={pageSize} />
+      )}
       {viewType === 'table' && <TokenTable categories={categories} />}
     </div>
   );

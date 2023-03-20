@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { useParameter } from '@storybook/api';
+import { useParameter } from '@storybook/manager-api';
 import { ActionBar, ScrollArea, Tabs } from '@storybook/components';
 
 import { useTokenTabs } from '../hooks/useTokenTabs';

@@ -1,7 +1,7 @@
 import { Category } from '../types/category.types';
 import { File } from '../types/config.types';
 import { Token, TokenPresenter, TokenSourceType } from '../types/token.types';
-import { extname, basename, dirname, relative } from 'path';
+import { extname, basename, relative } from 'path';
 import { readFileSync } from 'fs';
 
 export async function parsePngFiles(

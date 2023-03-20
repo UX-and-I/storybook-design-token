@@ -23,13 +23,7 @@ function getTokenFilePaths(context: any, designTokenGlob?: string): string[] {
 }
 
 function addFilesToWebpackDeps(compilation: any, files: string[]) {
-  if ('addAll' in compilation.fileDependencies) {
-    // In webpack5, fileDependencies is a LazySet.
-    compilation.fileDependencies.addAll(files);
-  } else {
-    // If webpack4, fileDependencies will be an array
-    compilation.fileDependencies = [...compilation.fileDependencies, ...files];
-  }
+  compilation.fileDependencies.addAll(files);
 }
 
 async function generateTokenFilesJsonString(
@@ -84,40 +78,6 @@ async function generateTokenFilesJsonString(
     svgTokens,
     imageTokens
   });
-}
-
-export class StorybookDesignTokenPluginWebpack4 {
-  constructor(
-    private preserveCSSVars?: boolean,
-    private designTokenGlob?: string
-  ) {}
-
-  public apply(compiler: any) {
-    compiler.hooks.emit.tapAsync(
-      'StorybookDesignTokenPlugin',
-      async (compilation: any, callback: any) => {
-        const files = getTokenFilePaths(compiler.context, this.designTokenGlob);
-
-        addFilesToWebpackDeps(compilation, files);
-
-        const sourceString = await generateTokenFilesJsonString(
-          files,
-          this.preserveCSSVars
-        );
-
-        compilation.assets['design-tokens.source.json'] = {
-          source: () => {
-            return sourceString;
-          },
-          size: () => {
-            return sourceString.length;
-          }
-        };
-
-        callback();
-      }
-    );
-  }
 }
 
 export class StorybookDesignTokenPlugin {

@@ -10,6 +10,7 @@ import { TokenCards } from './TokenCards';
 import { useTokenSearch } from '../hooks/useTokenSearch';
 import { SearchField } from './SearchField';
 import { Category } from '../types/category.types';
+import { PreparedStory, StoryId } from '@storybook/types';
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
@@ -24,17 +25,11 @@ export interface DesignTokenDocBlockProps {
 }
 
 interface CompatDocsContextProps extends DocsContextProps {
-  storyById?: (id: string) => any;
+  storyById: (id?: StoryId) => PreparedStory;
 }
 
-/**
- * Storybook 6.4 changed the DocsContextProps interface.
- * This is a compatibility method to get docs parameters across Storybook versions.
- */
 function getMainStory(context: CompatDocsContextProps) {
-  return typeof context.storyById === 'function'
-    ? context.storyById(context.id!)
-    : context;
+  return context.storyById((context as any).id!);
 }
 
 const Container = styled.div(() => ({
@@ -57,16 +52,16 @@ export const DesignTokenDocBlock = ({
   showValueColumn = true,
   viewType = 'table',
   showSearch = true,
-  pageSize,
+  pageSize
 }: DesignTokenDocBlockProps) => {
   const context = useContext(DocsContext);
   const story = getMainStory(context);
   const { tabs } = useTokenTabs(story.parameters.designToken);
 
-  const tab = useMemo(() => tabs.find((t) => t.label === categoryName), [
-    categoryName,
-    tabs
-  ]);
+  const tab = useMemo(
+    () => tabs.find((t) => t.label === categoryName),
+    [categoryName, tabs]
+  );
 
   if (!tab) {
     return null;

@@ -1,6 +1,5 @@
 import {
   StorybookDesignTokenPlugin,
-  StorybookDesignTokenPluginWebpack4,
   viteStorybookDesignTokenPlugin
 } from './plugin';
 
@@ -29,7 +28,6 @@ export const viteFinal = async (
   options: any
 ) => {
   viteConfig.plugins = viteConfig.plugins || [];
-
   viteConfig.plugins.push(viteStorybookDesignTokenPlugin(options));
 
   return viteConfig;
@@ -46,8 +44,8 @@ export async function webpackFinal(
       new StorybookDesignTokenPlugin(preserveCSSVars, designTokenGlob)
     );
   } else {
-    config.plugins.push(
-      new StorybookDesignTokenPluginWebpack4(preserveCSSVars, designTokenGlob)
+    throw Error(
+      'Webpack 4 is not supported by the storybook-design-token addon.'
     );
   }
 

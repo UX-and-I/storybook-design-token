@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Token, TokenPresenter } from '../types/token.types';
 import { AnimationPresenter } from './presenter/AnimationPresenter';
 import { BorderPresenter } from './presenter/BorderPresenter';
