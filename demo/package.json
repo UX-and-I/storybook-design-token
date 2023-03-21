@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "rm -rf .cache && storybook dev -p 6006",
+    "setup": "sh ./setup.sh",
+    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "keywords": [],
@@ -24,7 +25,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.0.0-rc.5",
-    "storybook-design-token": "file:./../addon"
+    "storybook-design-token": "^2.9.0"
   },
   "peerDependencies": {}
 }
