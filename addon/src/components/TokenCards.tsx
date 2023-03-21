@@ -73,6 +73,12 @@ export const TokenCards = ({
     []
   );
 
+  const TokenName = styled.span(({ theme }) => ({
+    fontFamily: theme.typography.fonts.mono,
+    fontWeight: theme.typography.weight.bold,
+    fontSize: theme.typography.size.s1
+  }));
+
   const Pagination = useMemo(
     () =>
       styled.div(({ theme }) => ({
@@ -113,7 +119,7 @@ export const TokenCards = ({
           .slice(page * pageSize, page * pageSize + pageSize)
           .map((token, index) => (
             <Card key={token.name + '-card-' + index}>
-              {token.name}
+              <TokenName>{token.name}</TokenName>
 
               <WithTooltip
                 hasChrome={false}

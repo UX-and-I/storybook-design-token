@@ -167,9 +167,20 @@ export const TokenTable = ({
     []
   );
 
+  const TokenName = styled.span(({ theme }) => ({
+    fontFamily: theme.typography.fonts.mono,
+    fontWeight: theme.typography.weight.bold,
+    fontSize: theme.typography.size.s1
+  }));
+
   useLayoutEffect(() => {
+    const container = document.querySelector('#storybook-panel-root');
+    if (!container) {
+      return;
+    }
+
     const resizeHandler = () => {
-      if (maxHeight !== undefined) {
+      if (maxHeight !== undefined || !container) {
         return;
       }
 
@@ -185,9 +196,10 @@ export const TokenTable = ({
       resizeHandler();
     });
 
-    window.addEventListener('resize', resizeHandler);
+    const resizeObserver = new ResizeObserver(resizeHandler);
+    resizeObserver.observe(container);
 
-    return () => window.removeEventListener('resize', resizeHandler);
+    return () => resizeObserver.disconnect();
   }, []);
 
   return (
@@ -233,7 +245,7 @@ export const TokenTable = ({
               >
                 <td>
                   <span>
-                    {token.name}
+                    <TokenName>{token.name}</TokenName>
 
                     <WithTooltip
                       hasChrome={false}

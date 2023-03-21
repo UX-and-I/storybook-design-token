@@ -51,6 +51,10 @@ export const TokenValue = ({
     []
   );
 
+  const showRawValue =
+    token.sourceType !== TokenSourceType.CSS &&
+    token.sourceType !== TokenSourceType.SVG;
+
   useEffect(() => {
     const previewIframe: HTMLIFrameElement = document.querySelector(
       '#storybook-preview-iframe'
@@ -69,13 +73,9 @@ export const TokenValue = ({
 
   return (
     <Container>
-      {token.sourceType !== TokenSourceType.CSS &&
-        token.sourceType !== TokenSourceType.SVG && (
-          <RawValue title={rawValue}>{rawValue}</RawValue>
-        )}
+      {showRawValue && <RawValue title={rawValue}>{rawValue}</RawValue>}
 
-      {(token.sourceType === TokenSourceType.CSS ||
-        token.sourceType === TokenSourceType.SVG) && (
+      {!showRawValue && (
         <Input
           readOnly={readonly}
           onChange={(event) => {
@@ -88,7 +88,7 @@ export const TokenValue = ({
         />
       )}
 
-      {token.rawValue !== rawValue && (
+      {!showRawValue && token.rawValue !== rawValue && (
         <ResetButton>
           <ToolButton
             onClick={() => {
