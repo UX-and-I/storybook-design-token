@@ -19,6 +19,7 @@
     "@storybook/addon-interactions": "^7.0.0-rc.5",
     "@storybook/addon-links": "^7.0.0-rc.5",
     "@storybook/blocks": "^7.0.0-rc.5",
+    "@storybook/builder-vite": "^7.0.0-rc.5",
     "@storybook/html": "^7.0.0-rc.5",
     "@storybook/html-webpack5": "^7.0.0-rc.5",
     "@storybook/testing-library": "^0.0.14-next.1",

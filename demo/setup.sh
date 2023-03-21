@@ -7,10 +7,12 @@ NORMAL=$(tput sgr0)
 echo "${BOLD}Setting up storybook-design-token addon dev environment …${NORMAL}"
 
 cd $SCRIPT_DIR/../addon
+rm -rf node_modules
 yarn > /dev/null 2>&1
 yarn link --silent > /dev/null 2>&1
 
 cd $SCRIPT_DIR
+rm -rf node_modules
 yarn > /dev/null 2>&1
 yarn link --silent storybook-design-token
 
