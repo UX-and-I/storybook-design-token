@@ -1,4 +1,4 @@
-⚠️ **This is the documentation for v3. Please check the "v\*" branches for documentation of older versions.** ⚠️
+⚠️ **This is the documentation for v3 which supports Storybook v7+. Please check the "v\*" branches for documentation of older versions.** ⚠️
 
 # Storybook Design Token Addon
 
