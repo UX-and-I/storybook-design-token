@@ -16,17 +16,20 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.21.0",
     "@storybook/addon-essentials": "^7.0.4",
+    "@storybook/addon-docs": "^7.0.4",
     "@storybook/addon-interactions": "^7.0.4",
     "@storybook/addon-links": "^7.0.4",
     "@storybook/blocks": "^7.0.4",
     "@storybook/builder-vite": "^7.0.4",
     "@storybook/html": "^7.0.4",
     "@storybook/html-webpack5": "^7.0.4",
+    "@storybook/html-vite": "^7.0.4",
     "@storybook/testing-library": "^0.0.14-next.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.0.4",
-    "storybook-design-token": "^2.9.0"
+    "storybook-design-token": "file:./../addon",
+    "vite": "^4.2.1"
   },
   "peerDependencies": {}
 }
