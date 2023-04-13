@@ -1,4 +1,4 @@
-⚠️ **This is the documentation for v2. Please check the "v\*" branches for documentation of older versions.** ⚠️
+⚠️ **This is the documentation for v3. Please check the "v\*" branches for documentation of older versions.** ⚠️
 
 # Storybook Design Token Addon
 
@@ -25,7 +25,6 @@ Display design token documentation generated from your stylesheets and icon file
     - [Preserve CSS variables](#preserve-css-variables)
   - [Design Token Doc Block](#design-token-doc-block)
   - [Browser support](#browser-support)
-  - [Migration from v0.x.x and v1.x.x](#migration-from-v0xx-and-v1xx)
 
 ## Get started
 
@@ -111,9 +110,11 @@ You can specify the default tab shown in the addon panel. Set it to the correspo
 `.storybook/preview.js`
 
 ```javascript
-export const parameters = {
-  designToken: {
-    defaultTab: 'Colors'
+const preview = {
+  parameters: {
+    designToken: {
+      defaultTab: 'Colors'
+    }
   }
 };
 ```
@@ -125,10 +126,12 @@ To inject styles needed by your design token documentation, use the `styleInject
 `.storybook/preview.js`
 
 ```javascript
-export const parameters = {
-  designToken: {
-    styleInjection:
-      '@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");'
+const preview = {
+  parameters: {
+    designToken: {
+      styleInjection:
+        '@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");'
+    }
   }
 };
 ```
@@ -138,9 +141,11 @@ export const parameters = {
 In some cases you might only want to use the Doc Blocks and hide the addon panel. You can do so by the setting the `disable` parameter:
 
 ```javascript
-export const parameters = {
-  designToken: {
-    disable: true
+const preview = {
+  parameters: {
+    designToken: {
+      disable: true
+    }
   }
 };
 ```
@@ -150,9 +155,11 @@ export const parameters = {
 In some cases you might not need the search field to be visible. You can control its visibility by the setting the `showSearch` parameter:
 
 ```javascript
-export const parameters = {
-  designToken: {
-    showSearch: false
+const preview = {
+  parameters: {
+    designToken: {
+      showSearch: false
+    }
   }
 };
 ```
@@ -162,9 +169,11 @@ export const parameters = {
 By default `pageSize` of the card view is 50 items. You can configure it by setting the `pageSize` parameter:
 
 ```javascript
-export const parameters = {
-  designToken: {
-    pageSize: 10
+const preview = {
+  parameters: {
+    designToken: {
+      pageSize: 10
+    }
   }
 };
 ```
@@ -172,10 +181,12 @@ export const parameters = {
 You can disable pagination in the following way:
 
 ```javascript
-export const parameters = {
-  designToken: {
-    // specify max value to disable pagination
-    pageSize: Number.MAX_VALUE
+const preview = {
+  parameters: {
+    designToken: {
+      // specify max value to disable pagination
+      pageSize: Number.MAX_VALUE
+    }
   }
 };
 ```
@@ -229,9 +240,4 @@ Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v1
 ## Browser support
 
 - All modern browsers
-- Internet Explorer 11
-
-## Migration from v0.x.x and v1.x.x
-
-- Please check the [Get started](#get-started) section for the updated addon configuration.
-- The `files` property required in earlier versions has been removed. Please delete it from your `.storybook/preview.js`. You are no longer required to load the token files inside `.storybook/preview.js`.
+- ~~Internet Explorer 11~~
