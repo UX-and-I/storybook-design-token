@@ -1,5 +1,5 @@
 # Storybook Addon Storybook Design Token
-AboutDisplay design token documentation generated
+Test
 
 ### Development scripts
 

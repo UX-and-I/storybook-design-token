@@ -1,13 +1,13 @@
 {
   "name": "storybook-design-token",
   "version": "0.0.0",
-  "description": "AboutDisplay design token documentation generated",
+  "description": "Test",
   "keywords": [
-    undefined
+    "design token", "design system", "design pattern", "storybook-addons"
   ],
   "repository": {
     "type": "git",
-    "url": "undefined"
+    "url": "https://github.com/UX-and-I/storybook-design-token"
   },
   "author": "Philipp Siekmann <philippsiekmann@me.com>",
   "license": "MIT",
@@ -102,7 +102,7 @@
   "storybook": {
     "displayName": "Storybook Design Token",
     "supportedFrameworks": [
-      undefined
+      "react", "vue", "angular", "web-components", "ember", "html", "svelte", "preact", "react-native"
     ],
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   }
