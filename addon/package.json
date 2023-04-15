@@ -1,30 +1,37 @@
 {
   "name": "storybook-design-token",
-  "version": "3.0.0-beta.0",
-  "main": "dist/preset.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "license": "MIT",
+  "version": "0.0.0",
+  "description": "AboutDisplay design token documentation generated",
   "keywords": [
-    "storybook",
-    "addon",
-    "design system",
-    "design pattern",
-    "design tokens",
-    "react",
-    "angular",
-    "vue"
+    undefined
   ],
-  "author": {
-    "name": "Philipp Siekmann",
-    "email": "philipp.siekmann@uxi.de",
-    "url": "https://www.uxi.de"
-  },
-  "readme": "https://github.com/UX-and-I/storybook-design-token/README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/UX-and-I/storybook-design-token"
+    "url": "undefined"
   },
+  "author": "Philipp Siekmann <philippsiekmann@me.com>",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./manager": {
+      "require": "./dist/manager.js",
+      "import": "./dist/manager.mjs",
+      "types": "./dist/manager.d.ts"
+    },
+    "./preview": {
+      "require": "./dist/preview.js",
+      "import": "./dist/preview.mjs",
+      "types": "./dist/preview.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/**/*",
     "README.md",
@@ -32,32 +39,71 @@
     "*.d.ts"
   ],
   "scripts": {
-    "start": "tsc -p . -w",
-    "build": "rm -rf dist && tsc -p ."
+    "clean": "rimraf ./dist",
+    "prebuild": "yarn clean",
+    "build": "tsup",
+    "build:watch": "yarn build --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "run-p build:watch 'storybook --quiet'",
+    "prerelease": "zx scripts/prepublish-checks.mjs",
+    "release": "yarn build && auto shipit",
+    "eject-ts": "zx scripts/eject-typescript.mjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "^7.0.4",
-    "@storybook/components": "^7.0.4",
-    "@storybook/manager-api": "^7.0.4",
-    "@storybook/types": "^7.0.4",
-    "@types/jsdom": "^21.1.0",
-    "@types/node": "^18.15.3",
-    "@types/prettier": "^2.7.2",
-    "@types/react": "^18.0.28",
-    "@types/react-textarea-autosize": "^8.0.0",
-    "glob": "^9.3.0",
-    "jsdom": "^21.1.1",
-    "polished": "^4.1.3",
-    "postcss": "^8.3.11",
-    "postcss-scss": "^4.0.2",
-    "prettier": "^2.8.5",
-    "raw-loader": "^4.0.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-storage-hooks": "^4.0.1",
-    "react-use-clipboard": "^1.0.7",
-    "react-virtual": "^2.10.4",
-    "typescript": "^5.0.2",
-    "vite": "^4.2.1"
+    "@storybook/addon-essentials": "^7.0.0",
+    "@storybook/addon-interactions": "^7.0.0",
+    "@storybook/addon-links": "^7.0.0",
+    "@storybook/react": "^7.0.0",
+    "@storybook/react-vite": "^7.0.0",
+    "@storybook/testing-library": "^0.0.14-next.1",
+    "@types/node": "^18.15.0",
+    "@types/react": "^18.0.34",
+    "@vitejs/plugin-react": "^3.1.0",
+    "auto": "^10.3.0",
+    "boxen": "^5.0.1",
+    "dedent": "^0.7.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.1",
+    "prompts": "^2.4.2",
+    "prop-types": "^15.8.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "rimraf": "^3.0.2",
+    "storybook": "^7.0.0",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.4",
+    "zx": "^1.14.1"
+  },
+  "peerDependencies": {
+    "@storybook/blocks": "^7.0.0",
+    "@storybook/components": "^7.0.0",
+    "@storybook/core-events": "^7.0.0",
+    "@storybook/manager-api": "^7.0.0",
+    "@storybook/preview-api": "^7.0.0",
+    "@storybook/theming": "^7.0.0",
+    "@storybook/types": "^7.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "storybook": {
+    "displayName": "Storybook Design Token",
+    "supportedFrameworks": [
+      undefined
+    ],
+    "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
   }
 }
