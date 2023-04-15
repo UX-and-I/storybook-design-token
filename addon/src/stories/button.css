@@ -1,5 +1,8 @@
+@import "../demo/tokens.css";
+@import "../demo/more-tokens.css";
+
 .storybook-button {
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
   border: 0;
   border-radius: 3em;
@@ -9,7 +12,7 @@
 }
 .storybook-button--primary {
   color: white;
-  background-color: #1ea7fd;
+  background-color: var(--brand);
 }
 .storybook-button--secondary {
   color: #333;

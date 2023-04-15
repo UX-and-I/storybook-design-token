@@ -1,9 +1,12 @@
 {
   "name": "storybook-design-token",
-  "version": "0.0.0",
-  "description": "Test",
+  "version": "3.0.0-beta.2",
+  "description": "Storybook addon to display design token documentation generated from your stylesheets and icon files.",
   "keywords": [
-    "design token", "design system", "design pattern", "storybook-addons"
+    "design token",
+    "design system",
+    "design pattern",
+    "storybook-addons"
   ],
   "repository": {
     "type": "git",
@@ -27,6 +30,16 @@
       "import": "./dist/preview.mjs",
       "types": "./dist/preview.d.ts"
     },
+    "./preset": {
+      "require": "./dist/preset.js",
+      "import": "./dist/preset.mjs",
+      "types": "./dist/preset.d.ts"
+    },
+    "./doc-bocks": {
+      "require": "./dist/doc-blocks.js",
+      "import": "./dist/doc-blocks.mjs",
+      "types": "./dist/doc-blocks.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/index.js",
@@ -41,13 +54,12 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "prebuild": "yarn clean",
-    "build": "tsup",
-    "build:watch": "yarn build --watch",
+    "build": "tsup & yarn build:preset",
+    "build:watch": "tsup --watch",
+    "build:preset": "tsup --config tsup.node.config.ts",
+    "build:preset:watch": "tsup --config tsup.node.config.ts --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "run-p build:watch 'storybook --quiet'",
-    "prerelease": "zx scripts/prepublish-checks.mjs",
-    "release": "yarn build && auto shipit",
-    "eject-ts": "zx scripts/eject-typescript.mjs",
+    "start": "run-p build:watch build:preset:watch 'storybook --quiet'",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -55,18 +67,16 @@
     "@storybook/addon-essentials": "^7.0.0",
     "@storybook/addon-interactions": "^7.0.0",
     "@storybook/addon-links": "^7.0.0",
+    "@storybook/builder-webpack5": "^7.0.5",
     "@storybook/react": "^7.0.0",
     "@storybook/react-vite": "^7.0.0",
     "@storybook/testing-library": "^0.0.14-next.1",
+    "@types/jsdom": "^21.1.1",
     "@types/node": "^18.15.0",
+    "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.34",
     "@vitejs/plugin-react": "^3.1.0",
-    "auto": "^10.3.0",
-    "boxen": "^5.0.1",
-    "dedent": "^0.7.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.1",
-    "prompts": "^2.4.2",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -74,7 +84,6 @@
     "storybook": "^7.0.0",
     "tsup": "^6.6.3",
     "typescript": "^4.9.5",
-    "vite": "^4.1.4",
     "zx": "^1.14.1"
   },
   "peerDependencies": {
@@ -102,8 +111,28 @@
   "storybook": {
     "displayName": "Storybook Design Token",
     "supportedFrameworks": [
-      "react", "vue", "angular", "web-components", "ember", "html", "svelte", "preact", "react-native"
+      "react",
+      "vue",
+      "angular",
+      "web-components",
+      "ember",
+      "html",
+      "svelte",
+      "preact"
     ],
-    "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
+    "icon": "https://raw.githubusercontent.com/UX-and-I/storybook-design-token/master/docs/teaser.png"
+  },
+  "dependencies": {
+    "glob": "^9.3.0",
+    "jsdom": "^21.1.1",
+    "polished": "^4.1.3",
+    "postcss": "^8.3.11",
+    "postcss-scss": "^4.0.2",
+    "prettier": "^2.8.5",
+    "raw-loader": "^4.0.2",
+    "react-storage-hooks": "^4.0.1",
+    "react-use-clipboard": "^1.0.9",
+    "react-virtual": "^2.10.4",
+    "vite": "^4.1.4"
   }
 }

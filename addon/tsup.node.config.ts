@@ -1,12 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((options) => ({
-  entry: [
-    "src/index.ts",
-    "src/preview.ts",
-    "src/manager.ts",
-    "src/doc-blocks.ts",
-  ],
+  entry: ["src/preset.ts"],
   splitting: false,
   minify: !options.watch,
   format: ["cjs", "esm"],
@@ -15,8 +10,8 @@ export default defineConfig((options) => ({
   },
   treeshake: true,
   sourcemap: true,
-  clean: true,
-  platform: "browser",
+  clean: false,
+  platform: "node",
   esbuildOptions(options) {
     options.conditions = ["module"];
   },

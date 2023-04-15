@@ -1,0 +1,738 @@
+:root {
+  /**
+  * @tokens Animations
+  * @presenter Animation
+  */
+
+  --animation-rotate: rotate 1.2s infinite cubic-bezier(0.55, 0, 0.1, 1);
+
+  /**
+  * @tokens Border Radius
+  * @presenter BorderRadius
+  */
+
+  --border-radius-s: 4px;
+  --border-radius-m: 8px;
+  --border-radius-l: 16px;
+
+  /**
+  * @tokens Borders
+  * @presenter Border
+  */
+
+  --border: 3px dashed var(--brand);
+
+  /**
+  * @tokens Colors
+  * @presenter Color
+  */
+
+  --b100: hsl(240, 100%, 90%); /* Token Description Example */
+  --b200: hsl(240, 100%, 80%);
+  --b300: hsl(240, 100%, 70%);
+  --b400: hsl(240, 100%, 60%);
+  --b500: hsl(240, 100%, 50%);
+  --b600: hsl(240, 100%, 40%);
+  --b700: hsl(240, 100%, 30%);
+  --b800: hsl(240, 100%, 20%);
+  --b900: hsl(240, 100%, 10%);
+
+  --n100: hsl(0, 0%, 90%);
+  --n200: hsl(0, 0%, 80%);
+  --n300: hsl(0, 0%, 70%);
+  --n400: hsl(0, 0%, 60%);
+  --n500: hsl(0, 0%, 50%);
+  --n600: hsl(0, 0%, 40%);
+  --n700: hsl(0, 0%, 30%);
+  --n800: hsl(0, 0%, 20%);
+  --n900: hsl(0, 0%, 10%);
+
+  --brand: blue;
+
+  /* --n1001: red;
+  --n1002: red;
+  --n1003: red;
+  --n1004: red;
+  --n1005: red;
+  --n1006: red;
+  --n1007: red;
+  --n1008: red;
+  --n1009: red;
+  --n1010: red;
+  --n1011: red;
+  --n1012: red;
+  --n1013: red;
+  --n1014: red;
+  --n1015: red;
+  --n1016: red;
+  --n1017: red;
+  --n1018: red;
+  --n1019: red;
+  --n1020: red;
+  --n1021: red;
+  --n1022: red;
+  --n1023: red;
+  --n1024: red;
+  --n1025: red;
+  --n1026: red;
+  --n1027: red;
+  --n1028: red;
+  --n1029: red;
+  --n1030: red;
+  --n1031: red;
+  --n1032: red;
+  --n1033: red;
+  --n1034: red;
+  --n1035: red;
+  --n1036: red;
+  --n1037: red;
+  --n1038: red;
+  --n1039: red;
+  --n1040: red;
+  --n1041: red;
+  --n1042: red;
+  --n1043: red;
+  --n1044: red;
+  --n1045: red;
+  --n1046: red;
+  --n1047: red;
+  --n1048: red;
+  --n1049: red;
+  --n1050: red;
+  --n1051: red;
+  --n1052: red;
+  --n1053: red;
+  --n1054: red;
+  --n1055: red;
+  --n1056: red;
+  --n1057: red;
+  --n1058: red;
+  --n1059: red;
+  --n1060: red;
+  --n1061: red;
+  --n1062: red;
+  --n1063: red;
+  --n1064: red;
+  --n1065: red;
+  --n1066: red;
+  --n1067: red;
+  --n1068: red;
+  --n1069: red;
+  --n1070: red;
+  --n1071: red;
+  --n1072: red;
+  --n1073: red;
+  --n1074: red;
+  --n1075: red;
+  --n1076: red;
+  --n1077: red;
+  --n1078: red;
+  --n1079: red;
+  --n1080: red;
+  --n1081: red;
+  --n1082: red;
+  --n1083: red;
+  --n1084: red;
+  --n1085: red;
+  --n1086: red;
+  --n1087: red;
+  --n1088: red;
+  --n1089: red;
+  --n1090: red;
+  --n1091: red;
+  --n1092: red;
+  --n1093: red;
+  --n1094: red;
+  --n1095: red;
+  --n1096: red;
+  --n1097: red;
+  --n1098: red;
+  --n1099: red;
+  --n1100: red;
+  --n1101: red;
+  --n1102: red;
+  --n1103: red;
+  --n1104: red;
+  --n1105: red;
+  --n1106: red;
+  --n1107: red;
+  --n1108: red;
+  --n1109: red;
+  --n1110: red;
+  --n1111: red;
+  --n1112: red;
+  --n1113: red;
+  --n1114: red;
+  --n1115: red;
+  --n1116: red;
+  --n1117: red;
+  --n1118: red;
+  --n1119: red;
+  --n1120: red;
+  --n1121: red;
+  --n1122: red;
+  --n1123: red;
+  --n1124: red;
+  --n1125: red;
+  --n1126: red;
+  --n1127: red;
+  --n1128: red;
+  --n1129: red;
+  --n1130: red;
+  --n1131: red;
+  --n1132: red;
+  --n1133: red;
+  --n1134: red;
+  --n1135: red;
+  --n1136: red;
+  --n1137: red;
+  --n1138: red;
+  --n1139: red;
+  --n1140: red;
+  --n1141: red;
+  --n1142: red;
+  --n1143: red;
+  --n1144: red;
+  --n1145: red;
+  --n1146: red;
+  --n1147: red;
+  --n1148: red;
+  --n1149: red;
+  --n1150: red;
+  --n1151: red;
+  --n1152: red;
+  --n1153: red;
+  --n1154: red;
+  --n1155: red;
+  --n1156: red;
+  --n1157: red;
+  --n1158: red;
+  --n1159: red;
+  --n1160: red;
+  --n1161: red;
+  --n1162: red;
+  --n1163: red;
+  --n1164: red;
+  --n1165: red;
+  --n1166: red;
+  --n1167: red;
+  --n1168: red;
+  --n1169: red;
+  --n1170: red;
+  --n1171: red;
+  --n1172: red;
+  --n1173: red;
+  --n1174: red;
+  --n1175: red;
+  --n1176: red;
+  --n1177: red;
+  --n1178: red;
+  --n1179: red;
+  --n1180: red;
+  --n1181: red;
+  --n1182: red;
+  --n1183: red;
+  --n1184: red;
+  --n1185: red;
+  --n1186: red;
+  --n1187: red;
+  --n1188: red;
+  --n1189: red;
+  --n1190: red;
+  --n1191: red;
+  --n1192: red;
+  --n1193: red;
+  --n1194: red;
+  --n1195: red;
+  --n1196: red;
+  --n1197: red;
+  --n1198: red;
+  --n1199: red;
+  --n1200: red;
+  --n1201: red;
+  --n1202: red;
+  --n1203: red;
+  --n1204: red;
+  --n1205: red;
+  --n1206: red;
+  --n1207: red;
+  --n1208: red;
+  --n1209: red;
+  --n1210: red;
+  --n1211: red;
+  --n1212: red;
+  --n1213: red;
+  --n1214: red;
+  --n1215: red;
+  --n1216: red;
+  --n1217: red;
+  --n1218: red;
+  --n1219: red;
+  --n1220: red;
+  --n1221: red;
+  --n1222: red;
+  --n1223: red;
+  --n1224: red;
+  --n1225: red;
+  --n1226: red;
+  --n1227: red;
+  --n1228: red;
+  --n1229: red;
+  --n1230: red;
+  --n1231: red;
+  --n1232: red;
+  --n1233: red;
+  --n1234: red;
+  --n1235: red;
+  --n1236: red;
+  --n1237: red;
+  --n1238: red;
+  --n1239: red;
+  --n1240: red;
+  --n1241: red;
+  --n1242: red;
+  --n1243: red;
+  --n1244: red;
+  --n1245: red;
+  --n1246: red;
+  --n1247: red;
+  --n1248: red;
+  --n1249: red;
+  --n1250: red;
+  --n1251: red;
+  --n1252: red;
+  --n1253: red;
+  --n1254: red;
+  --n1255: red;
+  --n1256: red;
+  --n1257: red;
+  --n1258: red;
+  --n1259: red;
+  --n1260: red;
+  --n1261: red;
+  --n1262: red;
+  --n1263: red;
+  --n1264: red;
+  --n1265: red;
+  --n1266: red;
+  --n1267: red;
+  --n1268: red;
+  --n1269: red;
+  --n1270: red;
+  --n1271: red;
+  --n1272: red;
+  --n1273: red;
+  --n1274: red;
+  --n1275: red;
+  --n1276: red;
+  --n1277: red;
+  --n1278: red;
+  --n1279: red;
+  --n1280: red;
+  --n1281: red;
+  --n1282: red;
+  --n1283: red;
+  --n1284: red;
+  --n1285: red;
+  --n1286: red;
+  --n1287: red;
+  --n1288: red;
+  --n1289: red;
+  --n1290: red;
+  --n1291: red;
+  --n1292: red;
+  --n1293: red;
+  --n1294: red;
+  --n1295: red;
+  --n1296: red;
+  --n1297: red;
+  --n1298: red;
+  --n1299: red;
+  --n1300: red;
+  --n1301: red;
+  --n1302: red;
+  --n1303: red;
+  --n1304: red;
+  --n1305: red;
+  --n1306: red;
+  --n1307: red;
+  --n1308: red;
+  --n1309: red;
+  --n1310: red;
+  --n1311: red;
+  --n1312: red;
+  --n1313: red;
+  --n1314: red;
+  --n1315: red;
+  --n1316: red;
+  --n1317: red;
+  --n1318: red;
+  --n1319: red;
+  --n1320: red;
+  --n1321: red;
+  --n1322: red;
+  --n1323: red;
+  --n1324: red;
+  --n1325: red;
+  --n1326: red;
+  --n1327: red;
+  --n1328: red;
+  --n1329: red;
+  --n1330: red;
+  --n1331: red;
+  --n1332: red;
+  --n1333: red;
+  --n1334: red;
+  --n1335: red;
+  --n1336: red;
+  --n1337: red;
+  --n1338: red;
+  --n1339: red;
+  --n1340: red;
+  --n1341: red;
+  --n1342: red;
+  --n1343: red;
+  --n1344: red;
+  --n1345: red;
+  --n1346: red;
+  --n1347: red;
+  --n1348: red;
+  --n1349: red;
+  --n1350: red;
+  --n1351: red;
+  --n1352: red;
+  --n1353: red;
+  --n1354: red;
+  --n1355: red;
+  --n1356: red;
+  --n1357: red;
+  --n1358: red;
+  --n1359: red;
+  --n1360: red;
+  --n1361: red;
+  --n1362: red;
+  --n1363: red;
+  --n1364: red;
+  --n1365: red;
+  --n1366: red;
+  --n1367: red;
+  --n1368: red;
+  --n1369: red;
+  --n1370: red;
+  --n1371: red;
+  --n1372: red;
+  --n1373: red;
+  --n1374: red;
+  --n1375: red;
+  --n1376: red;
+  --n1377: red;
+  --n1378: red;
+  --n1379: red;
+  --n1380: red;
+  --n1381: red;
+  --n1382: red;
+  --n1383: red;
+  --n1384: red;
+  --n1385: red;
+  --n1386: red;
+  --n1387: red;
+  --n1388: red;
+  --n1389: red;
+  --n1390: red;
+  --n1391: red;
+  --n1392: red;
+  --n1393: red;
+  --n1394: red;
+  --n1395: red;
+  --n1396: red;
+  --n1397: red;
+  --n1398: red;
+  --n1399: red;
+  --n1400: red;
+  --n1401: red;
+  --n1402: red;
+  --n1403: red;
+  --n1404: red;
+  --n1405: red;
+  --n1406: red;
+  --n1407: red;
+  --n1408: red;
+  --n1409: red;
+  --n1410: red;
+  --n1411: red;
+  --n1412: red;
+  --n1413: red;
+  --n1414: red;
+  --n1415: red;
+  --n1416: red;
+  --n1417: red;
+  --n1418: red;
+  --n1419: red;
+  --n1420: red;
+  --n1421: red;
+  --n1422: red;
+  --n1423: red;
+  --n1424: red;
+  --n1425: red;
+  --n1426: red;
+  --n1427: red;
+  --n1428: red;
+  --n1429: red;
+  --n1430: red;
+  --n1431: red;
+  --n1432: red;
+  --n1433: red;
+  --n1434: red;
+  --n1435: red;
+  --n1436: red;
+  --n1437: red;
+  --n1438: red;
+  --n1439: red;
+  --n1440: red;
+  --n1441: red;
+  --n1442: red;
+  --n1443: red;
+  --n1444: red;
+  --n1445: red;
+  --n1446: red;
+  --n1447: red;
+  --n1448: red;
+  --n1449: red;
+  --n1450: red;
+  --n1451: red;
+  --n1452: red;
+  --n1453: red;
+  --n1454: red;
+  --n1455: red;
+  --n1456: red;
+  --n1457: red;
+  --n1458: red;
+  --n1459: red;
+  --n1460: red;
+  --n1461: red;
+  --n1462: red;
+  --n1463: red;
+  --n1464: red;
+  --n1465: red;
+  --n1466: red;
+  --n1467: red;
+  --n1468: red;
+  --n1469: red;
+  --n1470: red;
+  --n1471: red;
+  --n1472: red;
+  --n1473: red;
+  --n1474: red;
+  --n1475: red;
+  --n1476: red;
+  --n1477: red;
+  --n1478: red;
+  --n1479: red;
+  --n1480: red;
+  --n1481: red;
+  --n1482: red;
+  --n1483: red;
+  --n1484: red;
+  --n1485: red;
+  --n1486: red;
+  --n1487: red;
+  --n1488: red;
+  --n1489: red;
+  --n1490: red;
+  --n1491: red;
+  --n1492: red;
+  --n1493: red;
+  --n1494: red;
+  --n1495: red;
+  --n1496: red;
+  --n1497: red;
+  --n1498: red;
+  --n1499: red;
+  --n1500: red;
+  --n1501: red;
+  --n1502: red;
+  --n1503: red;
+  --n1504: red;
+  --n1505: red;
+  --n1506: red;
+  --n1507: red;
+  --n1508: red;
+  --n1509: red;
+  --n1510: red;
+  --n1511: red;
+  --n1512: red;
+  --n1513: red;
+  --n1514: red;
+  --n1515: red;
+  --n1516: red;
+  --n1517: red;
+  --n1518: red;
+  --n1519: red;
+  --n1520: red;
+  --n1521: red;
+  --n1522: red;
+  --n1523: red;
+  --n1524: red;
+  --n1525: red;
+  --n1526: red;
+  --n1527: red;
+  --n1528: red;
+  --n1529: red;
+  --n1530: red;
+  --n1531: red;
+  --n1532: red;
+  --n1533: red;
+  --n1534: red;
+  --n1535: red;
+  --n1536: red;
+  --n1537: red;
+  --n1538: red;
+  --n1539: red;
+  --n1540: red;
+  --n1541: red;
+  --n1542: red;
+  --n1543: red;
+  --n1544: red;
+  --n1545: red;
+  --n1546: red;
+  --n1547: red;
+  --n1548: red;
+  --n1549: red;
+  --n1550: red;
+  --n1551: red;
+  --n1552: red;
+  --n1553: red;
+  --n1554: red;
+  --n1555: red;
+  --n1556: red;
+  --n1557: red;
+  --n1558: red;
+  --n1559: red;
+  --n1560: red;
+  --n1561: red;
+  --n1562: red;
+  --n1563: red;
+  --n1564: red;
+  --n1565: red;
+  --n1566: red;
+  --n1567: red;
+  --n1568: red;
+  --n1569: red;
+  --n1570: red;
+  --n1571: red;
+  --n1572: red;
+  --n1573: red;
+  --n1574: red;
+  --n1575: red;
+  --n1576: red;
+  --n1577: red;
+  --n1578: red;
+  --n1579: red;
+  --n1580: red;
+  --n1581: red;
+  --n1582: red;
+  --n1583: red;
+  --n1584: red;
+  --n1585: red;
+  --n1586: red;
+  --n1587: red;
+  --n1588: red;
+  --n1589: red;
+  --n1590: red; */
+
+  --hex: #37dd35;
+  --gradient: linear-gradient(90deg, #f00 0%, #0f0 50%, #f00 100%);
+  --gradient-with-var: linear-gradient(90deg, var(--brand) 0%, #f00 100%);
+
+  /**
+  * @tokens Easings
+  * @presenter Easing
+  */
+
+  --easing-swift: cubic-bezier(0.55, 0, 0.1, 1);
+
+  /**
+  * @tokens Font Families
+  * @presenter FontFamily
+  */
+  --base-font-family: system-ui, sans-serif;
+  --mono-font-family: Monaco, monospace;
+  --web-font-family: "Open Sans";
+
+  /**
+  * @tokens Font Sizes
+  * @presenter FontSize
+  */
+
+  --font-size-s: 0.75rem;
+  --font-size-m: 0.875rem;
+  --font-size-l: 1rem;
+
+  /**
+  * @tokens Font Weights
+  * @presenter FontWeight
+  */
+
+  --font-weight-regular: 400;
+  --font-weight-bold: 600;
+
+  /**
+  * @tokens Line Heights
+  * @presenter LineHeight
+  */
+
+  --line-height: 1.5;
+
+  /**
+  * @tokens Letter Spacings
+  * @presenter LetterSpacing
+  */
+
+  --letter-spacing-none: 0;
+  --letter-spacing-s: 1px;
+  --letter-spacing-m: 2px;
+
+  /**
+  * @tokens Opacities
+  * @presenter Opacity
+  */
+
+  --opacity: 0.5;
+
+  /**
+  * @tokens Shadows
+  * @presenter Shadow
+  */
+
+  --shadow-m: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-l: 0 1px 5px rgba(0, 0, 0, 0.3);
+
+  /**
+  * @tokens Spacings
+  * @presenter Spacing
+  */
+
+  --spacing-s: 8px;
+  --spacing-m: 12px;
+  --spacing-l: 16px;
+
+  /**
+  * @tokens Z-Index
+  */
+
+  --z-index: 1000;
+
+  /**
+  * @tokens Others
+  */
+  --border-normal: 3px dashed red; /* Token Description Example @presenter Border */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

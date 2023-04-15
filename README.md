@@ -229,7 +229,7 @@ This addon comes with a custom Storybook Doc Block allowing you to display your 
 ```tsx
 // colors.stories.mdx
 
-import { DesignTokenDocBlock } from 'storybook-design-token/dist/doc-blocks';
+import { DesignTokenDocBlock } from 'storybook-design-token';
 
 <DesignTokenDocBlock categoryName="Colors" maxHeight={600} viewType="card" />;
 ```

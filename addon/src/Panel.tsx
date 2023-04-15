@@ -1,36 +1,65 @@
+import { ActionBar, AddonPanel, ScrollArea, Tabs } from "@storybook/components";
+import { useParameter } from "@storybook/manager-api";
 import React from "react";
-import { useAddonState, useChannel } from "@storybook/manager-api";
-import { AddonPanel } from "@storybook/components";
-import { ADDON_ID, EVENTS } from "./constants";
-import { PanelContent } from "./components/PanelContent";
+import { TokenTab } from "./components/TokenTab";
+import { useTokenTabs } from "./hooks/useTokenTabs";
+import { Config } from "./types/config.types";
 
 interface PanelProps {
   active: boolean;
 }
 
 export const Panel: React.FC<PanelProps> = (props) => {
-  // https://storybook.js.org/docs/react/addons/addons-api#useaddonstate
-  const [results, setState] = useAddonState(ADDON_ID, {
-    danger: [],
-    warning: [],
-  });
+  const config = useParameter<Config>("designToken");
 
-  // https://storybook.js.org/docs/react/addons/addons-api#usechannel
-  const emit = useChannel({
-    [EVENTS.RESULT]: (newResults) => setState(newResults),
-  });
+  const {
+    activeCategory,
+    cardView,
+    setActiveCategory,
+    setCardView,
+    styleInjections,
+    tabs,
+  } = useTokenTabs(config);
 
   return (
     <AddonPanel {...props}>
-      <PanelContent
-        results={results}
-        fetchData={() => {
-          emit(EVENTS.REQUEST);
-        }}
-        clearData={() => {
-          emit(EVENTS.CLEAR);
-        }}
-      />
+      <>
+        <style>{styleInjections}</style>
+
+        <ScrollArea vertical horizontal>
+          <Tabs
+            actions={{ onSelect: (id) => setActiveCategory(id) }}
+            selected={activeCategory}
+          >
+            {tabs.map((tab) => {
+              return (
+                <div key={tab.label} id={tab.label} title={tab.label}>
+                  {activeCategory === tab.label && (
+                    <TokenTab
+                      categories={tab.categories}
+                      viewType={cardView ? "card" : "table"}
+                      showSearch={config?.showSearch}
+                      pageSize={config?.pageSize}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </Tabs>
+        </ScrollArea>
+
+        <ActionBar
+          key="actionbar"
+          actionItems={[
+            {
+              onClick: () => {
+                setCardView(!cardView);
+              },
+              title: cardView ? "Table View" : "Card View",
+            },
+          ]}
+        />
+      </>
     </AddonPanel>
   );
 };
