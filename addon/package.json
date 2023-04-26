@@ -35,7 +35,7 @@
       "import": "./dist/preset.mjs",
       "types": "./dist/preset.d.ts"
     },
-    "./doc-bocks": {
+    "./doc-blocks": {
       "require": "./dist/doc-blocks.js",
       "import": "./dist/doc-blocks.mjs",
       "types": "./dist/doc-blocks.d.ts"
