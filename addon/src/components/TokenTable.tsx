@@ -97,6 +97,10 @@ export const TokenTable = ({
 
           ':last-of-type': {
             borderBottom: `1px solid ${theme.color.mediumlight}`
+          },
+
+          ':hover': {
+            backgroundColor: theme.background.hoverable,
           }
         },
 

@@ -61,6 +61,10 @@ export const TokenCards = ({
         padding: 12,
         overflow: 'hidden',
 
+        ':hover': {
+          backgroundColor: theme.background.hoverable,
+        },
+
         '> *:not(:last-child)': {
           marginBottom: 8
         },
