@@ -132,7 +132,6 @@
     "raw-loader": "^4.0.2",
     "react-storage-hooks": "^4.0.1",
     "react-use-clipboard": "^1.0.9",
-    "react-virtual": "^2.10.4",
-    "vite": "^4.1.4"
+    "react-virtual": "^2.10.4"
   }
 }
