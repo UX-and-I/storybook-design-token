@@ -4,8 +4,6 @@ import {
   viteStorybookDesignTokenPlugin
 } from './plugin';
 
-const { mergeConfig } = require('vite');
-
 type AddonOptions = {
   designTokenGlob?: string;
   presets: any;
@@ -17,6 +15,7 @@ export function managerEntries(entry = []) {
 }
 
 export function viteFinalFactory(options?: any) {
+  const { mergeConfig } = require('vite');
   return async function viteFinal(config: any) {
     return mergeConfig(config, {
       plugins: [viteStorybookDesignTokenPlugin(options)]
