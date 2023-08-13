@@ -1,6 +1,6 @@
 {
   "name": "storybook-design-token",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "main": "dist/preset.js",
   "license": "MIT",
   "keywords": [
@@ -37,6 +37,9 @@
     },
     "react-dom": {
       "optional": true
+    },
+    "vite": {
+      "optional": true
     }
   },
   "dependencies": {
@@ -61,10 +64,5 @@
   },
   "peerDependencies": {
     "vite": "> 3.0.0 < 5.0.0"
-  },
-  "peerDependenciesMeta": {
-    "vite": {
-      "optional": true
-    }
   }
 }
