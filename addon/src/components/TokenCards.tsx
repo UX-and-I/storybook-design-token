@@ -10,12 +10,12 @@ import {
 } from "@storybook/components";
 import { styled } from "@storybook/theming";
 
-import { Category } from '../types/category.types';
-import { Token } from '../types/token.types';
-import { ClipboardButton } from './ClipboardButton';
-import { PresenterMapType, TokenPreview } from './TokenPreview';
-import { TokenValue } from './TokenValue';
-import { ToolButton } from './ToolButton';
+import { Category } from "../types/category.types";
+import { Token } from "../types/token.types";
+import { ClipboardButton } from "./ClipboardButton";
+import { PresenterMapType, TokenPreview } from "./TokenPreview";
+import { TokenValue } from "./TokenValue";
+import { ToolButton } from "./ToolButton";
 
 interface TokenCardsProps {
   categories: Category[];

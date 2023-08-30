@@ -53,8 +53,3 @@ const PresenterMap: PresenterMapType = {
   [`${TokenPresenter.SVG}`]: SvgPresenter,
   [`${TokenPresenter.IMAGE}`]: ImagePresenter,
 };
-
-//TODO: remove?
-export function registerPresenter(name: string, presenter: React.FunctionComponent<PresenterProps> | React.ComponentClass<PresenterProps>) {
-  PresenterMap[name] = presenter;
-}
