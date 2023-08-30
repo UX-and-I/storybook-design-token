@@ -15,7 +15,7 @@ export const Panel = () => {
     styleInjections,
     tabs,
   } = useTokenTabs(config);
-
+  
   return (
     <>
       <style>{styleInjections}</style>
@@ -34,6 +34,7 @@ export const Panel = () => {
                     viewType={cardView ? "card" : "table"}
                     showSearch={config?.showSearch}
                     pageSize={config?.pageSize}
+                    presenters={{}}
                   />
                 )}
               </div>

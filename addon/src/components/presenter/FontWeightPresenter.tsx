@@ -1,13 +1,9 @@
 import React from "react";
 import { useMemo } from "react";
 import { styled } from "@storybook/theming";
-import { Token } from "../../types/token.types";
+import { PresenterProps } from "../../types/token.types";
 
-interface FontWeightPresenterProps {
-  token: Token;
-}
-
-export const FontWeightPresenter = ({ token }: FontWeightPresenterProps) => {
+export const FontWeightPresenter = ({ token }: PresenterProps) => {
   const Box = useMemo(
     () =>
       styled.div(() => ({

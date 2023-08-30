@@ -1,13 +1,9 @@
 import React from "react";
 import { useMemo } from "react";
 import { styled } from "@storybook/theming";
-import { Token } from "../../types/token.types";
+import { PresenterProps } from "../../types/token.types";
 
-interface LineHeightPresenterProps {
-  token: Token;
-}
-
-export const LineHeightPresenter = ({ token }: LineHeightPresenterProps) => {
+export const LineHeightPresenter = ({ token }: PresenterProps) => {
   const Box = useMemo(
     () =>
       styled.div(() => ({

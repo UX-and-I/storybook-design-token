@@ -10,12 +10,12 @@ import {
 } from "@storybook/components";
 import { styled } from "@storybook/theming";
 
-import { Category } from "../types/category.types";
-import { Token } from "../types/token.types";
-import { ClipboardButton } from "./ClipboardButton";
-import { TokenPreview } from "./TokenPreview";
-import { TokenValue } from "./TokenValue";
-import { ToolButton } from "./ToolButton";
+import { Category } from '../types/category.types';
+import { Token } from '../types/token.types';
+import { ClipboardButton } from './ClipboardButton';
+import { PresenterMapType, TokenPreview } from './TokenPreview';
+import { TokenValue } from './TokenValue';
+import { ToolButton } from './ToolButton';
 
 interface TokenCardsProps {
   categories: Category[];
@@ -23,6 +23,7 @@ interface TokenCardsProps {
   readonly?: boolean;
   showValueColumn?: boolean;
   pageSize?: number;
+  presenters: PresenterMapType;
 }
 
 export const TokenCards = ({
@@ -31,6 +32,7 @@ export const TokenCards = ({
   readonly,
   showValueColumn = true,
   pageSize = 50,
+  presenters
 }: TokenCardsProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
@@ -165,6 +167,7 @@ export const TokenCards = ({
               )}
 
               <TokenPreview
+                presenters={presenters}
                 token={{
                   ...token,
                   value: tokenValueOverwrites[token.name] || token.value,

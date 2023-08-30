@@ -1,13 +1,9 @@
-import React from "react";
+  import React from "react";
 import { useMemo } from "react";
 import { styled } from "@storybook/theming";
-import { Token } from "../../types/token.types";
+import { PresenterProps } from "../../types/token.types";
 
-interface BorderPresenterProps {
-  token: Token;
-}
-
-export const BorderPresenter = ({ token }: BorderPresenterProps) => {
+export const BorderPresenter = ({ token }: PresenterProps) => {
   const Box = useMemo(
     () =>
       styled.div(() => ({

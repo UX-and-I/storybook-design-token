@@ -36,3 +36,7 @@ export enum TokenSourceType {
   THEO = "THEO",
   IMAGE = "IMAGE",
 }
+
+export interface PresenterProps {
+  token: Token;
+}
