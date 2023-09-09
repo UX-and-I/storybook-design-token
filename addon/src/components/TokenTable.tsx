@@ -12,7 +12,7 @@ import { styled } from "@storybook/theming";
 import { Category } from "../types/category.types";
 import { Token } from "../types/token.types";
 import { ClipboardButton } from "./ClipboardButton";
-import { TokenPreview } from "./TokenPreview";
+import { PresenterMapType, TokenPreview } from "./TokenPreview";
 import { TokenValue } from "./TokenValue";
 import { ToolButton } from "./ToolButton";
 
@@ -21,6 +21,7 @@ interface TokenTableProps {
   maxHeight?: number;
   readonly?: boolean;
   showValueColumn?: boolean;
+  presenters?: PresenterMapType;
 }
 
 export const TokenTable = ({
@@ -28,6 +29,7 @@ export const TokenTable = ({
   maxHeight,
   readonly,
   showValueColumn = true,
+  presenters,
 }: TokenTableProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
@@ -97,6 +99,11 @@ export const TokenTable = ({
           },
         },
 
+        tr: {
+          ":hover": {
+            backgroundColor: "rgba(0,0,0, 0.1)",
+          },
+        },
         "td, th": {
           border: "none !important",
           textOverflow: "ellipsis",
@@ -293,6 +300,7 @@ export const TokenTable = ({
                 )}
                 <td>
                   <TokenPreview
+                    presenters={presenters}
                     token={{
                       ...token,
                       value: tokenValueOverwrites[token.name] || token.value,

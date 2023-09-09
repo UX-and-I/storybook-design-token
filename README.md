@@ -24,6 +24,7 @@ Display design token documentation generated from your stylesheets and icon file
     - [Specify a custom glob for your token files](#specify-a-custom-glob-for-your-token-files)
     - [Preserve CSS variables](#preserve-css-variables)
   - [Design Token Doc Block](#design-token-doc-block)
+    - [Custom Presenters](#custom-presenters)
   - [Browser support](#browser-support)
 
 ## Get started
@@ -236,6 +237,42 @@ import { DesignTokenDocBlock } from 'storybook-design-token';
 
 The `categoryName` parameter references your token category name (the part after `@tokens` in your stylesheet annotations). The `viewType` parameter can be set to `card` or `table` to switch between both presentations. In some cases you might want to hide the token values. You can do that by passing `showValueColumn={false}`.
 Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v1/demo/src/design-tokens/colors.stories.mdx) for usage examples.
+
+### Custom Presenters
+
+`DesignTokenDocBlock` component allows you to use custom presenters. You can either create a new presenter or override an existing one.
+
+Example of overriding the existing Color presenter:
+
+```tsx
+import React from 'react';
+
+export function CircleColorPresenter({ token }) {
+  return (
+    <div
+      style={{
+        width: 30,
+        height: 30,
+        borderRadius: '50%',
+        background: token.value
+      }}
+    ></div>
+  );
+}
+```
+
+```tsx
+import { DesignTokenDocBlock } from 'storybook-design-token';
+import { CircleColorPresenter } from './CircleColorPresenter';
+
+<DesignTokenDocBlock
+  categoryName="Colors"
+  viewType="card"
+  presenters={{ Color: CircleColorPresenter }}
+/>;
+```
+
+Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v3/addon/src/stories/Introduction.mdx) for usage examples.
 
 ## Browser support
 

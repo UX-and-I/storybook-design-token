@@ -1,5 +1,6 @@
 import { Meta } from "@storybook/blocks";
 import { DesignTokenDocBlock } from "../../dist/doc-blocks";
+import { CircleColorPresenter } from "./CircleColorPresenter";
 
 <Meta title="Demo" />
 
@@ -14,3 +15,11 @@ Display design token documentation generated from your stylesheets and icon file
 ## Colors (Cards)
 
 <DesignTokenDocBlock categoryName="Colors" viewType="card" />
+
+## Colors with Custom presenter (Cards)
+
+<DesignTokenDocBlock
+  categoryName="Colors"
+  viewType="card"
+  presenters={{ Color: CircleColorPresenter }}
+/>

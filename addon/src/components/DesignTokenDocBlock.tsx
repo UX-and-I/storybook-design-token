@@ -8,6 +8,7 @@ import { SearchField } from "./SearchField";
 import { TokenCards } from "./TokenCards";
 import { TokenTable } from "./TokenTable";
 import type { TokenViewType } from "./TokenTab";
+import { PresenterMapType } from "./TokenPreview";
 
 export interface DesignTokenDocBlockProps {
   categoryName: string;
@@ -19,6 +20,7 @@ export interface DesignTokenDocBlockProps {
    */
   showSearch?: boolean;
   pageSize?: number;
+  presenters?: PresenterMapType;
 }
 
 const Container = styled.div(() => ({
@@ -42,8 +44,9 @@ export const DesignTokenDocBlock = ({
   viewType = "table",
   showSearch = true,
   pageSize,
+  presenters,
 }: DesignTokenDocBlockProps) => {
-  const { tabs } = useTokenTabs({ pageSize, showSearch });
+  const { tabs } = useTokenTabs({ pageSize, showSearch, presenters });
 
   const tab = useMemo(
     () => tabs.find((t) => t.label === categoryName),
@@ -62,6 +65,7 @@ export const DesignTokenDocBlock = ({
       showValueColumn={showValueColumn}
       showSearch={showSearch}
       pageSize={pageSize}
+      presenters={presenters}
     />
   );
 };
@@ -81,6 +85,7 @@ function DesignTokenDocBlockView({
   showValueColumn,
   showSearch,
   pageSize,
+  presenters,
 }: DesignTokenDocBlockViewProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
     categoriesProp ?? []
@@ -104,6 +109,7 @@ function DesignTokenDocBlockView({
             maxHeight={maxHeight}
             readonly
             showValueColumn={showValueColumn}
+            presenters={presenters}
           />
         </Card>
       )}
@@ -114,6 +120,7 @@ function DesignTokenDocBlockView({
           readonly
           showValueColumn={showValueColumn}
           pageSize={pageSize}
+          presenters={presenters}
         />
       )}
     </Container>

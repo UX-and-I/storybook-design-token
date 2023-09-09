@@ -13,8 +13,10 @@ export function managerEntries(entry: any[] = []) {
   return [...entry, require.resolve("./manager")];
 }
 
-
-export const viteFinal = async (viteConfig: Record<string, any>, options: any) => {
+export const viteFinal = async (
+  viteConfig: Record<string, any>,
+  options: any
+) => {
   viteConfig.plugins = viteConfig.plugins || [];
   viteConfig.plugins.push(viteStorybookDesignTokenPlugin(options));
 
@@ -39,4 +41,3 @@ export async function webpackFinal(
 
   return config;
 }
-

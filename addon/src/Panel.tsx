@@ -40,6 +40,7 @@ export const Panel: React.FC<PanelProps> = (props) => {
                       viewType={cardView ? "card" : "table"}
                       showSearch={config?.showSearch}
                       pageSize={config?.pageSize}
+                      presenters={{}}
                     />
                   )}
                 </div>

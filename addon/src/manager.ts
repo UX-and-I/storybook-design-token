@@ -13,7 +13,7 @@ addons.register(ADDON_ID, () => {
       if (!active) {
         return null;
       }
-      return React.createElement(Panel, { key, active })
-    }
+      return React.createElement(Panel, { key, active });
+    },
   });
 });

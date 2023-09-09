@@ -34,6 +34,7 @@ export const Panel = () => {
                     viewType={cardView ? "card" : "table"}
                     showSearch={config?.showSearch}
                     pageSize={config?.pageSize}
+                    presenters={{}}
                   />
                 )}
               </div>

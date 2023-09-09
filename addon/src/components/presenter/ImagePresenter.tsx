@@ -1,13 +1,9 @@
 import React from "react";
 import { useMemo } from "react";
 import { styled } from "@storybook/theming";
-import { Token } from "../../types/token.types";
+import { PresenterProps } from "../../types/token.types";
 
-interface ImagePresenterProps {
-  token: Token;
-}
-
-export function ImagePresenter({ token }: ImagePresenterProps) {
+export function ImagePresenter({ token }: PresenterProps) {
   const Img = useMemo(
     () =>
       styled.img(() => ({

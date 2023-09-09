@@ -4,6 +4,7 @@ import { TokenTable } from "./TokenTable";
 import { SearchField } from "./SearchField";
 import { Category } from "../types/category.types";
 import { useTokenSearch } from "../hooks/useTokenSearch";
+import { PresenterMapType } from "./TokenPreview";
 
 export type TokenViewType = "card" | "table";
 
@@ -15,6 +16,7 @@ interface TokenTabProps {
    */
   showSearch?: boolean;
   pageSize?: number;
+  presenters?: PresenterMapType;
 }
 
 export function TokenTab({
@@ -22,6 +24,7 @@ export function TokenTab({
   viewType = "table",
   showSearch = true,
   pageSize,
+  presenters,
 }: TokenTabProps) {
   const { searchText, setSearchText, categories } =
     useTokenSearch(categoriesProp);
@@ -36,9 +39,15 @@ export function TokenTab({
         />
       )}
       {viewType === "card" && (
-        <TokenCards categories={categories} pageSize={pageSize} />
+        <TokenCards
+          categories={categories}
+          pageSize={pageSize}
+          presenters={presenters}
+        />
       )}
-      {viewType === "table" && <TokenTable categories={categories} />}
+      {viewType === "table" && (
+        <TokenTable categories={categories} presenters={presenters} />
+      )}
     </div>
   );
 }
