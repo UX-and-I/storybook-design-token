@@ -3,9 +3,7 @@ import { useMemo } from "react";
 import { styled } from "@storybook/theming";
 import { PresenterProps } from "../../types/token.types";
 
-export const LetterSpacingPresenter = ({
-  token
-}: PresenterProps) => {
+export const LetterSpacingPresenter = ({ token }: PresenterProps) => {
   const Box = useMemo(
     () =>
       styled.div(() => ({

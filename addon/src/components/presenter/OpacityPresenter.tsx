@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { styled } from "@storybook/theming";
 import { PresenterProps } from "../../types/token.types";
 
-
 export const OpacityPresenter = ({ token }: PresenterProps) => {
   const Container = useMemo(
     () =>

@@ -19,7 +19,7 @@ import { ImagePresenter } from "./presenter/ImagePresenter";
 
 interface TokenPreviewProps {
   token: Token;
-  presenters: PresenterMapType;
+  presenters?: PresenterMapType;
 }
 
 export const TokenPreview = ({ token, presenters }: TokenPreviewProps) => {
@@ -27,13 +27,16 @@ export const TokenPreview = ({ token, presenters }: TokenPreviewProps) => {
 
   const all = { ...PresenterMap, ...(presenters || {}) };
 
-  const PresenterComponent = presenter != null ? all[presenter] : EmptyPresenter;
+  const PresenterComponent =
+    presenter != null ? all[presenter] : EmptyPresenter;
 
   return <PresenterComponent token={token} />;
 };
 
 export interface PresenterMapType {
-  [key: string]: React.FunctionComponent<PresenterProps> | React.ComponentClass<PresenterProps>;
+  [key: string]:
+    | React.FunctionComponent<PresenterProps>
+    | React.ComponentClass<PresenterProps>;
 }
 
 const PresenterMap: PresenterMapType = {

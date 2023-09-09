@@ -15,7 +15,7 @@ export const Panel = () => {
     styleInjections,
     tabs,
   } = useTokenTabs(config);
-  
+
   return (
     <>
       <style>{styleInjections}</style>

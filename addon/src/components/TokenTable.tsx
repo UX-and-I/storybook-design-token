@@ -21,7 +21,7 @@ interface TokenTableProps {
   maxHeight?: number;
   readonly?: boolean;
   showValueColumn?: boolean;
-  presenters: PresenterMapType;
+  presenters?: PresenterMapType;
 }
 
 export const TokenTable = ({
@@ -29,7 +29,7 @@ export const TokenTable = ({
   maxHeight,
   readonly,
   showValueColumn = true,
-  presenters
+  presenters,
 }: TokenTableProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
@@ -99,10 +99,10 @@ export const TokenTable = ({
           },
         },
 
-        "tr": {
+        tr: {
           ":hover": {
             backgroundColor: "rgba(0,0,0, 0.1)",
-          }
+          },
         },
         "td, th": {
           border: "none !important",

@@ -20,7 +20,7 @@ export interface DesignTokenDocBlockProps {
    */
   showSearch?: boolean;
   pageSize?: number;
-  presenters: PresenterMapType;
+  presenters?: PresenterMapType;
 }
 
 const Container = styled.div(() => ({
@@ -85,7 +85,7 @@ function DesignTokenDocBlockView({
   showValueColumn,
   showSearch,
   pageSize,
-  presenters
+  presenters,
 }: DesignTokenDocBlockViewProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
     categoriesProp ?? []

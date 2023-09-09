@@ -23,7 +23,7 @@ interface TokenCardsProps {
   readonly?: boolean;
   showValueColumn?: boolean;
   pageSize?: number;
-  presenters: PresenterMapType;
+  presenters?: PresenterMapType;
 }
 
 export const TokenCards = ({
@@ -32,7 +32,7 @@ export const TokenCards = ({
   readonly,
   showValueColumn = true,
   pageSize = 50,
-  presenters
+  presenters,
 }: TokenCardsProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;

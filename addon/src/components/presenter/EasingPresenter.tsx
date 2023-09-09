@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { keyframes, styled } from "@storybook/theming";
 import { PresenterProps } from "../../types/token.types";
 
-
 export const EasingPresenter = ({ token }: PresenterProps) => {
   const animation = keyframes`
     0% {

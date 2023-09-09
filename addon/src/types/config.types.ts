@@ -5,7 +5,7 @@ export interface Config {
   defaultTab?: string;
   styleInjection?: string;
   pageSize?: number;
-  presenters: PresenterMapType;
+  presenters?: PresenterMapType;
 }
 
 export interface File {

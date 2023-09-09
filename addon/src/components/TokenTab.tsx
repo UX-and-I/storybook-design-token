@@ -16,7 +16,7 @@ interface TokenTabProps {
    */
   showSearch?: boolean;
   pageSize?: number;
-  presenters: PresenterMapType;
+  presenters?: PresenterMapType;
 }
 
 export function TokenTab({
@@ -24,7 +24,7 @@ export function TokenTab({
   viewType = "table",
   showSearch = true,
   pageSize,
-  presenters
+  presenters,
 }: TokenTabProps) {
   const { searchText, setSearchText, categories } =
     useTokenSearch(categoriesProp);
@@ -38,8 +38,16 @@ export function TokenTab({
           style={{ margin: "12px 12px 8px" }}
         />
       )}
-      {viewType === 'card' && <TokenCards categories={categories} pageSize={pageSize} presenters={presenters} />}
-      {viewType === 'table' && <TokenTable categories={categories} presenters={presenters} />}
+      {viewType === "card" && (
+        <TokenCards
+          categories={categories}
+          pageSize={pageSize}
+          presenters={presenters}
+        />
+      )}
+      {viewType === "table" && (
+        <TokenTable categories={categories} presenters={presenters} />
+      )}
     </div>
   );
 }

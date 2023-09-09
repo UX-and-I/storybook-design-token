@@ -240,15 +240,24 @@ Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v1
 
 ### Custom Presenters
 
-`DesignTokenDocBlock` component allows you to use custom presenters, you can either create a new presenter or override existing one.
+`DesignTokenDocBlock` component allows you to use custom presenters. You can either create a new presenter or override an existing one.
 
-Example of overriding existing Color presenter:
+Example of overriding the existing Color presenter:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
 export function CircleColorPresenter({ token }) {
-    return <div style={{ width: 30, height: 30, borderRadius: '50%', background: token.value }}></div>;
+  return (
+    <div
+      style={{
+        width: 30,
+        height: 30,
+        borderRadius: '50%',
+        background: token.value
+      }}
+    ></div>
+  );
 }
 ```
 
@@ -260,7 +269,7 @@ import { CircleColorPresenter } from './CircleColorPresenter';
   categoryName="Colors"
   viewType="card"
   presenters={{ Color: CircleColorPresenter }}
-/>
+/>;
 ```
 
 Check the [demo file](https://github.com/UX-and-I/storybook-design-token/blob/v3/addon/src/stories/Introduction.mdx) for usage examples.
