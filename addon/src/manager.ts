@@ -9,11 +9,11 @@ addons.register(ADDON_ID, () => {
     title: "Design Tokens",
     paramKey: PARAM_KEY,
     match: ({ viewMode }) => viewMode === "story",
-    render: ({ active, key }) => {
+    render: ({ active }) => {
       if (!active) {
         return null;
       }
-      return React.createElement(Panel, { key, active });
+      return React.createElement(Panel, { active });
     },
   });
 });
