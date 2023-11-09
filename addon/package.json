@@ -1,6 +1,6 @@
 {
   "name": "storybook-design-token",
-  "version": "3.0.0-beta.6",
+  "version": "3.0.0-beta.7",
   "description": "Storybook addon to display design token documentation generated from your stylesheets and icon files.",
   "keywords": [
     "design token",
