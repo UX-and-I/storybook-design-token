@@ -111,7 +111,7 @@ You can specify the default tab shown in the addon panel. Set it to the correspo
 `.storybook/preview.js`
 
 ```javascript
-const preview = {
+export default {
   parameters: {
     designToken: {
       defaultTab: 'Colors'
@@ -127,7 +127,7 @@ To inject styles needed by your design token documentation, use the `styleInject
 `.storybook/preview.js`
 
 ```javascript
-const preview = {
+export default {
   parameters: {
     designToken: {
       styleInjection:
@@ -142,7 +142,7 @@ const preview = {
 In some cases you might only want to use the Doc Blocks and hide the addon panel. You can do so by the setting the `disable` parameter:
 
 ```javascript
-const preview = {
+export default {
   parameters: {
     designToken: {
       disable: true
@@ -156,7 +156,7 @@ const preview = {
 In some cases you might not need the search field to be visible. You can control its visibility by the setting the `showSearch` parameter:
 
 ```javascript
-const preview = {
+export default {
   parameters: {
     designToken: {
       showSearch: false
@@ -170,7 +170,7 @@ const preview = {
 By default `pageSize` of the card view is 50 items. You can configure it by setting the `pageSize` parameter:
 
 ```javascript
-const preview = {
+export default {
   parameters: {
     designToken: {
       pageSize: 10
@@ -182,7 +182,7 @@ const preview = {
 You can disable pagination in the following way:
 
 ```javascript
-const preview = {
+export default {
   parameters: {
     designToken: {
       // specify max value to disable pagination
