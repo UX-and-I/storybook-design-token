@@ -83,37 +83,16 @@ export function useTokenTabs(config?: Config) {
 
     if (cssTokens) {
       setCssCategories(cssTokens.categories);
-
-      if (!config?.defaultTab && cssTokens.categories.length > 0) {
-        setActiveCategory(
-          (activeCategory) => activeCategory || cssTokens.categories[0].name
-        );
-      }
-
       setStyleInjections((current) => current + cssTokens.injectionStyles);
     }
 
     if (lessTokens) {
       setLessCategories(lessTokens.categories);
-
-      if (!config?.defaultTab && lessTokens.categories.length > 0) {
-        setActiveCategory(
-          (activeCategory) => activeCategory || lessTokens.categories[0].name
-        );
-      }
-
       setStyleInjections((current) => current + lessTokens.injectionStyles);
     }
 
     if (scssTokens) {
       setScssCategories(scssTokens.categories);
-
-      if (!config?.defaultTab && scssTokens.categories.length > 0) {
-        setActiveCategory(
-          (activeCategory) => activeCategory || scssTokens.categories[0].name
-        );
-      }
-
       setStyleInjections((current) => current + scssTokens.injectionStyles);
     }
 
@@ -127,10 +106,12 @@ export function useTokenTabs(config?: Config) {
   }, [config, tokenFiles]);
 
   useEffect(() => {
-    if (config?.defaultTab) {
+    if (config?.defaultTab && tabs.find(item => item.label === config.defaultTab)) {
       setActiveCategory(config.defaultTab);
+    } else if (tabs.length > 0) {
+      setActiveCategory(tabs[0].label);
     }
-  }, [config]);
+  }, [config, tabs]);
 
   return {
     activeCategory,
