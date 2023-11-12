@@ -39,18 +39,25 @@ export function useTokenTabs(config?: Config) {
       new Set(categories.map((category) => category?.name))
     );
 
-    return categoryNames.map((name) => ({
+    let tabs = categoryNames.map((name) => ({
       label: name,
       categories: categories.filter(
         (category) => category?.name === name
       ) as Category[],
     }));
+
+    if ((config?.tabs ?? []).length !== 0) {
+      tabs = tabs.filter(tab => config.tabs.includes(tab.label))
+    }
+
+    return tabs;
   }, [
     cssCategories,
     lessCategories,
     scssCategories,
     svgIconCategories,
     imageCategories,
+    config
   ]);
 
   useEffect(() => {

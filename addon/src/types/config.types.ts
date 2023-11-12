@@ -6,6 +6,7 @@ export interface Config {
   styleInjection?: string;
   pageSize?: number;
   presenters?: PresenterMapType;
+  tabs?: string[];
 }
 
 export interface File {
