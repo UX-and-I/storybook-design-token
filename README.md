@@ -6,7 +6,7 @@
 
 Display design token documentation generated from your stylesheets and icon files. Preview design token changes in the browser. Add your design tokens to your Storybook Docs pages using the custom Doc Blocks.
 
-**[Show me the demo](https://storybook-design-token-v1.netlify.app/?path=/story/components-button--button)**
+**[Show me the demo](https://storybook-design-token-v1.netlify.app/?path=/docs/demo--docs)**
 
 ![Teaser image](docs/teaser.png)
 
