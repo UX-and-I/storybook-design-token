@@ -32,9 +32,9 @@ Display design token documentation generated from your stylesheets and icon file
 First, install the addon.
 
 ```sh
-$ yarn add --dev storybook-design-token
+$ yarn add --dev storybook-design-token@2.10.0
 # or
-$ npm add --save-dev storybook-design-token
+$ npm add --save-dev storybook-design-token@2.10.0
 ```
 
 Add the addon to your storybook addon list inside `.storybook/main.js`:
