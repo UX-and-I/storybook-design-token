@@ -22,6 +22,7 @@ export const ToolButton = ({ children, onClick }: ToolButtonProps) => {
         padding: 0,
         verticalAlign: "middle",
         width: 18,
+        color: theme.color.defaultText,
 
         "&:hover": {
           color: theme.color.secondary,
