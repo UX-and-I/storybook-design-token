@@ -1,4 +1,4 @@
-⚠️ **This is the documentation for v3 which supports Storybook v7+. Please check the "v\*" branches for documentation of older versions.** ⚠️
+⚠️ **This is the documentation for v3 which supports Storybook v7 and newer. Please check the v2 branch for the release supporting Storybook v6 and below.** ⚠️
 
 # Storybook Design Token Addon
 
@@ -132,7 +132,7 @@ export default {
       tabs: ['Colors']
     }
   }
-}
+};
 ```
 
 ### Style injection
