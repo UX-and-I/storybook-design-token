@@ -17,6 +17,7 @@ Display design token documentation generated from your stylesheets and icon file
   - [Available presenters](#available-presenters)
   - [Advanced configuration](#advanced-configuration)
     - [Default tab](#default-tab)
+    - [Visible tabs](#visible-tabs)
     - [Style injection](#style-injection)
     - [Disable the addon panel](#disable-the-addon-panel)
     - [Token search visibility](#token-search-visibility)
@@ -118,6 +119,20 @@ export default {
     }
   }
 };
+```
+
+### Visible tabs
+
+If you don't want to show all available tabs, it is possible to specify which tabs should be shown in the addon panel via the `tabs` setting.
+
+```javascript
+export default {
+  parameters: {
+    designToken: {
+      tabs: ['Colors']
+    }
+  }
+}
 ```
 
 ### Style injection

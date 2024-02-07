@@ -25,5 +25,14 @@ export const Primary: Story = {
   args: {
     primary: true,
     label: "Button",
-  },
+  },  
 };
+
+export const ColorsOnly: Story = {
+  args: { ...Primary.args },
+  parameters: {
+    designToken: {
+      tabs: ['Colors']
+    }
+  }
+}
