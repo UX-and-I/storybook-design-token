@@ -51,6 +51,9 @@
     "*.js",
     "*.d.ts"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "clean": "rimraf ./dist",
     "prebuild": "yarn clean",
