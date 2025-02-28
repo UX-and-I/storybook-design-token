@@ -1,4 +1,4 @@
-import type { Renderer, ProjectAnnotations } from "@storybook/types";
+import { ProjectAnnotations, Renderer } from "storybook/internal/types";
 import { PARAM_KEY } from "./constants";
 
 const preview: ProjectAnnotations<Renderer> = {
