@@ -166,6 +166,7 @@ function determineTokensForCategory(
         rawValue: declaration.value,
         sourceType,
         value,
+        sourcePath: declaration.source?.input.from || "",
       };
     })
     .slice()

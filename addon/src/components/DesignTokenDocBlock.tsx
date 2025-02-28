@@ -16,6 +16,7 @@ export interface DesignTokenDocBlockProps {
   showValueColumn?: boolean;
   viewType: TokenViewType;
   filterNames?: string[];
+  theme?: string;
   /**
    * @default true
    */
@@ -47,6 +48,7 @@ export const DesignTokenDocBlock = ({
   showSearch = true,
   pageSize,
   presenters,
+  theme,
 }: DesignTokenDocBlockProps) => {
   const { tabs } = useTokenTabs({ pageSize, showSearch, presenters });
 
@@ -69,6 +71,7 @@ export const DesignTokenDocBlock = ({
       showSearch={showSearch}
       pageSize={pageSize}
       presenters={presenters}
+      theme={theme}
     />
   );
 };
@@ -90,6 +93,7 @@ function DesignTokenDocBlockView({
   pageSize,
   presenters,
   filterNames,
+  theme,
 }: DesignTokenDocBlockViewProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
     categoriesProp ?? []
@@ -115,6 +119,7 @@ function DesignTokenDocBlockView({
             showValueColumn={showValueColumn}
             presenters={presenters}
             filterNames={filterNames}
+            theme={theme}
           />
         </Card>
       )}
@@ -127,6 +132,7 @@ function DesignTokenDocBlockView({
           showValueColumn={showValueColumn}
           pageSize={pageSize}
           presenters={presenters}
+          theme={theme}
         />
       )}
     </Container>

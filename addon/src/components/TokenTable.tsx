@@ -25,6 +25,7 @@ interface TokenTableProps {
   showValueColumn?: boolean;
   presenters?: PresenterMapType;
   filterNames?: string[];
+  theme?: string;
 }
 
 export const TokenTable = ({
@@ -34,6 +35,7 @@ export const TokenTable = ({
   showValueColumn = true,
   presenters,
   filterNames,
+  theme,
 }: TokenTableProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
@@ -44,7 +46,7 @@ export const TokenTable = ({
   const parentRef = useRef<HTMLDivElement | null>(null);
   const theadRef = useRef<HTMLTableSectionElement | null>(null);
 
-  const tokens = useFilteredTokens(categories, filterNames);
+  const tokens = useFilteredTokens(categories, filterNames, theme);
 
   const rowVirtualizer = useVirtual({
     size: tokens.length,

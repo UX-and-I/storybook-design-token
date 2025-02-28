@@ -7,6 +7,7 @@ export interface Token {
   rawValue: string;
   sourceType: TokenSourceType;
   value: string;
+  sourcePath: string;
 }
 
 export enum TokenPresenter {

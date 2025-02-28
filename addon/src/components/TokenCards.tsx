@@ -26,6 +26,7 @@ interface TokenCardsProps {
   pageSize?: number;
   presenters?: PresenterMapType;
   filterNames?: string[];
+  theme?: string;
 }
 
 export const TokenCards = ({
@@ -36,6 +37,7 @@ export const TokenCards = ({
   pageSize = 50,
   presenters,
   filterNames,
+  theme,
 }: TokenCardsProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
@@ -111,7 +113,7 @@ export const TokenCards = ({
     []
   );
 
-  const tokens = useFilteredTokens(categories, filterNames);
+  const tokens = useFilteredTokens(categories, filterNames, theme);
 
   const pages = useMemo(() => Math.ceil(tokens.length / pageSize), [tokens]);
 

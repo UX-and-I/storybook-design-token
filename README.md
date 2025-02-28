@@ -303,6 +303,8 @@ import { DesignTokenDocBlock } from 'storybook-design-token';
 />;
 ```
 
+You can also pass a theme to the `DesignTokenDocBlock` component. This is useful when you have two themes with the same variable names but only want to display the variables for the current theme. Just pass the `theme` property to do this.
+
 ## Browser support
 
 - All modern browsers
