@@ -47,7 +47,7 @@ export function useTokenTabs(config?: Config) {
     }));
 
     if ((config?.tabs ?? []).length !== 0) {
-      tabs = tabs.filter(tab => config.tabs.includes(tab.label))
+      tabs = tabs.filter((tab) => config.tabs.includes(tab.label));
     }
 
     return tabs;
@@ -57,7 +57,7 @@ export function useTokenTabs(config?: Config) {
     scssCategories,
     svgIconCategories,
     imageCategories,
-    config
+    config,
   ]);
 
   useEffect(() => {
@@ -106,7 +106,10 @@ export function useTokenTabs(config?: Config) {
   }, [config, tokenFiles]);
 
   useEffect(() => {
-    if (config?.defaultTab && tabs.find(item => item.label === config.defaultTab)) {
+    if (
+      config?.defaultTab &&
+      tabs.find((item) => item.label === config.defaultTab)
+    ) {
       setActiveCategory(config.defaultTab);
     } else if (tabs.length > 0) {
       setActiveCategory(tabs[0].label);

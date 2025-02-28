@@ -15,6 +15,8 @@ export interface DesignTokenDocBlockProps {
   maxHeight?: number;
   showValueColumn?: boolean;
   viewType: TokenViewType;
+  filterNames?: string[];
+  theme?: string;
   /**
    * @default true
    */
@@ -38,6 +40,7 @@ const Card = styled.div(() => ({
 }));
 
 export const DesignTokenDocBlock = ({
+  filterNames,
   categoryName,
   maxHeight = 600,
   showValueColumn = true,
@@ -45,6 +48,7 @@ export const DesignTokenDocBlock = ({
   showSearch = true,
   pageSize,
   presenters,
+  theme,
 }: DesignTokenDocBlockProps) => {
   const { tabs } = useTokenTabs({ pageSize, showSearch, presenters });
 
@@ -59,6 +63,7 @@ export const DesignTokenDocBlock = ({
 
   return (
     <DesignTokenDocBlockView
+      filterNames={filterNames}
       categories={tab.categories}
       viewType={viewType}
       maxHeight={maxHeight}
@@ -66,6 +71,7 @@ export const DesignTokenDocBlock = ({
       showSearch={showSearch}
       pageSize={pageSize}
       presenters={presenters}
+      theme={theme}
     />
   );
 };
@@ -86,6 +92,8 @@ function DesignTokenDocBlockView({
   showSearch,
   pageSize,
   presenters,
+  filterNames,
+  theme,
 }: DesignTokenDocBlockViewProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
     categoriesProp ?? []
@@ -110,17 +118,21 @@ function DesignTokenDocBlockView({
             readonly
             showValueColumn={showValueColumn}
             presenters={presenters}
+            filterNames={filterNames}
+            theme={theme}
           />
         </Card>
       )}
       {viewType === "card" && (
         <TokenCards
+          filterNames={filterNames}
           categories={categories}
           padded={false}
           readonly
           showValueColumn={showValueColumn}
           pageSize={pageSize}
           presenters={presenters}
+          theme={theme}
         />
       )}
     </Container>
