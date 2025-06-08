@@ -1,6 +1,6 @@
 import React from "react";
 import { useMemo } from "react";
-import { styled } from "@storybook/theming";
+import { styled } from "storybook/theming";
 
 export const EmptyPresenter = () => {
   const Container = useMemo(

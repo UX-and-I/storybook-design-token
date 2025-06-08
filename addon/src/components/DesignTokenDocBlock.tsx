@@ -1,6 +1,6 @@
 import React from "react";
 import { useMemo } from "react";
-import { styled } from "@storybook/theming";
+import { styled } from "storybook/theming";
 import { useTokenSearch } from "../hooks/useTokenSearch";
 import { useTokenTabs } from "../hooks/useTokenTabs";
 import { Category } from "../types/category.types";

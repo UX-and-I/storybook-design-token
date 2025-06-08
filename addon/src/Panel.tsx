@@ -1,5 +1,5 @@
-import { ActionBar, AddonPanel, ScrollArea, Tabs } from "@storybook/components";
-import { useParameter } from "@storybook/manager-api";
+import { ActionBar, AddonPanel, ScrollArea, Tabs } from "storybook/internal/components";
+import { useParameter } from "storybook/manager-api";
 import React from "react";
 import { TokenTab } from "./components/TokenTab";
 import { useTokenTabs } from "./hooks/useTokenTabs";

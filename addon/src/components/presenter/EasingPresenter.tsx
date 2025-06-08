@@ -1,6 +1,6 @@
 import React from "react";
 import { useMemo } from "react";
-import { keyframes, styled } from "@storybook/theming";
+import { keyframes, styled } from "storybook/theming";
 import { PresenterProps } from "../../types/token.types";
 
 export const EasingPresenter = ({ token }: PresenterProps) => {
