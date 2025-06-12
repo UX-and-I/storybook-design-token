@@ -16,29 +16,29 @@
   "license": "MIT",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs"
     },
     "./manager": {
+      "types": "./dist/manager.d.ts",
       "require": "./dist/manager.js",
-      "import": "./dist/manager.mjs",
-      "types": "./dist/manager.d.ts"
+      "import": "./dist/manager.mjs"
     },
     "./preview": {
+      "types": "./dist/preview.d.ts",
       "require": "./dist/preview.js",
-      "import": "./dist/preview.mjs",
-      "types": "./dist/preview.d.ts"
+      "import": "./dist/preview.mjs"
     },
     "./preset": {
+      "types": "./dist/preset.d.ts",
       "require": "./dist/preset.js",
-      "import": "./dist/preset.mjs",
-      "types": "./dist/preset.d.ts"
+      "import": "./dist/preset.mjs"
     },
     "./doc-blocks": {
+      "types": "./dist/doc-blocks.d.ts",
       "require": "./dist/doc-blocks.js",
-      "import": "./dist/doc-blocks.mjs",
-      "types": "./dist/doc-blocks.d.ts"
+      "import": "./dist/doc-blocks.mjs"
     },
     "./package.json": "./package.json"
   },
