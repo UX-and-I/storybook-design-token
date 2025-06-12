@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useStorageState } from "react-storage-hooks";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 import { Category } from "../types/category.types";
 import { Config } from "../types/config.types";
@@ -16,8 +16,7 @@ export function useTokenTabs(config?: Config) {
   const [imageCategories, setImageIconCategories] = useState<Category[]>([]);
 
   const [activeCategory, setActiveCategory] = useState<string>();
-  const [cardView, setCardView] = useStorageState(
-    localStorage,
+  const [cardView, setCardView] = useLocalStorage(
     "storybook-design-token-addon-card",
     false
   );

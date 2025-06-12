@@ -25,7 +25,7 @@ export interface DesignTokenDocBlockProps {
   presenters?: PresenterMapType;
 }
 
-const Container = styled.div(() => ({
+const Container = styled.div(({}) => ({
   margin: "25px 0 40px",
 
   "*": {
