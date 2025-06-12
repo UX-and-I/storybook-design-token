@@ -29,7 +29,7 @@ const Container = styled.div(() => ({
   margin: "25px 0 40px",
 
   "*": {
-    boxSizing: "border-box",
+    boxSizing: "border-box" as const,
   },
 }));
 
