@@ -1,6 +1,6 @@
 import React from "react";
 import { MouseEventHandler, ReactNode, useMemo } from "react";
-import { styled } from "@storybook/theming";
+import { styled } from "storybook/theming";
 
 interface ToolButtonProps {
   children: ReactNode | ReactNode[];

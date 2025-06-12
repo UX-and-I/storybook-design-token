@@ -1,7 +1,7 @@
 import React from "react";
 import { useCallback } from "react";
-import { Icons } from "@storybook/components";
-import { styled } from "@storybook/theming";
+import { SearchIcon, CrossIcon } from "@storybook/icons";
+import { styled } from "storybook/theming";
 import { Input } from "./Input";
 
 const SearchHolder = styled.div(({ theme }) => ({
@@ -13,7 +13,7 @@ const SearchHolder = styled.div(({ theme }) => ({
   },
 }));
 
-const SearchIcon = styled(Icons)(({ theme }) => ({
+const StyledSearchIcon = styled(SearchIcon)(({ theme }) => ({
   width: 12,
   height: 12,
   position: "absolute",
@@ -42,8 +42,6 @@ const ClearButton = styled.button(({ theme }) => ({
   justifyContent: "center",
 }));
 
-const ClearIcon = styled(Icons)(({ theme }) => ({}));
-
 const SearchInput = styled(Input)(({ theme }) => ({
   paddingLeft: 28,
   paddingRight: 28,
@@ -70,14 +68,14 @@ export function SearchField({ value, onChange, style }: SearchFieldProps) {
 
   return (
     <SearchHolder className="token-search" style={style}>
-      <SearchIcon icon="search" />
+      <StyledSearchIcon />
       <SearchInput
         value={value}
         onChange={handleChange}
         placeholder="Provide a token name …"
       />
       <ClearButton onClick={handleClear}>
-        <ClearIcon icon="cross" />
+        <CrossIcon />
       </ClearButton>
     </SearchHolder>
   );
