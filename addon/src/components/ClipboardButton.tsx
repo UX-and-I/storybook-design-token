@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNode } from "react";
-import useClipboard from "react-use-clipboard";
+import { useCopyToClipboard } from "@uidotdev/usehooks";
 
 interface ClipboardButtonProps {
   button: ReactNode;
@@ -8,7 +8,7 @@ interface ClipboardButtonProps {
 }
 
 export const ClipboardButton = ({ button, value }: ClipboardButtonProps) => {
-  const [_, setCopied] = useClipboard(value);
+  const [_, setCopied] = useCopyToClipboard();
 
-  return <span onClick={setCopied}>{button}</span>;
+  return <span onClick={() => setCopied(value)}>{button}</span>;
 };

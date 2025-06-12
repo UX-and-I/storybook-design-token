@@ -1,7 +1,7 @@
 import React from "react";
 import { transparentize } from "polished";
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { useVirtual } from "react-virtual";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import {
   Icons,
   TooltipMessage,
@@ -12,7 +12,6 @@ import { styled } from "@storybook/theming";
 import { useFilteredTokens } from "../hooks/useFilteredTokens";
 
 import { Category } from "../types/category.types";
-import { Token } from "../types/token.types";
 import { ClipboardButton } from "./ClipboardButton";
 import { PresenterMapType, TokenPreview } from "./TokenPreview";
 import { TokenValue } from "./TokenValue";
@@ -48,9 +47,9 @@ export const TokenTable = ({
 
   const tokens = useFilteredTokens(categories, filterNames, theme);
 
-  const rowVirtualizer = useVirtual({
-    size: tokens.length,
-    parentRef,
+  const rowVirtualizer = useVirtualizer({
+    count: tokens.length,
+    getScrollElement: () => parentRef.current,
     estimateSize: useCallback(() => 49, []),
   });
 
@@ -216,7 +215,7 @@ export const TokenTable = ({
       <Table
         style={{
           height: `${
-            rowVirtualizer.totalSize +
+            rowVirtualizer.getTotalSize() +
             (theadRef.current?.getBoundingClientRect().height || 0)
           }px`,
           position: "relative",
@@ -234,7 +233,7 @@ export const TokenTable = ({
           </tr>
         </thead>
         <tbody>
-          {rowVirtualizer.virtualItems.map((virtualRow) => {
+          {rowVirtualizer.getVirtualItems().map((virtualRow) => {
             const token = tokens[virtualRow.index];
 
             return (
