@@ -1,17 +1,16 @@
 import React from "react";
 import { useMemo, useState } from "react";
 
+import { CopyIcon, InfoIcon } from "@storybook/icons";
 import {
   Button,
-  Icons,
   TooltipMessage,
   TooltipNote,
   WithTooltip,
-} from "@storybook/components";
-import { styled } from "@storybook/theming";
+} from "storybook/internal/components";
+import { styled } from "storybook/theming";
 
 import { Category } from "../types/category.types";
-import { Token } from "../types/token.types";
 import { ClipboardButton } from "./ClipboardButton";
 import { PresenterMapType, TokenPreview } from "./TokenPreview";
 import { TokenValue } from "./TokenValue";
@@ -133,7 +132,7 @@ export const TokenCards = ({
                 <ClipboardButton
                   button={
                     <ToolButton>
-                      <Icons icon="copy" />
+                      <CopyIcon />
                     </ToolButton>
                   }
                   value={token.name}
@@ -145,7 +144,7 @@ export const TokenCards = ({
                   tooltip={<TooltipMessage desc={token.description} />}
                 >
                   <ToolButton>
-                    <Icons icon="info" />
+                    <InfoIcon />
                   </ToolButton>
                 </WithTooltip>
               )}

@@ -3,7 +3,7 @@ import { PARAM_KEY } from "./constants";
 
 const preview: ProjectAnnotations<Renderer> = {
   decorators: [],
-  globals: {
+  initialGlobals: {
     [PARAM_KEY]: false,
   },
 };

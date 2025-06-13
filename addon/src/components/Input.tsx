@@ -1,4 +1,4 @@
-import { styled } from "@storybook/theming";
+import { styled } from "storybook/theming";
 
 export const Input = styled.input(({ theme }) => ({
   appearance: "none",

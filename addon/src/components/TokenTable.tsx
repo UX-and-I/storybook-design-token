@@ -2,13 +2,13 @@ import React from "react";
 import { transparentize } from "polished";
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { CopyIcon, InfoIcon } from "@storybook/icons";
 import {
-  Icons,
   TooltipMessage,
   TooltipNote,
   WithTooltip,
-} from "@storybook/components";
-import { styled } from "@storybook/theming";
+} from "storybook/internal/components";
+import { styled } from "storybook/theming";
 import { useFilteredTokens } from "../hooks/useFilteredTokens";
 
 import { Category } from "../types/category.types";
@@ -262,7 +262,7 @@ export const TokenTable = ({
                       <ClipboardButton
                         button={
                           <ToolButton>
-                            <Icons icon="copy" />
+                            <CopyIcon />
                           </ToolButton>
                         }
                         value={token.name}
@@ -274,7 +274,7 @@ export const TokenTable = ({
                         tooltip={<TooltipMessage desc={token.description} />}
                       >
                         <ToolButton>
-                          <Icons icon="info" />
+                          <InfoIcon />
                         </ToolButton>
                       </WithTooltip>
                     )}
