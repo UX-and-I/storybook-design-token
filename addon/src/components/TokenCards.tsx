@@ -1,6 +1,5 @@
 import React from "react";
-import { useMemo, useState } from "react";
-
+import { useMemo, useState, useRef } from "react";
 import { CopyIcon, InfoIcon } from "@storybook/icons";
 import {
   Button,
@@ -9,6 +8,7 @@ import {
   WithTooltip,
 } from "storybook/internal/components";
 import { styled } from "storybook/theming";
+import { createPortal } from "react-dom";
 
 import { Category } from "../types/category.types";
 import { ClipboardButton } from "./ClipboardButton";
@@ -16,6 +16,9 @@ import { PresenterMapType, TokenPreview } from "./TokenPreview";
 import { TokenValue } from "./TokenValue";
 import { ToolButton } from "./ToolButton";
 import { useFilteredTokens } from "../hooks/useFilteredTokens";
+import { Popup } from "./Popup";
+import { usePopup } from "../hooks/usePopup";
+import { Token } from "../types/token.types";
 
 interface TokenCardsProps {
   categories: Category[];
@@ -25,6 +28,7 @@ interface TokenCardsProps {
   pageSize?: number;
   presenters?: PresenterMapType;
   filterNames?: string[];
+  usageMap?: Record<string, string[]>;
   theme?: string;
 }
 
@@ -36,13 +40,20 @@ export const TokenCards = ({
   pageSize = 50,
   presenters,
   filterNames,
+  usageMap,
   theme,
 }: TokenCardsProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
   }>({});
-
   const [page, setPage] = useState(0);
+  const cardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+
+  const { popup, popupRef, handleContextMenu } = usePopup({
+    usageMap,
+    getElementRef: (token: Token) => cardRefs.current.get(token.name) || null,
+    getTokenName: (token: Token) => token.name,
+  });
 
   const Container = useMemo(
     () =>
@@ -122,32 +133,42 @@ export const TokenCards = ({
         {tokens
           .slice(page * pageSize, page * pageSize + pageSize)
           .map((token, index) => (
-            <Card key={token.name + "-card-" + index}>
-              <TokenName>{token.name}</TokenName>
+            <Card
+              key={token.name + "-card-" + index}
+              ref={(el: HTMLDivElement) => {
+                if (el) cardRefs.current.set(token.name, el);
+              }}
+              onContextMenu={(e: React.MouseEvent<Element, MouseEvent>) =>
+                handleContextMenu(e, token)
+              }
+            >
+              <div>
+                <TokenName>{token.name}</TokenName>
 
-              <WithTooltip
-                hasChrome={false}
-                tooltip={<TooltipNote note="Copy to clipboard" />}
-              >
-                <ClipboardButton
-                  button={
-                    <ToolButton>
-                      <CopyIcon />
-                    </ToolButton>
-                  }
-                  value={token.name}
-                />
-              </WithTooltip>
-
-              {token.description && (
                 <WithTooltip
-                  tooltip={<TooltipMessage desc={token.description} />}
+                  hasChrome={false}
+                  tooltip={<TooltipNote note="Copy to clipboard" />}
                 >
-                  <ToolButton>
-                    <InfoIcon />
-                  </ToolButton>
+                  <ClipboardButton
+                    button={
+                      <ToolButton>
+                        <CopyIcon />
+                      </ToolButton>
+                    }
+                    value={token.name}
+                  />
                 </WithTooltip>
-              )}
+
+                {token.description && (
+                  <WithTooltip
+                    tooltip={<TooltipMessage desc={token.description} />}
+                  >
+                    <ToolButton>
+                      <InfoIcon />
+                    </ToolButton>
+                  </WithTooltip>
+                )}
+              </div>
 
               {showValueColumn && (
                 <TokenValue
@@ -199,6 +220,26 @@ export const TokenCards = ({
           </div>
         </Pagination>
       )}
+
+      {popup &&
+        usageMap &&
+        createPortal(
+          <Popup ref={popupRef} style={{ top: popup.top, left: popup.left }}>
+            {usageMap && usageMap[popup.tokenName] ? (
+              <>
+                <div>Used in:</div>
+                <ul>
+                  {usageMap[popup.tokenName].map((usage, index) => (
+                    <li key={index}>{usage}</li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <div>Token might be unused or global, please check</div>
+            )}
+          </Popup>,
+          document.body
+        )}
     </>
   );
 };

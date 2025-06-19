@@ -1421,6 +1421,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:^19.1.1":
+  version: 19.1.6
+  resolution: "@types/react-dom@npm:19.1.6"
+  peerDependencies:
+    "@types/react": ^19.0.0
+  checksum: 10c0/7ba74eee2919e3f225e898b65fdaa16e54952aaf9e3472a080ddc82ca54585e46e60b3c52018d21d4b7053f09d27b8293e9f468b85f9932ff452cd290cc131e8
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:^19.1.6":
   version: 19.1.6
   resolution: "@types/react@npm:19.1.6"
@@ -4887,6 +4896,7 @@ __metadata:
     "@types/node": "npm:^20.19.0"
     "@types/prettier": "npm:^2.7.2"
     "@types/react": "npm:^19.1.6"
+    "@types/react-dom": "npm:^19.1.1"
     "@uidotdev/usehooks": "npm:^2.4.1"
     "@vitejs/plugin-react": "npm:^4.5.1"
     glob: "npm:^9.3.0"

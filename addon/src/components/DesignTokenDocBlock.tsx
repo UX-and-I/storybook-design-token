@@ -16,6 +16,7 @@ export interface DesignTokenDocBlockProps {
   showValueColumn?: boolean;
   viewType: TokenViewType;
   filterNames?: string[];
+  usageMap?: Record<string, string[]>;
   theme?: string;
   /**
    * @default true
@@ -41,6 +42,7 @@ const Card = styled.div(() => ({
 
 export const DesignTokenDocBlock = ({
   filterNames,
+  usageMap,
   categoryName,
   maxHeight = 600,
   showValueColumn = true,
@@ -64,6 +66,7 @@ export const DesignTokenDocBlock = ({
   return (
     <DesignTokenDocBlockView
       filterNames={filterNames}
+      usageMap={usageMap}
       categories={tab.categories}
       viewType={viewType}
       maxHeight={maxHeight}
@@ -93,6 +96,7 @@ function DesignTokenDocBlockView({
   pageSize,
   presenters,
   filterNames,
+  usageMap,
   theme,
 }: DesignTokenDocBlockViewProps) {
   const { searchText, setSearchText, categories } = useTokenSearch(
@@ -119,6 +123,7 @@ function DesignTokenDocBlockView({
             showValueColumn={showValueColumn}
             presenters={presenters}
             filterNames={filterNames}
+            usageMap={usageMap}
             theme={theme}
           />
         </Card>
@@ -126,6 +131,7 @@ function DesignTokenDocBlockView({
       {viewType === "card" && (
         <TokenCards
           filterNames={filterNames}
+          usageMap={usageMap}
           categories={categories}
           padded={false}
           readonly

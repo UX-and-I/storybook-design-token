@@ -10,12 +10,16 @@ import {
 } from "storybook/internal/components";
 import { styled } from "storybook/theming";
 import { useFilteredTokens } from "../hooks/useFilteredTokens";
+import { createPortal } from "react-dom";
 
 import { Category } from "../types/category.types";
 import { ClipboardButton } from "./ClipboardButton";
 import { PresenterMapType, TokenPreview } from "./TokenPreview";
 import { TokenValue } from "./TokenValue";
 import { ToolButton } from "./ToolButton";
+import { Popup } from "./Popup";
+import { usePopup } from "../hooks/usePopup";
+import { Token } from "src/types/token.types";
 
 interface TokenTableProps {
   categories: Category[];
@@ -25,6 +29,7 @@ interface TokenTableProps {
   presenters?: PresenterMapType;
   filterNames?: string[];
   theme?: string;
+  usageMap?: Record<string, string[]>;
 }
 
 export const TokenTable = ({
@@ -35,12 +40,20 @@ export const TokenTable = ({
   presenters,
   filterNames,
   theme,
+  usageMap,
 }: TokenTableProps) => {
   const [tokenValueOverwrites, setTokenValueOverwrites] = useState<{
     [tokenName: string]: any;
   }>({});
-
   const [panelHeight, setPanelHeight] = useState<number>(maxHeight || 100);
+  const rowRefs = useRef<Map<number, HTMLTableRowElement>>(new Map());
+
+  const { popup, popupRef, handleContextMenu } = usePopup({
+    usageMap,
+    getElementRef: (item: { token: Token; index: number }) =>
+      rowRefs.current.get(item.index) || null,
+    getTokenName: (item: { token: Token; index: number }) => item.token.name,
+  });
 
   const parentRef = useRef<HTMLDivElement | null>(null);
   const theadRef = useRef<HTMLTableSectionElement | null>(null);
@@ -239,6 +252,12 @@ export const TokenTable = ({
             return (
               <tr
                 key={virtualRow.index}
+                ref={(el) => {
+                  if (el) rowRefs.current.set(virtualRow.index, el);
+                }}
+                onContextMenu={(e) =>
+                  handleContextMenu(e, { token, index: virtualRow.index })
+                }
                 style={{
                   position: "absolute",
                   top: 0,
@@ -310,6 +329,25 @@ export const TokenTable = ({
           })}
         </tbody>
       </Table>
+      {popup &&
+        usageMap &&
+        createPortal(
+          <Popup ref={popupRef} style={{ top: popup.top, left: popup.left }}>
+            {usageMap[popup.tokenName] ? (
+              <>
+                <div>Used in:</div>
+                <ul>
+                  {usageMap[popup.tokenName].map((usage, index) => (
+                    <li key={index}>{usage}</li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <div>Token might be unused or global, please check</div>
+            )}
+          </Popup>,
+          document.body
+        )}
     </ScrollContainer>
   );
 };
