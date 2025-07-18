@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useMemo, useState } from "react";
-import { Icons } from "@storybook/components";
-import { styled } from "@storybook/theming";
+import { CloseIcon } from "@storybook/icons";
+import { styled } from "storybook/theming";
 import { Token, TokenSourceType } from "../types/token.types";
 import { Input } from "./Input";
 import { ToolButton } from "./ToolButton";
@@ -21,7 +21,7 @@ export const TokenValue = ({
 
   const Container = useMemo(
     () =>
-      styled.div(() => ({
+      styled.div(({}) => ({
         position: "relative",
       })),
     []
@@ -29,7 +29,7 @@ export const TokenValue = ({
 
   const ResetButton = useMemo(
     () =>
-      styled.span(() => ({
+      styled.span(({}) => ({
         position: "absolute",
         right: 8,
         top: "50%",
@@ -40,7 +40,7 @@ export const TokenValue = ({
 
   const RawValue = useMemo(
     () =>
-      styled.span(() => ({
+      styled.span(({}) => ({
         overflow: "hidden",
         wordBreak: "break-all",
         WebkitLineClamp: 3,
@@ -95,7 +95,7 @@ export const TokenValue = ({
               onValueChange(token.rawValue);
             }}
           >
-            <Icons icon="close" />
+            <CloseIcon />
           </ToolButton>
         </ResetButton>
       )}
