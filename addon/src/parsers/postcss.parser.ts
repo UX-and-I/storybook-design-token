@@ -8,8 +8,7 @@ import { Token, TokenPresenter, TokenSourceType } from "../types/token.types";
 export async function parseCssFiles(
   files: File[] = [],
   sourceType: TokenSourceType,
-  injectVariables?: boolean,
-  preserveCSSVars?: boolean
+  injectVariables?: boolean
 ): Promise<{ categories: Category[]; injectionStyles: string }> {
   const relevantFiles = files.filter(
     (file, index, files) =>
@@ -22,8 +21,7 @@ export async function parseCssFiles(
   const categories = determineCategories(
     nodes.comments,
     nodes.declarations,
-    sourceType,
-    preserveCSSVars
+    sourceType
   );
 
   let injectionStyles = nodes?.keyframes.map((k) => k.toString()).join(" ");
@@ -44,8 +42,7 @@ export async function parseCssFiles(
 function determineCategories(
   comments: Comment[],
   declarations: Declaration[],
-  sourceType: TokenSourceType,
-  preserveCSSVars?: boolean
+  sourceType: TokenSourceType
 ): Category[] {
   const categoryComments = comments.filter(
     (comment) =>
@@ -107,8 +104,7 @@ function determineCategories(
           declarations,
           comments,
           sourceType,
-          presenter,
-          preserveCSSVars
+          presenter
         ),
       };
     })
@@ -121,8 +117,7 @@ function determineTokensForCategory(
   declarations: Declaration[],
   comments: Comment[],
   sourceType: TokenSourceType,
-  presenter: TokenPresenter,
-  preserveCSSVars?: boolean
+  presenter: TokenPresenter
 ): Token[] {
   const declarationsWithinRange = declarations.filter(
     (declaration) =>
@@ -139,11 +134,7 @@ function determineTokensForCategory(
           comment.source?.start?.line === declaration.source?.end?.line
       );
 
-      const value = determineTokenValue(
-        declaration.value,
-        declarations,
-        preserveCSSVars
-      );
+      const value = determineTokenValue(declaration.value, declarations);
       let presenterToken: TokenPresenter | undefined;
 
       if (description) {
@@ -180,41 +171,28 @@ function determineTokensForCategory(
 
 function determineTokenValue(
   rawValue: string,
-  declarations: Declaration[],
-  preserveCSSVars?: boolean
+  declarations: Declaration[]
 ): string {
   rawValue = rawValue.replace(/!default/g, "").replace(/!global/g, "");
 
-  const cssVars = "(var\\(([a-zA-Z0-9-_]+)\\))";
-  const scssVars = "(\\$([a-zA-Z0-9-_]+))";
-  const lessVars = "(\\@([a-zA-Z0-9-_]+))";
-
-  const vars = [!preserveCSSVars && cssVars, scssVars, lessVars].filter(
-    Boolean
-  ) as string[];
-
-  const referencedVariableResult = new RegExp(`^(${vars.join("|")})$`).exec(
-    rawValue
-  );
-
-  const referencedVariable =
-    referencedVariableResult?.[3] ||
-    referencedVariableResult?.[5] ||
-    referencedVariableResult?.[7];
-
-  if (referencedVariable) {
-    const value =
+  const regex = /\bvar\(([^)]+)\)|(\$[a-zA-Z0-9-_]+|@[a-zA-Z0-9-_]+)/g;
+  let match;
+  let replacedString = rawValue;
+  while ((match = regex.exec(rawValue)) !== null) {
+    const variableMatch = match[0];
+    const variableName = variableMatch.replace(/\(|\)|var\(|@|\$/g, "");
+    const replacement =
       declarations.find(
         (declaration) =>
-          declaration.prop === referencedVariable ||
-          declaration.prop === `$${referencedVariable}` ||
-          declaration.prop === `@${referencedVariable}`
+          declaration.prop === variableName ||
+          declaration.prop === `$${variableName}` ||
+          declaration.prop === `@${variableName}`
       )?.value || "";
 
-    return determineTokenValue(value, declarations, preserveCSSVars);
+    replacedString = replacedString.replace(variableMatch, replacement);
   }
 
-  return rawValue;
+  return replacedString;
 }
 
 async function getNodes(files: File[]): Promise<{

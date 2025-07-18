@@ -6,7 +6,6 @@ import {
 type AddonOptions = {
   designTokenGlob?: string;
   presets: any;
-  preserveCSSVars?: boolean;
 };
 
 export function managerEntries(entry: any[] = []) {
@@ -25,14 +24,12 @@ export const viteFinal = async (
 
 export async function webpackFinal(
   config: any,
-  { designTokenGlob, presets, preserveCSSVars }: AddonOptions
+  { designTokenGlob, presets }: AddonOptions
 ) {
   const version = await presets.apply("webpackVersion");
 
   if (version >= 5) {
-    config.plugins.push(
-      new StorybookDesignTokenPlugin(preserveCSSVars, designTokenGlob)
-    );
+    config.plugins.push(new StorybookDesignTokenPlugin(designTokenGlob));
   } else {
     throw Error(
       "Webpack 4 is not supported by the storybook-design-token addon."
