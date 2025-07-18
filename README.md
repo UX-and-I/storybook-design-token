@@ -284,7 +284,36 @@ import { DesignTokenDocBlock } from 'storybook-design-token';
 
 You can also pass a theme to the `DesignTokenDocBlock` component. This is useful when you have two themes with the same variable names but only want to display the variables for the current theme. Just pass the `theme` property to do this.
 
+### Token Usage Map
+
+You can provide a `usageMap` to the `DesignTokenDocBlock` component to display where each token is used across your components.
+
+This is especially helpful for design teams who want to trace Figma tokens to component usage. When a `usageMap` is provided, users can **right-click a token row** in the table view to open a modal displaying the list of components where the token is used.
+
+**Usage Example:**
+
+```tsx
+<DesignTokenDocBlock
+  categoryName="Colors"
+  usageMap={{
+    '--b100': ['Button', 'CardHeader'],
+    '--b200': ['Modal']
+  }}
+/>
+```
+
+> [!NOTE]
+> The usageMap is an object where keys are token names (e.g., --b100) and values are arrays of component names.
+> Tokens not found in the usage map or mapped to an > empty array will display a fallback message: `This token appears to be global or unused.`
+
+> 💡 Typically, this map is generated in a prebuild step
+> (e.g., using a script that scans your component codebase for token usage).
+
 ## Browser support
 
 - All modern browsers
 - ~~Internet Explorer 11~~
+
+```
+
+```
