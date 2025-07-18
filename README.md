@@ -23,9 +23,9 @@ Display design token documentation generated from your stylesheets and icon file
     - [Token search visibility](#token-search-visibility)
     - [Pagination](#pagination)
     - [Specify a custom glob for your token files](#specify-a-custom-glob-for-your-token-files)
-    - [Preserve CSS variables](#preserve-css-variables)
   - [Design Token Doc Block](#design-token-doc-block)
     - [Custom Presenters](#custom-presenters)
+    - [Custom filters](#custom-filters)
   - [Browser support](#browser-support)
 
 ## Get started
@@ -215,27 +215,6 @@ For example:
 
 ```
 DESIGN_TOKEN_GLOB=**/*.tokens.{css,scss,less,svg}
-```
-
-### Preserve CSS variables
-
-By default, the addon extracts values of CSS variables at build time. As a result, presenters use fixed values at runtime. This behavior might impose limitations in some scenarios:
-
-- Stylesheet with CSS variables is loaded separately from tokens
-- Theme is replaced at runtime and new values of CSS variables are loaded
-
-If you want to preserve CSS variables in the presenters, enable `preserveCSSVars` option in your `main.js` file:
-
-```javascript
-module.exports = {
-  stories: [
-    // stories
-  ],
-  addons: [
-    { name: 'storybook-design-token', options: { preserveCSSVars: true } }
-  ]
-  // other options
-};
 ```
 
 ## Design Token Doc Block
