@@ -8,8 +8,7 @@ import { Token, TokenPresenter, TokenSourceType } from "../types/token.types";
 export async function parseCssFiles(
   files: File[] = [],
   sourceType: TokenSourceType,
-  injectVariables?: boolean,
-  preserveCSSVars?: boolean
+  injectVariables?: boolean
 ): Promise<{ categories: Category[]; injectionStyles: string }> {
   const relevantFiles = files.filter(
     (file, index, files) =>
@@ -22,8 +21,7 @@ export async function parseCssFiles(
   const categories = determineCategories(
     nodes.comments,
     nodes.declarations,
-    sourceType,
-    preserveCSSVars
+    sourceType
   );
 
   let injectionStyles = nodes?.keyframes.map((k) => k.toString()).join(" ");
@@ -44,8 +42,7 @@ export async function parseCssFiles(
 function determineCategories(
   comments: Comment[],
   declarations: Declaration[],
-  sourceType: TokenSourceType,
-  preserveCSSVars?: boolean
+  sourceType: TokenSourceType
 ): Category[] {
   const categoryComments = comments.filter(
     (comment) =>
@@ -107,8 +104,7 @@ function determineCategories(
           declarations,
           comments,
           sourceType,
-          presenter,
-          preserveCSSVars
+          presenter
         ),
       };
     })
@@ -121,8 +117,7 @@ function determineTokensForCategory(
   declarations: Declaration[],
   comments: Comment[],
   sourceType: TokenSourceType,
-  presenter: TokenPresenter,
-  preserveCSSVars?: boolean
+  presenter: TokenPresenter
 ): Token[] {
   const declarationsWithinRange = declarations.filter(
     (declaration) =>
@@ -139,11 +134,7 @@ function determineTokensForCategory(
           comment.source?.start?.line === declaration.source?.end?.line
       );
 
-      const value = determineTokenValue(
-        declaration.value,
-        declarations,
-        preserveCSSVars
-      );
+      const value = determineTokenValue(declaration.value, declarations);
       let presenterToken: TokenPresenter | undefined;
 
       if (description) {
@@ -180,8 +171,7 @@ function determineTokensForCategory(
 
 function determineTokenValue(
   rawValue: string,
-  declarations: Declaration[],
-  preserveCSSVars?: boolean
+  declarations: Declaration[]
 ): string {
   rawValue = rawValue.replace(/!default/g, "").replace(/!global/g, "");
 
