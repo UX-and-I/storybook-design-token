@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import glob from "glob";
-import path from "path";
+import * as glob from "glob";
+import * as path from "path";
 
 import { parsePngFiles } from "./parsers/image.parser";
 import { parseCssFiles } from "./parsers/postcss.parser";
