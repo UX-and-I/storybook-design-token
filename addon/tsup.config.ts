@@ -11,6 +11,9 @@ export default defineConfig((options) => ({
   minify: !options.watch,
   format: ["esm"],
   dts: {
+    compilerOptions: {
+      ignoreDeprecations: "6.0",
+    },
     resolve: true,
   },
   treeshake: true,

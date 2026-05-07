@@ -1,6 +1,7 @@
 dist/
 node_modules/
 storybook-static/
+.yarn/
 build-storybook.log
 .DS_Store
 .env
